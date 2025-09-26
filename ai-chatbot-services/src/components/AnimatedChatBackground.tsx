@@ -1,11 +1,35 @@
-import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo, useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const AnimatedChatBackground: React.FC = () => {
-  // Generate chat bubbles with fixed positions - using useMemo to prevent regeneration
+  const shouldReduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Reduce number of bubbles on mobile for better performance
   const chatBubbles = useMemo(() => {
-    // Predefined mixed positions for a more organic look
-    const positions = [
+    const positions = isMobile ? [
+      // Only 8 bubbles on mobile
+      { x: 15, y: 20 },
+      { x: 85, y: 15 },
+      { x: 45, y: 40 },
+      { x: 70, y: 70 },
+      { x: 25, y: 65 },
+      { x: 60, y: 30 },
+      { x: 30, y: 85 },
+      { x: 75, y: 50 },
+    ] : [
+      // Full set for desktop
       { x: 15, y: 20 },
       { x: 85, y: 15 },
       { x: 45, y: 10 },
@@ -22,26 +46,18 @@ const AnimatedChatBackground: React.FC = () => {
       { x: 80, y: 60 },
       { x: 30, y: 60 },
       { x: 65, y: 50 },
-      { x: 50, y: 40 },
-      { x: 12, y: 35 },
-      { x: 88, y: 80 },
-      { x: 42, y: 55 },
-      { x: 72, y: 20 },
-      { x: 28, y: 25 },
-      { x: 58, y: 30 },
-      { x: 18, y: 55 },
     ];
 
     return positions.map((pos, index) => ({
       id: index,
       x: pos.x,
       y: pos.y,
-      size: 60 + (index % 3) * 20, // Varied sizes: 60, 80, or 100px
-      floatDelay: (index * 0.3) % 4, // Staggered delays
-      floatDuration: 4 + (index % 3), // 4-6 seconds
-      opacity: 0.3 + (index % 3) * 0.1, // 0.3 to 0.5 for softer appearance
+      size: isMobile ? 40 + (index % 2) * 20 : 60 + (index % 3) * 20,
+      floatDelay: (index * 0.3) % 4,
+      floatDuration: isMobile ? 6 + (index % 2) : 4 + (index % 3),
+      opacity: isMobile ? 0.2 : 0.3 + (index % 3) * 0.1,
     }));
-  }, []); // Empty dependency array ensures this only runs once
+  }, [isMobile]);
 
   const ChatIcon = ({ size }: { size: number }) => (
     <svg
@@ -53,7 +69,7 @@ const AnimatedChatBackground: React.FC = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ filter: 'blur(0.5px) drop-shadow(0 0 3px rgba(0, 0, 0, 0.2))' }}
+      style={{ filter: isMobile ? 'none' : 'blur(0.5px) drop-shadow(0 0 3px rgba(0, 0, 0, 0.2))' }}
     >
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
     </svg>
@@ -69,7 +85,7 @@ const AnimatedChatBackground: React.FC = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ filter: 'blur(0.5px) drop-shadow(0 0 3px rgba(0, 0, 0, 0.2))' }}
+      style={{ filter: isMobile ? 'none' : 'blur(0.5px) drop-shadow(0 0 3px rgba(0, 0, 0, 0.2))' }}
     >
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       <line x1="9" y1="10" x2="15" y2="10" />
@@ -77,31 +93,49 @@ const AnimatedChatBackground: React.FC = () => {
     </svg>
   );
 
-  const DotsIcon = ({ size }: { size: number }) => (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      style={{ filter: 'blur(0.5px) drop-shadow(0 0 3px rgba(0, 0, 0, 0.2))' }}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="8" cy="12" r="2.5" fill="#000000" />
-      <circle cx="12" cy="12" r="2.5" fill="#000000" />
-      <circle cx="16" cy="12" r="2.5" fill="#000000" />
-    </svg>
-  );
+  const icons = [ChatIcon, MessageIcon];
 
-  const icons = [ChatIcon, MessageIcon, DotsIcon];
+  // Simplified version for mobile or reduced motion
+  if (shouldReduceMotion || isMobile) {
+    return (
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-amber-50" />
 
+        {/* Static or simplified bubbles for mobile */}
+        <div className="absolute inset-0">
+          {chatBubbles.map((bubble) => {
+            const IconComponent = icons[bubble.id % icons.length];
+            return (
+              <div
+                key={bubble.id}
+                className="absolute text-white pointer-events-none"
+                style={{
+                  left: `${bubble.x}%`,
+                  top: `${bubble.y}%`,
+                  width: `${bubble.size}px`,
+                  height: `${bubble.size}px`,
+                  transform: 'translate(-50%, -50%)',
+                  opacity: bubble.opacity,
+                }}
+              >
+                <IconComponent size={bubble.size} />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Simple gradient orb without animation */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-200/10 rounded-full filter blur-3xl" />
+      </div>
+    );
+  }
+
+  // Full animations for desktop
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Royal gold/white gradient background matching Portfolio section */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-amber-50" />
 
-      {/* Animated gradient mesh with gold tones */}
+      {/* Animated gradient mesh - only on desktop */}
       <motion.div
         className="absolute inset-0"
         animate={{
@@ -118,14 +152,14 @@ const AnimatedChatBackground: React.FC = () => {
         }}
       />
 
-      {/* Fixed position floating chat bubbles */}
+      {/* Floating chat bubbles with animations */}
       <div className="absolute inset-0">
         {chatBubbles.map((bubble) => {
           const IconComponent = icons[bubble.id % icons.length];
           return (
             <motion.div
               key={bubble.id}
-              className="absolute text-white pointer-events-none"
+              className="absolute text-white pointer-events-none will-change-transform"
               style={{
                 left: `${bubble.x}%`,
                 top: `${bubble.y}%`,
@@ -140,7 +174,7 @@ const AnimatedChatBackground: React.FC = () => {
               animate={{
                 opacity: bubble.opacity,
                 scale: 1,
-                y: [0, -15, 0], // Floating effect
+                y: [0, -15, 0],
               }}
               transition={{
                 opacity: {
@@ -160,26 +194,13 @@ const AnimatedChatBackground: React.FC = () => {
                 },
               }}
             >
-              <motion.div
-                className="w-full h-full flex items-center justify-center"
-                animate={{
-                  rotate: [0, 5, -5, 0],
-                }}
-                transition={{
-                  duration: bubble.floatDuration * 1.5,
-                  delay: bubble.floatDelay,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                <IconComponent size={bubble.size} />
-              </motion.div>
+              <IconComponent size={bubble.size} />
             </motion.div>
           );
         })}
       </div>
 
-      {/* Network lines connecting chat bubbles */}
+      {/* Network lines - only on desktop */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -189,7 +210,6 @@ const AnimatedChatBackground: React.FC = () => {
           </linearGradient>
         </defs>
 
-        {/* Static connection lines between specific points */}
         <motion.line
           x1="15%" y1="20%" x2="45%" y2="10%"
           stroke="url(#lineGradient)"
@@ -203,37 +223,9 @@ const AnimatedChatBackground: React.FC = () => {
             ease: 'easeInOut',
           }}
         />
-        <motion.line
-          x1="70%" y1="35%" x2="55%" y2="65%"
-          stroke="url(#lineGradient)"
-          strokeWidth="0.5"
-          animate={{
-            opacity: [0, 0.3, 0],
-          }}
-          transition={{
-            duration: 4,
-            delay: 1,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.line
-          x1="25%" y1="45%" x2="75%" y2="75%"
-          stroke="url(#lineGradient)"
-          strokeWidth="0.5"
-          animate={{
-            opacity: [0, 0.3, 0],
-          }}
-          transition={{
-            duration: 4,
-            delay: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
       </svg>
 
-      {/* Glowing orbs for depth with gold tones */}
+      {/* Single glowing orb for depth */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-200/20 rounded-full filter blur-3xl"
         animate={{
@@ -242,19 +234,6 @@ const AnimatedChatBackground: React.FC = () => {
         }}
         transition={{
           duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-200/20 rounded-full filter blur-3xl"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.2, 0.3, 0.2],
-        }}
-        transition={{
-          duration: 6,
-          delay: 2,
           repeat: Infinity,
           ease: 'easeInOut',
         }}

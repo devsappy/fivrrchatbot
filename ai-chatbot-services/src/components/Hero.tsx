@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import AnimatedChatBackground from './AnimatedChatBackground';
+import useMobileDetect from '../hooks/useMobileDetect';
 
 const Hero: React.FC = () => {
   const navigate = useNavigate();
+  const shouldReduceMotion = useReducedMotion();
+  const { isMobile } = useMobileDetect();
   const [currentWord, setCurrentWord] = useState(0);
   const words = ['Intelligent', 'Conversational', 'Powerful', 'Custom'];
 
@@ -23,9 +26,9 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
         <div className="max-w-5xl mx-auto text-center w-full">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: shouldReduceMotion || isMobile ? 0 : 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: shouldReduceMotion || isMobile ? 0.3 : 0.8 }}
             className="p-8 md:p-12 lg:p-16"
           >
             {/* Main heading with animated words */}
@@ -33,10 +36,10 @@ const Hero: React.FC = () => {
               <span className="text-black">Build </span>
               <motion.span
                 key={currentWord}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: shouldReduceMotion || isMobile ? 1 : 0, y: shouldReduceMotion || isMobile ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: shouldReduceMotion || isMobile ? 1 : 0, y: shouldReduceMotion || isMobile ? 0 : -20 }}
+                transition={{ duration: shouldReduceMotion || isMobile ? 0 : 0.5 }}
                 className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 bg-size-200 animate-gradient inline-block"
               >
                 {words[currentWord]}
