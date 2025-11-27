@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 lg:py-32 bg-black relative overflow-hidden">
+    <section id="contact" className="py-16 md:py-24 lg:py-32 bg-black relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Background gradient */}
       <div className="absolute inset-0">
         <div className="absolute bottom-0 right-1/4 w-[300px] md:w-[500px] lg:w-[600px] h-[300px] md:h-[500px] lg:h-[600px] bg-gray-600/10 rounded-full blur-3xl"></div>
@@ -224,22 +224,29 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Free Consultation CTA */}
-            <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+            {/* Why Choose Us */}
+            <div className="bg-gradient-to-br from-amber-600/10 to-yellow-600/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
               <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">
-                Schedule a Free Consultation
+                Why Work With Us?
               </h3>
-              <p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
-                Book a 30-minute call with our AI experts to discuss your project requirements
-                and get personalized recommendations.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300"
-              >
-                Book a Call →
-              </motion.button>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-500 mt-1">✓</span>
+                  <span>Custom AI solutions tailored to your business</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-500 mt-1">✓</span>
+                  <span>Expert team with proven track record</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-500 mt-1">✓</span>
+                  <span>Fast turnaround and reliable support</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-500 mt-1">✓</span>
+                  <span>Competitive pricing and transparent process</span>
+                </li>
+              </ul>
             </div>
           </motion.div>
         </div>

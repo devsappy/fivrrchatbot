@@ -25,7 +25,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-black relative overflow-hidden">
+    <section id="about" className="py-32 bg-black relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Background gradient */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-gray-600/10 rounded-full blur-3xl"></div>
@@ -79,15 +79,15 @@ const About: React.FC = () => {
             </motion.h2>
 
             <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-              Founded in 2019, we've been at the forefront of AI innovation,
-              creating intelligent conversational experiences that transform
-              how businesses interact with their customers.
+              We specialize in creating intelligent conversational experiences
+              that transform how businesses interact with their customers through
+              cutting-edge AI technology.
             </p>
 
             <p className="text-lg text-gray-500 mb-10">
-              Our team of expert developers, data scientists, and UX designers
-              work together to build custom AI solutions that deliver real
-              business impact.
+              Our team of expert developers and AI specialists work together
+              to build custom chatbot solutions that deliver measurable results
+              and drive business growth.
             </p>
 
             <button

@@ -37,7 +37,7 @@ const Services: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="services" className="py-16 md:py-24 lg:py-32 bg-black relative overflow-hidden">
+    <section id="services" className="py-16 md:py-24 lg:py-32 bg-black relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Removed gradient at top - Hero section already handles the transition */}
 
       {/* Background elements */}
