@@ -22,8 +22,8 @@ const Header: React.FC = () => {
       transition={{ duration: 0.5 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-xl shadow-lg'
-          : 'bg-white/50 backdrop-blur-sm'
+          ? 'bg-black/80 backdrop-blur-xl shadow-lg'
+          : 'bg-black/60 backdrop-blur-sm'
       }`}
     >
       <nav className="container mx-auto px-6 py-6">
@@ -46,8 +46,8 @@ const Header: React.FC = () => {
               to="/"
               className={`text-sm font-medium transition-colors ${
                 location.pathname === '/'
-                  ? 'text-amber-700 font-semibold'
-                  : 'text-gray-700 hover:text-amber-600'
+                  ? 'text-amber-400 font-semibold'
+                  : 'text-gray-200 hover:text-amber-400'
               }`}
             >
               Home
@@ -57,30 +57,19 @@ const Header: React.FC = () => {
               to="/services"
               className={`text-sm font-medium transition-colors ${
                 location.pathname === '/services'
-                  ? 'text-amber-700 font-semibold'
-                  : 'text-gray-700 hover:text-amber-600'
+                  ? 'text-amber-400 font-semibold'
+                  : 'text-gray-200 hover:text-amber-400'
               }`}
             >
               Services
             </Link>
 
             <Link
-              to="/portfolio"
-              className={`text-sm font-medium transition-colors ${
-                location.pathname === '/portfolio'
-                  ? 'text-amber-700 font-semibold'
-                  : 'text-gray-700 hover:text-amber-600'
-              }`}
-            >
-              Portfolio
-            </Link>
-
-            <Link
               to="/about"
               className={`text-sm font-medium transition-colors ${
                 location.pathname === '/about'
-                  ? 'text-amber-700 font-semibold'
-                  : 'text-gray-700 hover:text-amber-600'
+                  ? 'text-amber-400 font-semibold'
+                  : 'text-gray-200 hover:text-amber-400'
               }`}
             >
               About
@@ -90,8 +79,8 @@ const Header: React.FC = () => {
               to="/contact"
               className={`text-sm font-medium transition-colors ${
                 location.pathname === '/contact'
-                  ? 'text-amber-700 font-semibold'
-                  : 'text-gray-700 hover:text-amber-600'
+                  ? 'text-amber-400 font-semibold'
+                  : 'text-gray-200 hover:text-amber-400'
               }`}
             >
               Contact
@@ -119,9 +108,9 @@ const Header: React.FC = () => {
             onClick={() => setIsOpen(!isOpen)}
           >
             <div className="relative">
-              <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-              <span className={`block w-6 h-0.5 bg-black mt-1.5 transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`block w-6 h-0.5 bg-black mt-1.5 transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-3' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-white mt-1.5 transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-white mt-1.5 transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-3' : ''}`}></span>
             </div>
           </button>
         </div>
@@ -136,14 +125,14 @@ const Header: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="lg:hidden mt-6 overflow-hidden"
             >
-              <div className="bg-white/95 backdrop-blur-xl border border-amber-200 rounded-2xl p-6 space-y-4">
+              <div className="bg-black/90 backdrop-blur-xl border border-amber-400/30 rounded-2xl p-6 space-y-4">
                 <Link
                   to="/"
                   onClick={() => setIsOpen(false)}
                   className={`block py-3 text-lg font-medium transition-colors ${
                     location.pathname === '/'
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      ? 'text-amber-400'
+                      : 'text-gray-200 hover:text-amber-400'
                   }`}
                 >
                   Home
@@ -154,23 +143,11 @@ const Header: React.FC = () => {
                   onClick={() => setIsOpen(false)}
                   className={`block py-3 text-lg font-medium transition-colors ${
                     location.pathname === '/services'
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      ? 'text-amber-400'
+                      : 'text-gray-200 hover:text-amber-400'
                   }`}
                 >
                   Services
-                </Link>
-
-                <Link
-                  to="/portfolio"
-                  onClick={() => setIsOpen(false)}
-                  className={`block py-3 text-lg font-medium transition-colors ${
-                    location.pathname === '/portfolio'
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  Portfolio
                 </Link>
 
                 <Link
@@ -178,8 +155,8 @@ const Header: React.FC = () => {
                   onClick={() => setIsOpen(false)}
                   className={`block py-3 text-lg font-medium transition-colors ${
                     location.pathname === '/about'
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      ? 'text-amber-400'
+                      : 'text-gray-200 hover:text-amber-400'
                   }`}
                 >
                   About
@@ -190,8 +167,8 @@ const Header: React.FC = () => {
                   onClick={() => setIsOpen(false)}
                   className={`block py-3 text-lg font-medium transition-colors ${
                     location.pathname === '/contact'
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      ? 'text-amber-400'
+                      : 'text-gray-200 hover:text-amber-400'
                   }`}
                 >
                   Contact

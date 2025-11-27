@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { sendMessageToGroq, ChatMessage } from '../services/groqApi';
+import { sendMessageToOpenAI, ChatMessage } from '../services/openaiApi';
 
 interface Message {
   id: string;
@@ -75,7 +75,7 @@ const Chatbot: React.FC = () => {
         content: inputMessage,
       });
 
-      const botResponse = await sendMessageToGroq(conversationHistory);
+      const botResponse = await sendMessageToOpenAI(conversationHistory);
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -190,7 +190,7 @@ const Chatbot: React.FC = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Type a message"
-                className="flex-1 px-4 py-2 bg-gray-50 rounded-full text-sm focus:outline-none focus:bg-white focus:ring-1 focus:ring-gray-200 transition-all"
+                className="flex-1 px-4 py-2 bg-gray-50 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-1 focus:ring-gray-200 transition-all"
               />
               <button
                 type="submit"
