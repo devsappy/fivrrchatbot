@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Animated Chatbot (Main + Responsive)</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --primary: #000000;
+      --primary-2: #111827;
+      --surface: #f3f4f6;
+      --bubble-user: #000000;
+      --bubble-bot: #f3f4f6;
+      --accent: #f59e0b33;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: var(--bg); }
+
+    /* Animated background */
+    .bg-wrap { position: fixed; inset: 0; overflow: hidden; z-index: 0; }
+    .bg-gradient { position: absolute; inset: 0; background: linear-gradient(135deg, #fff7ed, #ffffff, #fff7ed); }
+
+    .orb { position: absolute; top: 25%; left: 25%; width: 22rem; height: 22rem; background: rgba(251, 191, 36, 0.18); filter: blur(48px); border-radius: 9999px; animation: orbPulse 8s ease-in-out infinite; }
+    @keyframes orbPulse { 0% { transform: scale(1); opacity: 0.2; } 50% { transform: scale(1.2); opacity: 0.3; } 100% { transform: scale(1); opacity: 0.2; } }
+
+    .float-icon { position: absolute; transform: translate(-50%, -50%); opacity: 0.35; animation: floatY var(--dur,6s) ease-in-out var(--delay,0s) infinite; filter: drop-shadow(0 0 3px rgba(0,0,0,0.2)); }
+    @keyframes floatY { 0% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-15px); } 100% { transform: translate(-50%, -50%) translateY(0); } }
+
+    /* Container just to show background under content */
+    .page { position: relative; z-index: 1; min-height: 100%; }
+
+    /* Chat launcher */
+    .chat-launch {
+      position: fixed; right: 1.5rem; bottom: 1.5rem; width: 3.5rem; height: 3.5rem;
+      background: var(--primary); color: #fff; border: none; border-radius: 9999px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: transform .15s ease, background .15s ease;
+      z-index: 999999;
+    }
+    .chat-launch:hover { transform: scale(1.05); background: var(--primary-2); }
+
+    /* Chat window */
+    .chat {
+      position: fixed; right: 1.5rem; bottom: 1.5rem; width: 360px; height: 500px; background: #fff;
+      border-radius: 1rem; box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+      display: none; flex-direction: column; overflow: hidden; z-index: 999999; animation: chatOpen .2s ease;
+    }
+    .chat.open { display: flex; }
+    @keyframes chatOpen { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .chat-hd { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid #f3f4f6; }
+    .chat-hd h3 { margin: 0; font-size: 1rem; font-weight: 600; }
+    .icon-btn { width: 2rem; height: 2rem; display: inline-flex; align-items: center; justify-content: center; border-radius: .5rem; border: none; background: transparent; cursor: pointer; }
+    .icon-btn:hover { background: #f3f4f6; }
+
+    .chat-body { flex: 1; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: .75rem; }
+    .row { display: flex; }
+    .row.user { justify-content: flex-end; }
+    .bubble { max-width: 80%; padding: .5rem .75rem; border-radius: 1rem; font-size: .9rem; line-height: 1.3; }
+    .bubble.user { background: var(--bubble-user); color: #fff; border-bottom-right-radius: .4rem; }
+    .bubble.bot { background: var(--bubble-bot); color: var(--text); border-bottom-left-radius: .4rem; }
+
+    .typing { display: inline-flex; align-items: center; gap: .25rem; }
+    .dot { width: 6px; height: 6px; background: #9ca3af; border-radius: 9999px; animation: bounce 1s infinite; }
+    .dot:nth-child(2) { animation-delay: .15s; }
+    .dot:nth-child(3) { animation-delay: .3s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-3px); } }
+
+    .chat-ft { padding: .75rem 1rem; border-top: 1px solid #f3f4f6; }
+    .inputbar { display: flex; align-items: center; gap: .5rem; }
+    .inputbar input { flex: 1; padding: .6rem .9rem; border-radius: 9999px; border: 1px solid #e5e7eb; background: #f9fafb; outline: none; font-size: .95rem; }
+    .inputbar input:focus { background: #fff; box-shadow: 0 0 0 3px #e5e7eb; }
+    .send { width: 2rem; height: 2rem; border-radius: 9999px; border: none; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; background: var(--primary); }
+    .send:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .chat { right: .75rem; left: .75rem; width: auto; height: min(70vh, 520px); }
+      .float-icon { opacity: .25; filter: none; }
+      .orb { width: 16rem; height: 16rem; filter: blur(36px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background layer -->
+  <div class="bg-wrap" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <!-- Floating icons (desktop) -->
+    <svg class="float-icon" style="left:15%; top:20%; width:60px; height:60px; --dur:6s; --delay:.2s;" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <svg class="float-icon" style="left:70%; top:35%; width:80px; height:80px; --dur:7s; --delay:.5s;" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="13" y2="14"/></svg>
+    <svg class="float-icon" style="left:35%; top:80%; width:70px; height:70px; --dur:5s; --delay:.1s;" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <svg class="float-icon" style="left:85%; top:15%; width:60px; height:60px; --dur:6s; --delay:.8s;" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <div class="orb"></div>
+  </div>
+
+  <main class="page" aria-label="Content">
+    <!-- Your site content would go here -->
+  </main>
+
+  <!-- Chat launcher button -->
+  <button class="chat-launch" id="chatOpenBtn" aria-label="Open chat">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+  </button>
+
+  <!-- Chat window -->
+  <section class="chat" id="chat" aria-label="Chat window" aria-live="polite">
+    <header class="chat-hd">
+      <h3>Chat</h3>
+      <div>
+        <button class="icon-btn" id="chatNewBtn" title="New chat" aria-label="New chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M20 12H4"></path></svg>
+        </button>
+        <button class="icon-btn" id="chatCloseBtn" title="Close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="chat-body" id="chatBody"></div>
+
+    <footer class="chat-ft">
+      <form id="chatForm" class="inputbar">
+        <input id="chatInput" type="text" placeholder="Type a message" autocomplete="off" />
+        <button class="send" id="chatSend" type="submit" disabled aria-label="Send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </button>
+      </form>
+    </footer>
+  </section>
+
+  <script>
+    (function() {
+      const chat = document.getElementById('chat');
+      const chatBody = document.getElementById('chatBody');
+      const chatInput = document.getElementById('chatInput');
+      const chatSend = document.getElementById('chatSend');
+      const chatForm = document.getElementById('chatForm');
+      const btnOpen = document.getElementById('chatOpenBtn');
+      const btnClose = document.getElementById('chatCloseBtn');
+      const btnNew = document.getElementById('chatNewBtn');
+
+      let isTyping = false;
+      const messages = [{ id: '1', text: 'Hello! How can I help you today?', sender: 'bot', ts: Date.now() }];
+
+      function render() {
+        chatBody.innerHTML = '';
+        messages.forEach(m => {
+          const row = document.createElement('div');
+          row.className = 'row ' + (m.sender === 'user' ? 'user' : 'bot');
+          const b = document.createElement('div');
+          b.className = 'bubble ' + (m.sender === 'user' ? 'user' : 'bot');
+          b.textContent = m.text;
+          row.appendChild(b);
+          chatBody.appendChild(row);
+        });
+        if (isTyping) {
+          const row = document.createElement('div');
+          row.className = 'row bot';
+          const b = document.createElement('div');
+          b.className = 'bubble bot';
+          const t = document.createElement('div');
+          t.className = 'typing';
+          t.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+          b.appendChild(t); row.appendChild(b); chatBody.appendChild(row);
+        }
+        chatBody.scrollTop = chatBody.scrollHeight;
+        chatSend.disabled = !chatInput.value.trim();
+      }
+
+      function resetChat() {
+        messages.length = 0;
+        messages.push({ id: '1', text: 'Hello! How can I help you today?', sender: 'bot', ts: Date.now() });
+        isTyping = false; chatInput.value = ''; render();
+      }
+
+      async function sendToBackend(history, latest) {
+        // Mirrors your repo logic: uses demo replies when no API/proxy is configured.
+        const text = (latest || '').toLowerCase();
+        if (text.includes('hello') || text.includes('hi')) {
+          return 'Hello! Welcome to Chatterify AI Services. We specialize in creating intelligent chatbots for businesses. How can I help you today?';
+        } else if (text.includes('price') || text.includes('cost')) {
+          return 'Our pricing starts at $99/month for basic chatbot services. We also offer custom enterprise solutions. Would you like to know more about our pricing plans?';
+        } else if (text.includes('feature')) {
+          return 'Our chatbots include: 24/7 availability, multi-language support, custom training, analytics, and seamless integrations.';
+        } else if (text.includes('contact')) {
+          return 'You can reach us via the Contact page or email support@chatterify.in';
+        }
+        return 'Thanks for your interest! Ask about features, pricing, or how we can help your business.';
+
+        // To connect a real model (e.g., Groq), proxy this request server-side to avoid exposing API keys in the browser.
+        // fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history }) })
+        //   .then(r => r.json()).then(d => d.reply)
+      }
+
+      btnOpen.addEventListener('click', () => { chat.classList.add('open'); });
+      btnClose.addEventListener('click', () => { chat.classList.remove('open'); });
+      btnNew.addEventListener('click', resetChat);
+
+      chatInput.addEventListener('input', () => { chatSend.disabled = !chatInput.value.trim(); });
+
+      chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const text = chatInput.value.trim();
+        if (!text) return;
+        messages.push({ id: String(Date.now()), text, sender: 'user', ts: Date.now() });
+        chatInput.value = ''; render();
+        isTyping = true; render();
+        try {
+          const history = messages.map(m => ({ role: m.sender === 'user' ? 'user' : 'assistant', content: m.text }));
+          const reply = await sendToBackend(history, text);
+          messages.push({ id: String(Date.now()+1), text: reply, sender: 'bot', ts: Date.now() });
+        } catch (err) {
+          messages.push({ id: String(Date.now()+1), text: 'Sorry, I encountered an error. Please try again.', sender: 'bot', ts: Date.now() });
+        } finally {
+          isTyping = false; render();
+        }
+      });
+
+      // Initial paint
+      render();
+    })();
+  </script>
+</body>
+</html>

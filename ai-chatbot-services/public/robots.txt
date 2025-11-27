@@ -1,3 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://www.chatterify.in/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
