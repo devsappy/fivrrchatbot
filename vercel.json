@@ -2,5 +2,8 @@
   "buildCommand": "cd ai-chatbot-services && npm ci && npm run build",
   "outputDirectory": "ai-chatbot-services/build",
   "installCommand": "cd ai-chatbot-services && npm ci",
-  "framework": "create-react-app"
+  "framework": "create-react-app",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
   }, [words.length]);
 
   return (
-    <section id="home" className="h-screen flex items-center fixed top-0 left-0 right-0 overflow-hidden" style={{ zIndex: 0 }}>
+    <section id="home" className="h-screen flex items-center fixed top-0 left-0 right-0 overflow-hidden bg-black" style={{ zIndex: 1 }}>
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <video
@@ -26,11 +26,13 @@ const Hero: React.FC = () => {
           loop
           muted
           playsInline
+          preload="auto"
           className="absolute w-full h-full object-cover"
+          style={{ minWidth: '100%', minHeight: '100%' }}
         >
-          <source src="/bgv.mp4" type="video/mp4" />
+          <source src={`${process.env.PUBLIC_URL}/bgv.mp4`} type="video/mp4" />
         </video>
-        {/* Optional overlay for better text readability */}
+        {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
