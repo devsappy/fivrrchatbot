@@ -49,13 +49,12 @@ const ContactPage: React.FC = () => {
       };
 
       // Send email using EmailJS
-      const response = await emailjs.send(
+      await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
         templateParams
       );
 
-      console.log('Email sent successfully:', response);
       setSubmitStatus('success');
 
       // Reset form
@@ -72,12 +71,6 @@ const ContactPage: React.FC = () => {
         setSubmitStatus('idle');
       }, 3000);
     } catch (error) {
-      console.error('EmailJS Error:', error);
-      console.error('Config used:', {
-        SERVICE_ID: EMAILJS_CONFIG.SERVICE_ID,
-        TEMPLATE_ID: EMAILJS_CONFIG.TEMPLATE_ID,
-        PUBLIC_KEY: EMAILJS_CONFIG.PUBLIC_KEY ? 'Set' : 'Not Set'
-      });
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
