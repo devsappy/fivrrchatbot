@@ -124,32 +124,7 @@ const ContactPage: React.FC = () => {
                 </div>
 
 
-                <div className="flex items-start gap-4">
-                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Office</h3>
-                    <p className="text-gray-600 font-medium">
-                      123 Tech Street<br />
-                      Silicon Valley, CA 94000<br />
-                      United States
-                    </p>
-                  </div>
-                </div>
 
-                <div className="flex items-start gap-4">
-                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Business Hours</h3>
-                    <p className="text-gray-600 font-medium">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-600 font-medium">Saturday: 10:00 AM - 4:00 PM</p>
-                    <p className="text-gray-600 font-medium">Sunday: Closed</p>
-                  </div>
-                </div>
               </div>
             </div>
 
