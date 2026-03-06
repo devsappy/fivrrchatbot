@@ -22,11 +22,6 @@ const Chatbot: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Debug: Log when component mounts
-  useEffect(() => {
-    console.log('Chatbot component mounted successfully');
-    return () => console.log('Chatbot component unmounted');
-  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
