@@ -52,7 +52,7 @@ const Header: React.FC = () => {
         {/* Adds a slight white overlay to ensure legibility of nav items over vibrant colors */}
         <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
       </div>
-      <nav className="container mx-auto px-6 py-6">
+      <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.div
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
           <div className="hidden lg:flex items-center gap-10">
             <Link
               to="/"
-              className={`text-sm font-medium transition-colors ${location.pathname === '/'
+              className={`text-lg font-medium transition-colors ${location.pathname === '/'
                 ? 'text-black font-semibold'
                 : 'text-gray-600 hover:text-black'
                 }`}
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
 
             <Link
               to="/services"
-              className={`text-sm font-medium transition-colors ${location.pathname === '/services'
+              className={`text-lg font-medium transition-colors ${location.pathname === '/services'
                 ? 'text-black font-semibold'
                 : 'text-gray-600 hover:text-black'
                 }`}
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
 
             <Link
               to="/about"
-              className={`text-sm font-medium transition-colors ${location.pathname === '/about'
+              className={`text-lg font-medium transition-colors ${location.pathname === '/about'
                 ? 'text-black font-semibold'
                 : 'text-gray-600 hover:text-black'
                 }`}
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
 
             <Link
               to="/contact"
-              className={`text-sm font-medium transition-colors ${location.pathname === '/contact'
+              className={`text-lg font-medium transition-colors ${location.pathname === '/contact'
                 ? 'text-black font-semibold'
                 : 'text-gray-600 hover:text-black'
                 }`}

@@ -62,7 +62,7 @@ const AboutPage: React.FC = () => {
             About Chatterify
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
-            Chatterify (https://chatterify.in) is a technology startup focused on delivering modern digital solutions for businesses and individuals at reasonable prices. Our goal is to help organizations build strong online presence, automate communication, and create engaging digital content.
+            Chatterify (chatterify.in) is a technology startup focused on delivering modern digital solutions for businesses and individuals at reasonable prices. Our goal is to help organizations build strong online presence, automate communication, and create engaging digital content.
           </p>
         </motion.div>
 
