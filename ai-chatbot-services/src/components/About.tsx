@@ -25,10 +25,10 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-black relative overflow-hidden" style={{ zIndex: 10 }}>
-      {/* Background gradient */}
+    <section id="about" className="py-32 bg-white relative overflow-hidden" style={{ zIndex: 10 }}>
+      {/* Background elegant gradient */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-gray-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-gray-50 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -36,8 +36,8 @@ const About: React.FC = () => {
           {/* Left Content */}
           <div className="" >
             <div className="flex items-center gap-4 mb-6">
-              <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/50"></div>
-              <span className="text-gray-500 uppercase tracking-wider text-sm">About Us</span>
+              <div className="h-[1px] w-12 bg-gray-300"></div>
+              <span className="text-gray-500 uppercase tracking-wider text-sm font-semibold">About Us</span>
             </div>
 
             <motion.h2
@@ -45,7 +45,7 @@ const About: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-5xl md:text-7xl font-bold text-white mb-8"
+              className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 tracking-tight"
             >
               <motion.span
                 initial={{ opacity: 0, x: -20 }}
@@ -62,7 +62,7 @@ const About: React.FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.4 }}
-                className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white inline-block"
+                className="text-gray-900 inline-block"
               >
                 The Future
               </motion.span>
@@ -78,7 +78,7 @@ const About: React.FC = () => {
               </motion.span>
             </motion.h2>
 
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed font-medium">
               We specialize in creating intelligent conversational experiences
               that transform how businesses interact with their customers through
               cutting-edge AI technology.
@@ -92,7 +92,7 @@ const About: React.FC = () => {
 
             <button
               onClick={() => navigate('/contact')}
-              className="px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 transform"
+              className="px-8 py-4 bg-black text-white font-semibold rounded-full hover:bg-gray-800 transition-all duration-300 hover:-translate-y-1 transform shadow-lg"
             >
               Work With Us
             </button>
@@ -100,43 +100,43 @@ const About: React.FC = () => {
 
           {/* Right Stats Grid */}
           <div className=" grid grid-cols-3 gap-4 md:gap-6" >
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 md:mb-2">
+            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
                 5+
               </div>
-              <div className="text-xs sm:text-sm text-gray-400">Projects</div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Projects</div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 md:mb-2">
+            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
                 80%
               </div>
-              <div className="text-xs sm:text-sm text-gray-400">Satisfaction</div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Satisfaction</div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 md:mb-2">
+            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
                 50+
               </div>
-              <div className="text-xs sm:text-sm text-gray-400">Users</div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Users</div>
             </div>
           </div>
         </div>
 
         {/* Values Section */}
         <div className=" mt-32" >
-          <h3 className="text-4xl font-bold text-white text-center mb-16">Our Core Values</h3>
+          <h3 className="text-4xl font-bold text-gray-900 text-center mb-16 tracking-tight">Our Core Values</h3>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div
                 key={value.title}
-                className=" text-center"
-                
-                
+                className="text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors"
+
+
               >
-                <h4 className="text-2xl font-bold text-white mb-3">{value.title}</h4>
-                <p className="text-gray-400">{value.description}</p>
+                <h4 className="text-2xl font-bold text-gray-900 mb-3">{value.title}</h4>
+                <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>

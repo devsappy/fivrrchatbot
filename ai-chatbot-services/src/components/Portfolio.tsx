@@ -64,24 +64,24 @@ const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   return (
-    <section id="portfolio" className="py-16 md:py-24 lg:py-32 bg-gradient-to-br from-amber-50 via-white to-amber-50 relative overflow-hidden">
-      {/* Background gradient with royal gold accents */}
+    <section id="portfolio" className="py-16 md:py-24 lg:py-32 bg-[#FCFCFC] relative overflow-hidden">
+      {/* Background element */}
       <div className="absolute inset-0">
-        <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] lg:w-[600px] h-[300px] md:h-[500px] lg:h-[600px] bg-amber-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute top-0 right-0 w-[200px] md:w-[400px] lg:w-[500px] h-[200px] md:h-[400px] lg:h-[500px] bg-yellow-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] lg:w-[600px] h-[300px] md:h-[500px] lg:h-[600px] bg-gray-50 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-[200px] md:w-[400px] lg:w-[500px] h-[200px] md:h-[400px] lg:h-[500px] bg-gray-50 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className=" mb-20" >
           <div className="flex items-center gap-4 mb-6">
-            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-amber-600"></div>
-            <span className="text-gray-700 uppercase tracking-wider text-sm">Our Work</span>
+            <div className="h-[1px] w-12 bg-gray-300"></div>
+            <span className="text-gray-500 font-semibold uppercase tracking-wider text-sm">Our Work</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-black mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 tracking-tight">
             Portfolio
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-2xl">
-            Transformative AI solutions that deliver real business impact across industries.
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl font-medium">
+            Transformative digital solutions that deliver real business impact across industries.
           </p>
         </div>
 
@@ -91,42 +91,41 @@ const Portfolio: React.FC = () => {
             <div
               key={project.id}
               className=" group cursor-pointer"
-              
-              
+
+
               onClick={() => setSelectedProject(selectedProject === index ? null : index)}
             >
-              <div className="relative bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl overflow-hidden hover:bg-white/95 shadow-xl hover:shadow-2xl transition-all duration-500">
+              <div className="relative bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 shadow-sm">
                 {/* Project Image/Preview */}
-                <div className="relative h-64 bg-gradient-to-br from-amber-600/80 to-yellow-600/80 overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20"></div>
+                <div className="relative h-64 bg-gray-50 border-b border-gray-100 overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <motion.div
-                      animate={{ scale: selectedProject === index ? 1.1 : 1 }}
+                      animate={{ scale: selectedProject === index ? 1.05 : 1 }}
                       transition={{ duration: 0.3 }}
                       className="text-center"
                     >
-                      <div className="text-white font-bold text-2xl mb-2">{project.category}</div>
-                      <div className="text-gray-300 font-medium text-xl">{project.client}</div>
+                      <div className="text-gray-400 font-bold text-2xl mb-2 uppercase tracking-wider">{project.category}</div>
+                      <div className="text-gray-600 font-medium text-xl">{project.client}</div>
                     </motion.div>
                   </div>
                   <div className="absolute top-4 left-4">
-                    <span className="text-white/80 text-sm font-medium">{project.id}</span>
+                    <span className="text-gray-400 text-sm font-semibold">{project.id}</span>
                   </div>
                 </div>
 
                 {/* Project Info */}
                 <div className="p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold text-black mb-2">{project.title}</h3>
-                  <p className="text-sm md:text-base text-gray-700 mb-4 md:mb-6">{project.description}</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">{project.title}</h3>
+                  <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 font-medium">{project.description}</p>
 
                   {/* Metrics */}
                   <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-6">
                     {Object.entries(project.metrics).map(([key, value]) => (
                       <div key={key}>
-                        <div className="text-lg md:text-2xl font-bold text-black">
+                        <div className="text-lg md:text-2xl font-bold text-gray-900">
                           {value}
                         </div>
-                        <div className="text-xs text-gray-600 capitalize">{key}</div>
+                        <div className="text-xs text-gray-500 capitalize font-medium">{key}</div>
                       </div>
                     ))}
                   </div>
@@ -136,7 +135,7 @@ const Portfolio: React.FC = () => {
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 md:px-3 py-1 bg-amber-100 border border-amber-300 rounded-full text-xs text-amber-900 font-medium"
+                        className="px-2 md:px-3 py-1 bg-gray-50 border border-gray-200 rounded-full text-xs text-gray-700 font-semibold"
                       >
                         {tech}
                       </span>
@@ -145,8 +144,8 @@ const Portfolio: React.FC = () => {
 
                   {/* View Case Study Link */}
                   <motion.div
-                    whileHover={{ x: 10 }}
-                    className="flex items-center gap-2 text-amber-700 hover:text-amber-900 font-medium"
+                    whileHover={{ x: 5 }}
+                    className="flex items-center gap-2 text-black hover:text-gray-600 font-semibold transition-colors"
                   >
                     <span>View Case Study</span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,18 +159,18 @@ const Portfolio: React.FC = () => {
         </div>
 
         {/* Results Section */}
-        <div className=" mt-12 md:mt-20 grid grid-cols-3 gap-4 md:gap-8 p-6 md:p-8 bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl shadow-xl" >
+        <div className=" mt-12 md:mt-20 grid grid-cols-3 gap-4 md:gap-8 p-6 md:p-8 bg-white border border-gray-100 rounded-2xl shadow-sm" >
           <div className="text-center">
-            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-1 md:mb-2">5+</div>
-            <div className="text-xs md:text-sm text-gray-600">Projects</div>
+            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 md:mb-2 tracking-tight">5+</div>
+            <div className="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wider">Projects</div>
+          </div>
+          <div className="text-center border-x border-gray-100">
+            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 md:mb-2 tracking-tight">80%</div>
+            <div className="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wider">Satisfaction</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-1 md:mb-2">80%</div>
-            <div className="text-xs md:text-sm text-gray-600">Satisfaction</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-1 md:mb-2">50+</div>
-            <div className="text-xs md:text-sm text-gray-600">Users</div>
+            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 md:mb-2 tracking-tight">50+</div>
+            <div className="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wider">Users</div>
           </div>
         </div>
       </div>

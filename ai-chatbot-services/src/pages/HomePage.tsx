@@ -8,8 +8,6 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Hero />
-      {/* Spacer to account for fixed Hero section */}
-      <div className="h-screen"></div>
       <Services />
       <About />
       <Contact />

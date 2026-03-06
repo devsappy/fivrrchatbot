@@ -85,18 +85,18 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20 bg-black text-white">
+    <div className="min-h-screen pt-20 bg-[#FCFCFC] text-gray-900">
       <div className="container mx-auto px-6 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
             Get in Touch
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Ready to transform your business with AI? Let's discuss your project
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+            Ready to transform your business with modern digital solutions? Let's discuss your project
           </p>
         </motion.div>
 
@@ -107,31 +107,31 @@ const ContactPage: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 shadow-lg mb-8">
-              <h2 className="text-2xl font-bold text-white mb-6">
+            <div className="bg-[#FCFCFC] border border-gray-100 rounded-2xl p-8 shadow-sm mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Contact Information
               </h2>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <h3 className="font-semibold text-white">Email</h3>
-                    <p className="text-gray-300">chatterifyservice@gmail.com</p>
+                    <h3 className="font-semibold text-gray-900">Email</h3>
+                    <p className="text-gray-600 font-medium">chatterifyservice@gmail.com</p>
                   </div>
                 </div>
 
 
                 <div className="flex items-start gap-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <div>
-                    <h3 className="font-semibold text-white">Office</h3>
-                    <p className="text-gray-300">
+                    <h3 className="font-semibold text-gray-900">Office</h3>
+                    <p className="text-gray-600 font-medium">
                       123 Tech Street<br />
                       Silicon Valley, CA 94000<br />
                       United States
@@ -140,42 +140,42 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <div>
-                    <h3 className="font-semibold text-white">Business Hours</h3>
-                    <p className="text-gray-300">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-300">Saturday: 10:00 AM - 4:00 PM</p>
-                    <p className="text-gray-300">Sunday: Closed</p>
+                    <h3 className="font-semibold text-gray-900">Business Hours</h3>
+                    <p className="text-gray-600 font-medium">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p className="text-gray-600 font-medium">Saturday: 10:00 AM - 4:00 PM</p>
+                    <p className="text-gray-600 font-medium">Sunday: Closed</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 text-white">
+            <div className="bg-[#FCFCFC] border border-gray-100 rounded-2xl p-8 text-gray-900 shadow-sm">
               <h3 className="text-2xl font-bold mb-4">Why Choose Us?</h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 font-medium text-gray-600">
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   <span>24/7 Support Available</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   <span>Free Initial Consultation</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   <span>100% Satisfaction Guarantee</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   <span>Scalable Solutions</span>
@@ -189,9 +189,9 @@ const ContactPage: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 shadow-lg"
+            className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Send Us a Message
             </h2>
 
@@ -220,7 +220,7 @@ const ContactPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Your Name *
                   </label>
                   <input
@@ -229,12 +229,12 @@ const ContactPage: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Email Address *
                   </label>
                   <input
@@ -243,14 +243,14 @@ const ContactPage: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Phone Number
                   </label>
                   <input
@@ -258,12 +258,12 @@ const ContactPage: React.FC = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Company Name
                   </label>
                   <input
@@ -271,21 +271,21 @@ const ContactPage: React.FC = () => {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Service Interested In
                   </label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
                   >
                     <option value="">Select a service</option>
                     <option value="Custom Chatbot Development">Custom Chatbot Development</option>
@@ -296,14 +296,14 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Budget Range
                   </label>
                   <select
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
                   >
                     <option value="">Select budget</option>
                     <option value="< $5,000">Less than $5,000</option>
@@ -316,7 +316,7 @@ const ContactPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white dark:text-gray-300 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Your Message *
                 </label>
                 <textarea
@@ -325,7 +325,7 @@ const ContactPage: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-white/30 bg-white/5 backdrop-blur-sm text-white"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all resize-none font-medium"
                   placeholder="Tell us about your project..."
                 />
               </div>
@@ -333,11 +333,10 @@ const ContactPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-3 rounded-lg font-medium transition-all duration-200 ${
-                  isSubmitting
-                    ? 'bg-gray-500 cursor-not-allowed text-gray-300'
-                    : 'bg-white hover:bg-gray-100 text-black'
-                }`}
+                className={`w-full py-4 rounded-full font-semibold transition-all duration-200 shadow-md transform ${isSubmitting
+                  ? 'bg-gray-300 cursor-not-allowed text-gray-500'
+                  : 'bg-black text-white hover:bg-gray-800 hover:-translate-y-1'
+                  }`}
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
