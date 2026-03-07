@@ -8,28 +8,32 @@ const services = [
     title: 'Web Development (Full Stack)',
     subtitle: 'End-to-end Solutions',
     description: 'Designing and developing complete web applications including frontend, backend, databases, and deployment.',
-    color: 'from-gray-700 to-gray-900'
+    color: 'from-gray-700 to-gray-900',
+    link: '/services/web-development'
   },
   {
     id: '02',
     title: 'Chatbot Integration',
     subtitle: 'Automated Support',
     description: 'Building intelligent chatbots for websites and platforms to automate customer support and engagement.',
-    color: 'from-gray-600 to-gray-800'
+    color: 'from-gray-600 to-gray-800',
+    link: '/services/chatbot-integration'
   },
   {
     id: '03',
     title: 'Voice Agents',
     subtitle: 'AI-Powered Voice Automation',
     description: 'Developing AI-powered voice assistants and voice automation systems for businesses.',
-    color: 'from-gray-800 to-black'
+    color: 'from-gray-800 to-black',
+    link: '/services/voice-agents'
   },
   {
     id: '04',
     title: 'Video Editing',
     subtitle: 'Professional Content Creation',
     description: 'Professional video editing for marketing, social media, YouTube, and promotional content.',
-    color: 'from-gray-700 to-gray-900'
+    color: 'from-gray-700 to-gray-900',
+    link: '/services/video-editing'
   }
 ];
 
@@ -80,6 +84,7 @@ const Services: React.FC = () => {
 
                   <motion.button
                     whileHover={{ x: 10 }}
+                    onClick={() => navigate(service.link)}
                     className="flex items-center gap-2 text-black font-semibold"
                   >
                     <span>Learn More</span>

@@ -41,7 +41,8 @@ const ServicesPage: React.FC = () => {
         { type: 'Advanced AI Chatbot (API + LLM)', price: '₹30,000 – ₹70,000' }
       ],
       addons: ['Monthly Maintenance: ₹1,000 - ₹5,000'],
-      note: ''
+      note: '',
+      detailsRoute: '/services/chatbot-integration'
     },
     {
       title: 'AI Voice Agents',
@@ -53,7 +54,8 @@ const ServicesPage: React.FC = () => {
         { type: 'Advanced AI Voice Automation', price: '₹60,000 – ₹1,50,000' }
       ],
       addons: ['Monthly Service: ₹3,000 - ₹10,000'],
-      note: ''
+      note: '',
+      detailsRoute: '/services/voice-agents'
     },
     {
       title: 'Video Editing',
@@ -66,7 +68,8 @@ const ServicesPage: React.FC = () => {
         { type: 'Business Promotional Video', price: '₹5,000 – ₹20,000' }
       ],
       addons: [],
-      note: ''
+      note: '',
+      detailsRoute: '/services/video-editing'
     }
   ];
 
