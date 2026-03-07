@@ -75,10 +75,9 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20 flex flex-col md:flex-row bg-white font-sans overflow-hidden">
-
+    <div className="min-h-screen flex flex-col md:flex-row font-sans overflow-hidden">
       {/* Left Side: Dark Hero Section */}
-      <div className="w-full md:w-5/12 bg-[#0a0a0a] text-white p-10 md:p-16 lg:p-24 flex flex-col justify-center relative">
+      <div className="w-full md:w-5/12 bg-[#0a0a0a] text-white p-10 pt-28 md:p-16 md:pt-32 lg:p-24 lg:pt-40 flex flex-col justify-center relative">
         {/* Subtle texture/gradient */}
         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-amber-500/5 to-transparent pointer-events-none"></div>
         <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -129,7 +128,7 @@ const ContactPage: React.FC = () => {
       </div>
 
       {/* Right Side: Clean Bright Form */}
-      <div className="w-full md:w-7/12 bg-white p-10 md:p-16 lg:p-24 flex flex-col justify-center relative overflow-y-auto">
+      <div className="w-full md:w-7/12 bg-white p-10 pt-28 md:p-16 md:pt-32 lg:p-24 lg:pt-40 flex flex-col justify-center relative overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
