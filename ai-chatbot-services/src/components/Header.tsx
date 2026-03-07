@@ -99,6 +99,16 @@ const Header: React.FC = () => {
             </Link>
 
             <Link
+              to="/blog"
+              className={`text-lg font-medium transition-colors ${location.pathname === '/blog'
+                ? 'text-black font-semibold'
+                : 'text-gray-600 hover:text-black'
+                }`}
+            >
+              Blog
+            </Link>
+
+            <Link
               to="/contact"
               className={`text-lg font-medium transition-colors ${location.pathname === '/contact'
                 ? 'text-black font-semibold'
@@ -179,6 +189,17 @@ const Header: React.FC = () => {
                     }`}
                 >
                   About
+                </Link>
+
+                <Link
+                  to="/blog"
+                  onClick={() => setIsOpen(false)}
+                  className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/blog'
+                    ? 'text-black font-semibold'
+                    : 'text-gray-600 hover:text-black'
+                    }`}
+                >
+                  Blog
                 </Link>
 
                 <Link

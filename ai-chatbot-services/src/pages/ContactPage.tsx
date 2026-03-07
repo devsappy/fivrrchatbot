@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
+import { EnvelopeIcon, MapPinIcon, ArrowRightIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const ContactPage: React.FC = () => {
   const location = useLocation();
@@ -33,10 +34,8 @@ const ContactPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS
       emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
-      // Prepare template parameters
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
@@ -48,7 +47,6 @@ const ContactPage: React.FC = () => {
         to_email: EMAILJS_CONFIG.TO_EMAIL
       };
 
-      // Send email using EmailJS
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
@@ -57,7 +55,6 @@ const ContactPage: React.FC = () => {
 
       setSubmitStatus('success');
 
-      // Reset form
       setTimeout(() => {
         setFormData({
           name: '',
@@ -69,7 +66,7 @@ const ContactPage: React.FC = () => {
           message: '',
         });
         setSubmitStatus('idle');
-      }, 3000);
+      }, 5000);
     } catch (error) {
       setSubmitStatus('error');
     } finally {
@@ -78,239 +75,232 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20 bg-[#FCFCFC] text-gray-900">
-      <div className="container mx-auto px-6 py-16">
+    <div className="min-h-screen pt-20 flex flex-col md:flex-row bg-white font-sans overflow-hidden">
+
+      {/* Left Side: Dark Hero Section */}
+      <div className="w-full md:w-5/12 bg-[#0a0a0a] text-white p-10 md:p-16 lg:p-24 flex flex-col justify-center relative">
+        {/* Subtle texture/gradient */}
+        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-amber-500/5 to-transparent pointer-events-none"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-md"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-            Get in Touch
+          <div className="w-12 h-1 bg-amber-500 mb-8 rounded-full"></div>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1]">
+            Let's build <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">something</span> <br />
+            extraordinary.
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
-            Ready to transform your business with modern digital solutions? Let's discuss your project
+
+          <p className="text-gray-400 text-lg mb-16 leading-relaxed">
+            Fill out the form, and our team of AI and software experts will get back to you within 24 hours to schedule a deep-dive consultation.
           </p>
+
+          <div className="space-y-8">
+            <div className="flex items-start gap-4">
+              <div className="mt-1 bg-white/5 p-3 rounded-xl border border-white/10">
+                <EnvelopeIcon className="w-6 h-6 text-amber-400" />
+              </div>
+              <div>
+                <h4 className="text-white font-semibold text-lg mb-1">Email directly</h4>
+                <a href="mailto:chatterifyservice@gmail.com" className="text-gray-400 hover:text-amber-400 transition-colors">
+                  chatterifyservice@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="mt-1 bg-white/5 p-3 rounded-xl border border-white/10">
+                <MapPinIcon className="w-6 h-6 text-amber-400" />
+              </div>
+              <div>
+                <h4 className="text-white font-semibold text-lg mb-1">Global Remote</h4>
+                <p className="text-gray-400">
+                  Serving innovative startups and enterprises worldwide.
+                </p>
+              </div>
+            </div>
+          </div>
         </motion.div>
+      </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className="bg-[#FCFCFC] border border-gray-100 rounded-2xl p-8 shadow-sm mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Contact Information
-              </h2>
+      {/* Right Side: Clean Bright Form */}
+      <div className="w-full md:w-7/12 bg-white p-10 md:p-16 lg:p-24 flex flex-col justify-center relative overflow-y-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="max-w-2xl w-full mx-auto"
+        >
+          <AnimatePresence mode="wait">
+            {submitStatus === 'success' ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-gray-50 border border-gray-100 p-12 rounded-3xl flex flex-col items-center text-center shadow-lg shadow-gray-200/50"
+              >
+                <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-8">
+                  <CheckCircleIcon className="w-12 h-12 text-green-600" />
+                </div>
+                <h3 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">Inquiry Received</h3>
+                <p className="text-gray-600 text-lg max-w-md leading-relaxed">
+                  Thank you for reaching out! A specialist from Chatterify will review your request and contact you shortly.
+                </p>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onSubmit={handleSubmit}
+                className="space-y-8"
+              >
+                {submitStatus === 'error' && (
+                  <div className="p-5 bg-red-50 border border-red-100 text-red-700 rounded-2xl flex items-center gap-4">
+                    <svg className="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium text-red-800">Something went wrong. Please email us directly instead!</span>
+                  </div>
+                )}
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600 font-medium">chatterifyservice@gmail.com</p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Your Name <span className="text-amber-500">*</span></label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Email Address <span className="text-amber-500">*</span></label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
+                      placeholder="john@example.com"
+                    />
                   </div>
                 </div>
 
-
-
-              </div>
-            </div>
-
-            <div className="bg-[#FCFCFC] border border-gray-100 rounded-2xl p-8 text-gray-900 shadow-sm">
-              <h3 className="text-2xl font-bold mb-4">Why Choose Us?</h3>
-              <ul className="space-y-3 font-medium text-gray-600">
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>24/7 Support Available</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>Free Initial Consultation</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>100% Satisfaction Guarantee</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>Scalable Solutions</span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Send Us a Message
-            </h2>
-
-            {submitStatus === 'success' && (
-              <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Your message has been sent successfully! We'll get back to you soon.</span>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
+                      placeholder="+1 (555) 000-0000"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Company</label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
+                      placeholder="Your Company Inc."
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
 
-            {submitStatus === 'error' && (
-              <div className="mb-6 p-4 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  <span>There was an error sending your message. Please try again.</span>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Service Needed</label>
+                    <div className="relative">
+                      <select
+                        name="service"
+                        value={formData.service}
+                        onChange={handleChange}
+                        className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 appearance-none focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium shadow-sm"
+                      >
+                        <option value="" disabled hidden className="text-gray-400">Select a service...</option>
+                        <option value="Custom Chatbot Development">Custom Chatbot Development</option>
+                        <option value="Voice Agent Development">Voice Agent Development</option>
+                        <option value="Website Overhaul">Website Overhaul</option>
+                        <option value="Enterprise AI Solutions">Enterprise AI Solutions</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Project Budget</label>
+                    <div className="relative">
+                      <select
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 appearance-none focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium shadow-sm"
+                      >
+                        <option value="" disabled hidden className="text-gray-400">Target budget...</option>
+                        <option value="< ₹5000">Less than ₹5000</option>
+                        <option value="₹5000 - ₹20000">₹5000 - ₹20000</option>
+                        <option value="₹20000 - ₹50000">₹20000 - ₹50000</option>
+                        <option value="₹50000 - ₹100000">₹50000 - ₹100000</option>
+                        <option value="> ₹100000">More than ₹100000</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700 ml-1">Project Details <span className="text-amber-500">*</span></label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
+                    rows={4}
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 resize-none shadow-sm"
+                    placeholder="Tell us a little bit about your goals and vision..."
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Service Interested In
-                  </label>
-                  <select
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="Custom Chatbot Development">Custom Chatbot Development</option>
-                    <option value="Chatbot Integration">Chatbot Integration</option>
-                    <option value="Enterprise Solutions">Enterprise Solutions</option>
-                    <option value="Maintenance & Support">Maintenance & Support</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Budget Range
-                  </label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all font-medium"
-                  >
-                    <option value="">Select budget</option>
-                    <option value="< $5,000">Less than $5,000</option>
-                    <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                    <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                    <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                    <option value="> $50,000">More than $50,000</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Your Message *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-gray-400 bg-gray-50 text-gray-900 transition-all resize-none font-medium"
-                  placeholder="Tell us about your project..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-4 rounded-full font-semibold transition-all duration-200 shadow-md transform ${isSubmitting
-                  ? 'bg-gray-300 cursor-not-allowed text-gray-500'
-                  : 'bg-black text-white hover:bg-gray-800 hover:-translate-y-1'
-                  }`}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
-          </motion.div>
-        </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-bold text-lg transition-all duration-300 w-full md:w-auto mt-4 ${isSubmitting
+                    ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                    : 'bg-[#0a0a0a] text-white hover:bg-amber-500 shadow-xl shadow-gray-200'
+                    }`}
+                >
+                  {isSubmitting ? 'Sending Request...' : (
+                    <>
+                      <span>Submit Request</span>
+                      <ArrowRightIcon className="w-5 h-5" />
+                    </>
+                  )}
+                </motion.button>
+              </motion.form>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );
