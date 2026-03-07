@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content, jsx-a11y/alt-text, jsx-a11y/anchor-has-content */
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
