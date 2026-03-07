@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
   const { isMobile } = useMobileDetect();
   const [currentWord, setCurrentWord] = useState(0);
-  const words = ['Intelligent', 'Conversational', 'Powerful', 'Custom'];
+  const words = ['Intelligent', 'Powerful', 'Custom'];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
   }, [words.length]);
 
   return (
-    <section id="home" className="h-[100svh] flex items-center relative overflow-hidden bg-white" style={{ zIndex: 1 }}>
+    <section id="home" className="min-h-[100svh] pt-32 pb-16 flex flex-col justify-center relative overflow-hidden bg-white" style={{ zIndex: 1 }}>
       {/* Animated Abstract Grainient Background */}
       <div className="absolute inset-0 w-full h-full opacity-60">
         <Grainient
@@ -48,16 +48,16 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
+      <div className="container mx-auto px-6 relative z-10 w-full">
         <div className="max-w-5xl mx-auto text-center w-full">
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion || isMobile ? 0 : 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: shouldReduceMotion || isMobile ? 0.3 : 0.8 }}
-            className="p-8 md:p-12 lg:p-16"
+            className="p-4 sm:p-8 md:p-12 lg:p-16"
           >
             {/* Main heading with animated words */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-black mb-8 px-4 whitespace-nowrap tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-black mb-8 px-4 tracking-tight break-words">
               <span className="text-gray-900">Build </span>
               <motion.span
                 key={currentWord}
