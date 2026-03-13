@@ -1,22 +1,47 @@
 import axios from 'axios';
 
-const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY || '';
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const CHATBOT_API_URL = process.env.REACT_APP_CHATBOT_API_URL || 'http://localhost:5137';
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;
 }
 
-export interface OpenAIResponse {
-  choices: Array<{
-    message: {
-      content: string;
-    };
-  }>;
+interface ChatResponse {
+  response: string;
+  session_id: string | null;
+  status: string;
 }
 
-// Demo responses when API is rate limited or unavailable
+let sessionId: string | null = null;
+
+export const sendMessageToOpenAI = async (messages: ChatMessage[]): Promise<string> => {
+  try {
+    const userMessage = messages.filter(m => m.role === 'user').pop();
+    
+    if (!userMessage) {
+      return 'Please send a message to start the conversation.';
+    }
+
+    const response = await axios.post<ChatResponse>(
+      `${CHATBOT_API_URL}/api/chat`,
+      {
+        message: userMessage.content,
+        session_id: sessionId
+      }
+    );
+
+    if (response.data.session_id) {
+      sessionId = response.data.session_id;
+    }
+
+    return response.data.response;
+  } catch (error) {
+    console.error('Error calling chatbot API:', error);
+    return getDemoResponse(messages);
+  }
+};
+
 const getDemoResponse = (messages: ChatMessage[]): string => {
   const lastMessage = messages[messages.length - 1]?.content.toLowerCase() || '';
 
@@ -39,35 +64,4 @@ const getDemoResponse = (messages: ChatMessage[]): string => {
   }
 };
 
-export const sendMessageToOpenAI = async (messages: ChatMessage[]): Promise<string> => {
-  try {
-    const response = await axios.post<OpenAIResponse>(
-      OPENAI_API_URL,
-      {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a helpful AI assistant for Chatterify, a company that provides AI chatbot services. Be friendly, professional, and informative about AI chatbot solutions, features, pricing, and implementation. Keep responses concise and engaging.'
-          },
-          ...messages
-        ],
-        temperature: 0.7,
-        max_tokens: 1024,
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    return response.data.choices[0]?.message?.content || 'I apologize, but I couldn\'t process your request at the moment.';
-  } catch (error) {
-    console.error('Error calling OpenAI API:', error);
-
-    // Fall back to demo responses when API fails
-    return getDemoResponse(messages);
-  }
-};
+export { getDemoResponse };

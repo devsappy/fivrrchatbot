@@ -1,0 +1,81 @@
+Chatterify.in – Startup Overview
+Introduction
+Chatterify (chatterify.in) is a modern technology startup focused on helping businesses grow through intelligent digital solutions. 
+The company provides services such as full‑stack web development, AI chatbot integration, voice automation agents, and professional video editing. 
+Chatterify aims to make advanced technology accessible to startups, creators, and businesses at affordable prices while maintaining high quality and performance.
+Vision
+Chatterify envisions a digital ecosystem where businesses of all sizes can leverage modern technologies to automate communication, 
+enhance user experience, and scale their online presence. The goal is to bridge the gap between advanced AI technologies and practical business solutions.
+Mission
+The mission of Chatterify is to deliver high‑quality digital and AI‑powered solutions at affordable prices. 
+The startup aims to empower startups, creators, and growing businesses with modern tools such as automation, conversational AI, and interactive web platforms.
+Core Services
+1. Full Stack Web Development
+Custom, responsive, and scalable websites and web applications. Services include landing pages, business websites, e‑commerce platforms, and custom web applications.
+
+2. Chatbot Integration
+AI-powered chatbots designed to automate customer support, answer queries, and improve engagement across websites and platforms.
+
+3. AI Voice Agents
+Voice automation systems capable of handling calls, assisting customers, and integrating with business workflows.
+
+4. Professional Video Editing
+High‑quality video editing for marketing, social media, YouTube content, and promotional campaigns.
+Pricing Overview
+Web Development:
+Landing Page – ₹5,000 to ₹12,000
+Business Website – ₹12,000 to ₹30,000
+E‑commerce Website – ₹25,000 to ₹80,000
+Custom Web Applications – ₹30,000 to ₹1,20,000+
+
+Chatbot Integration:
+Basic Chatbot – ₹5,000 to ₹12,000
+AI Chatbot with Automation – ₹12,000 to ₹30,000
+Advanced AI Chatbot – ₹30,000 to ₹70,000
+
+AI Voice Agents:
+Basic Voice Bot – ₹10,000 to ₹25,000
+AI Voice Call Agent – ₹25,000 to ₹60,000
+Advanced Voice Automation – ₹60,000 to ₹1,50,000
+
+Video Editing:
+Short Reels – ₹300 to ₹800
+YouTube Videos – ₹1,000 to ₹3,000
+Professional Content – ₹3,000 to ₹8,000
+Business Promotional Videos – ₹5,000 to ₹20,000
+Startup Friendly Packages
+Starter Package – ₹10,000
+Includes a landing page website, basic chatbot, and two edited reels.
+
+Business Package – ₹25,000
+Includes a business website, chatbot integration, and five edited videos.
+
+Premium Package – ₹60,000+
+Includes a custom web application, AI chatbot, voice agent, and advanced video editing.
+
+Monthly Tech Package – ₹8k to ₹20k/month
+Includes website maintenance, chatbot monitoring, minor updates, and priority support.
+Why Choose Chatterify
+• Affordable pricing tailored for startups and small businesses
+• Modern technology stack and scalable solutions
+• Skilled development team
+• AI automation with chatbots and voice agents
+• Creative video editing for brand growth
+• Fast turnaround and transparent project process
+Team
+Developers:
+Rajatava Ghosh – AI & Machine Learning Engineer
+Dipanjan Chowdhury – Web Development Specialist
+Saptarshi Chattopadhyay – Frontend Developer & Creative Technologist
+
+Management:
+Debojyoti Bannerjee – Strategic Operations
+Hrishikesh Bhowmick – Project Director
+Key Metrics
+Projects Completed: 5+
+Client Satisfaction: 80%
+Active Users: 50+
+Conclusion
+Chatterify is positioned as a startup‑friendly digital technology studio that combines software development, artificial intelligence, 
+and creative media services under one platform. By offering affordable packages and modern digital solutions, the company aims to support 
+businesses in building strong online presence, automating customer interaction, and scaling efficiently.

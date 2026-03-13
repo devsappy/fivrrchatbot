@@ -1,13 +1,7 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
-  const location = useLocation();
-
-  if (location.pathname === '/contact') {
-    return null;
-  }
-
   return (
     <footer className="bg-[#FCFCFC] text-gray-900 border-t border-gray-100 py-12 relative" style={{ zIndex: 10 }}>
       <div className="container mx-auto px-6">
