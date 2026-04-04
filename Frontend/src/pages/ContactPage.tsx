@@ -181,7 +181,7 @@ const ContactPage: React.FC = () => {
                       onChange={handleChange}
                       required
                       className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
-                      placeholder="John Doe"
+                      placeholder="Rahul Sharma"
                     />
                   </div>
                   <div className="space-y-2">
@@ -193,7 +193,7 @@ const ContactPage: React.FC = () => {
                       onChange={handleChange}
                       required
                       className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
-                      placeholder="john@example.com"
+                      placeholder="rahul@example.com"
                     />
                   </div>
                 </div>
@@ -207,7 +207,7 @@ const ContactPage: React.FC = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-5 py-4 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all font-medium placeholder-gray-400 shadow-sm"
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+91 98765 43210"
                     />
                   </div>
                   <div className="space-y-2">
