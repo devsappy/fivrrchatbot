@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
-import { EnvelopeIcon, MapPinIcon, ArrowRightIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, MapPinIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const ContactPage: React.FC = () => {
   const location = useLocation();
