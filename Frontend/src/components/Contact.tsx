@@ -164,10 +164,11 @@ const Contact: React.FC = () => {
                     className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all text-sm md:text-base shadow-sm"
                   >
                     <option value="">Select Budget</option>
-                    <option value="5k-10k">$5,000 - $10,000</option>
-                    <option value="10k-25k">$10,000 - $25,000</option>
-                    <option value="25k-50k">$25,000 - $50,000</option>
-                    <option value="50k+">$50,000+</option>
+                    <option value="< ₹5000">Less than ₹5000</option>
+                    <option value="₹5000 - ₹20000">₹5000 - ₹20000</option>
+                    <option value="₹20000 - ₹50000">₹20000 - ₹50000</option>
+                    <option value="₹50000 - ₹100000">₹50000 - ₹100000</option>
+                    <option value="> ₹100000">More than ₹100000</option>
                   </select>
                 </div>
               </div>
