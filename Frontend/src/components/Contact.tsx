@@ -67,10 +67,10 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 lg:py-32 bg-white relative overflow-hidden" style={{ zIndex: 10 }}>
+    <section id="contact" className="py-16 md:py-24 lg:py-32 bg-[#F5F5F7] relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Background element */}
       <div className="absolute inset-0">
-        <div className="absolute bottom-0 right-1/4 w-[300px] md:w-[500px] lg:w-[600px] h-[300px] md:h-[500px] lg:h-[600px] bg-gray-50 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-[300px] md:w-[500px] lg:w-[600px] h-[300px] md:h-[500px] lg:h-[600px] bg-[#EDEDF0] rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -109,7 +109,7 @@ const Contact: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
+                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
                     placeholder="Rahul Sharma"
                   />
                 </div>
@@ -121,7 +121,7 @@ const Contact: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
+                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
                     placeholder="rahul@company.com"
                   />
                 </div>
@@ -134,7 +134,7 @@ const Contact: React.FC = () => {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
+                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
                   placeholder="Your Company Name"
                 />
               </div>
@@ -181,7 +181,7 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 resize-none text-sm md:text-base shadow-sm"
+                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 resize-none text-sm md:text-base shadow-sm"
                   placeholder="Tell us about your project requirements..."
                 />
               </div>
@@ -209,7 +209,7 @@ const Contact: React.FC = () => {
             className="space-y-8"
           >
             {/* Quick Contact */}
-            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-6 md:p-8">
+            <div className="bg-white border border-gray-200/60 shadow-sm rounded-2xl p-6 md:p-8">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Quick Contact</h3>
 
               <div className="space-y-6">
@@ -226,7 +226,7 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Why Choose Us */}
-            <div className="bg-gray-50 border border-gray-100 shadow-sm rounded-2xl p-6 md:p-8">
+            <div className="bg-white border border-gray-200/60 shadow-sm rounded-2xl p-6 md:p-8">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">
                 Why Work With Us?
               </h3>

@@ -95,6 +95,43 @@ code {
     monospace;
 }
 
+/* Marquee scroll animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-scroll {
+  animation: marquee-scroll 80s linear infinite;
+  width: max-content;
+}
+
+.marquee-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.marquee-scroll-reverse {
+  animation: marquee-scroll-reverse 85s linear infinite;
+  width: max-content;
+}
+
+.marquee-scroll-reverse:hover {
+  animation-play-state: paused;
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(100%);
