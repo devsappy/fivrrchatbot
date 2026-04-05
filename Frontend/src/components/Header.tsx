@@ -16,15 +16,16 @@ const Header: React.FC = () => {
     >
 
       <nav className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between lg:bg-transparent lg:shadow-none lg:border-0 lg:backdrop-blur-none lg:rounded-none lg:p-0 bg-white/50 backdrop-blur-md shadow-lg border border-gray-100 rounded-full p-2 px-4">
           {/* Mobile Logo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="lg:hidden"
           >
-            <Link to="/" className="transition-colors">
-              <img src="/logo.png" alt="Chatterify Logo" className="h-10 w-auto" />
+            <Link to="/" className="flex items-center gap-2 transition-colors">
+              <img src="/logo.png" alt="Chatterify Logo" className="h-9 w-auto object-contain" />
+              <span className="logo-rubik text-xl text-gray-900 font-bold tracking-wide leading-none">Chatterify</span>
             </Link>
           </motion.div>
 
