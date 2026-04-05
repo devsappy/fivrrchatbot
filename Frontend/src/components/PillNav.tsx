@@ -1,0 +1,148 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import gsap from 'gsap';
+
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
+export interface PillNavProps {
+  logo?: string | React.ReactNode;
+  logoAlt?: string;
+  items: NavItem[];
+  activeHref?: string;
+  className?: string;
+  ease?: string;
+  baseColor?: string;
+  pillColor?: string;
+  hoveredPillTextColor?: string;
+  pillTextColor?: string;
+  theme?: 'light' | 'dark';
+  initialLoadAnimation?: boolean;
+}
+
+const PillNav: React.FC<PillNavProps> = ({
+  logo,
+  logoAlt = "Logo",
+  items,
+  activeHref,
+  className = "",
+  ease = "power2.easeOut",
+  baseColor = "#000000",
+  pillColor = "#ffffff",
+  hoveredPillTextColor = "#ffffff",
+  pillTextColor = "#000000",
+  theme = "light",
+  initialLoadAnimation = true
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
+  const itemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  
+  const location = useLocation();
+  const currentHref = activeHref || location.pathname;
+
+  const [activeIndex, setActiveIndex] = useState(() => {
+    const idx = items.findIndex(item => item.href === currentHref);
+    return idx === -1 ? 0 : idx;
+  });
+  
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const idx = items.findIndex(item => item.href === currentHref);
+    if (idx !== -1) setActiveIndex(idx);
+  }, [currentHref, items]);
+
+  useEffect(() => {
+    const targetIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
+    const targetEl = itemsRef.current[targetIndex];
+    const containerEl = containerRef.current;
+    const pillEl = pillRef.current;
+    
+    if (targetEl && containerEl && pillEl) {
+      const targetRect = targetEl.getBoundingClientRect();
+      const containerRect = containerEl.getBoundingClientRect();
+      
+      // Calculate padding from container top/bottom to the background pill
+      // Since container has padding and items have padding, we just match target element's boundaries
+      const paddingX = 0;
+      
+      gsap.to(pillEl, {
+        x: targetRect.left - containerRect.left - paddingX,
+        y: targetRect.top - containerRect.top,
+        width: targetRect.width + paddingX * 2,
+        height: targetRect.height,
+        ease: ease,
+        duration: 0.4
+      });
+    }
+  }, [activeIndex, hoveredIndex, ease]);
+
+  useEffect(() => {
+    if (initialLoadAnimation && containerRef.current) {
+      gsap.from(containerRef.current, {
+        y: -30,
+        duration: 0.8,
+        ease: "power3.out"
+      });
+    }
+  }, [initialLoadAnimation]);
+
+  const defaultTextColor = '#000000';
+
+  return (
+    <div 
+      ref={containerRef} 
+      className={`relative flex items-center p-2 rounded-full shadow-lg border border-gray-100 backdrop-blur-md ${className}`}
+      style={{ backgroundColor: `${baseColor}80` }}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      {logo && (
+        <div className="mr-48 pl-12 pr-8 flex items-center">
+          {typeof logo === 'string' ? (
+            <img src={logo} alt={logoAlt} className="h-8" />
+          ) : (
+            logo
+          )}
+        </div>
+      )}
+      
+      {/* Animated Background Pill */}
+      <div
+        ref={pillRef}
+        className="absolute rounded-full pointer-events-none"
+        style={{ backgroundColor: pillColor, left: 0, top: 0 }}
+      />
+      
+      <div className="flex items-center relative z-10 gap-12 pr-8">
+        {items.map((item, index) => {
+          const isActive = index === activeIndex;
+          const isHovered = index === hoveredIndex;
+          const isTarget = hoveredIndex !== null ? isHovered : isActive;
+          
+          let color = defaultTextColor;
+          if (isTarget) {
+            color = isHovered ? hoveredPillTextColor : pillTextColor;
+          }
+
+          return (
+            <Link
+              key={item.label}
+              to={item.href}
+              ref={(el) => { itemsRef.current[index] = el; }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              className="px-8 py-2 text-lg font-medium transition-colors duration-300 rounded-full tracking-wide"
+              style={{ color }}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default PillNav;

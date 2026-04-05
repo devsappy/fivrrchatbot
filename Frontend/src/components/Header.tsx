@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import Grainient from './Grainient';
+import PillNav from './PillNav';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,118 +22,46 @@ const Header: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-300 shadow-sm border-b border-gray-100 ${scrolled ? 'opacity-95' : 'opacity-100'
-        }`}
+      className="fixed w-full z-[999] pt-6 transition-all duration-300"
     >
-      <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
-        <Grainient
-          color1="#f1e9f1"
-          color2="#b39709"
-          color3="#e1d8fd"
-          timeSpeed={0.25}
-          colorBalance={1}
-          warpStrength={1}
-          warpFrequency={5}
-          warpSpeed={6}
-          warpAmplitude={50}
-          blendAngle={0}
-          blendSoftness={0.05}
-          rotationAmount={500}
-          noiseScale={2}
-          grainAmount={0.1}
-          grainScale={2}
-          grainAnimated={false}
-          contrast={1.5}
-          gamma={1}
-          saturation={1}
-          centerX={0}
-          centerY={0}
-          zoom={0.9}
-        />
-        {/* Adds a slight white overlay to ensure legibility of nav items over vibrant colors */}
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
-      </div>
+
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Mobile Logo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            className="lg:hidden"
           >
-            <Link to="/" className="text-4xl text-black hover:text-amber-700 transition-colors">
-              <span className="logo-rubik text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-yellow-600">
-                Chatterify
-              </span>
+            <Link to="/" className="transition-colors">
+              <img src="/logo.png" alt="Chatterify Logo" className="h-10 w-auto" />
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-10">
-            <Link
-              to="/"
-              className={`text-lg font-medium transition-colors ${location.pathname === '/'
-                ? 'text-black font-semibold'
-                : 'text-gray-600 hover:text-black'
-                }`}
-            >
-              Home
-            </Link>
-
-            <Link
-              to="/services"
-              className={`text-lg font-medium transition-colors ${location.pathname === '/services'
-                ? 'text-black font-semibold'
-                : 'text-gray-600 hover:text-black'
-                }`}
-            >
-              Services
-            </Link>
-
-            <Link
-              to="/about"
-              className={`text-lg font-medium transition-colors ${location.pathname === '/about'
-                ? 'text-black font-semibold'
-                : 'text-gray-600 hover:text-black'
-                }`}
-            >
-              About
-            </Link>
-
-            <Link
-              to="/blog"
-              className={`text-lg font-medium transition-colors ${location.pathname === '/blog'
-                ? 'text-black font-semibold'
-                : 'text-gray-600 hover:text-black'
-                }`}
-            >
-              Blog
-            </Link>
-
-            <Link
-              to="/contact"
-              className={`text-lg font-medium transition-colors ${location.pathname === '/contact'
-                ? 'text-black font-semibold'
-                : 'text-gray-600 hover:text-black'
-                }`}
-            >
-              Contact
-            </Link>
+          <div className="hidden lg:flex w-full justify-center">
+            <PillNav
+              logo={<div className="flex items-center gap-2"><img src="/logo.png" alt="Chatterify Logo" className="h-11 w-auto object-contain" /><span className="logo-rubik text-2xl text-gray-900 font-bold tracking-wide leading-none">Chatterify</span></div>}
+              logoAlt="Chatterify Logo"
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'About', href: '/about' },
+                { label: 'Services', href: '/services' },
+                { label: 'Contact', href: '/contact' }
+              ]}
+              activeHref={location.pathname}
+              className="custom-nav"
+              ease="power2.easeOut"
+              baseColor="#ffffff"
+              pillColor="#000000"
+              hoveredPillTextColor="#ffffff"
+              pillTextColor="#ffffff"
+              theme="light"
+              initialLoadAnimation
+            />
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link
-                to="/contact"
-                className="px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-gray-800 transition-all duration-300"
-              >
-                Get Started
-              </Link>
-            </motion.div>
-          </div>
+
 
           {/* Mobile Menu Button */}
           <button
@@ -213,13 +142,7 @@ const Header: React.FC = () => {
                   Contact
                 </Link>
 
-                <Link
-                  to="/contact"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-gray-800 transition-all duration-300 text-center mt-4"
-                >
-                  Get Started
-                </Link>
+
               </div>
             </motion.div>
           )}
