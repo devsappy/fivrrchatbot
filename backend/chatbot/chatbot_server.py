@@ -123,7 +123,7 @@ async def chat_endpoint(request: ChatRequest, http_request: Request):
             )
 
         # Generate response
-        response = chatbot.generate_response(
+        response = await chatbot.generate_response(
             user_input=request.message, session_id=session_id
         )
 

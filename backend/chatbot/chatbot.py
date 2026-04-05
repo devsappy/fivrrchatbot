@@ -1,9 +1,9 @@
 import os
 import logging
 from datetime import datetime
-
+import asyncio
 from dotenv import load_dotenv
-from groq import Groq
+from groq import AsyncGroq
 from groq.types.chat import ChatCompletionMessageParam
 
 logging.basicConfig(
@@ -25,14 +25,16 @@ class OptimizedChatBot:
             logger.warning("GROQ API key not found")
             return
 
-        self.client = Groq(api_key=groq_api_key)
+        self.client = AsyncGroq(api_key=groq_api_key)
         logger.info("Groq client initialized")
 
     def get_relevant_context(self, user_question: str) -> str:
         logger.info("Using direct file loading for knowledge base")
         return self.get_default_knowledge()
 
-    def generate_response(self, user_input: str, session_id: str | None = None) -> str:
+    async def generate_response(
+        self, user_input: str, session_id: str | None = None
+    ) -> str:
         """Generate response using Groq API with relevant IT services context"""
         try:
             if self.client is None:
@@ -122,12 +124,12 @@ class OptimizedChatBot:
             else:
                 tone_instruction = "Be conversational and helpful. 2-4 sentences providing complete context."  # noqa: E501
 
-            system_message = f"""You are the IT Solutions Assistant - a helpful guide who assists users with our company's technology services.
+            system_message = f"""You are the IT Solutions Assistant for the business CHATTERIFY- a helpful guide who assists users with our company's technology services.
 
 STRICT TOPIC BOUNDARIES - MUST FOLLOW:
 You CAN ONLY discuss topics related to:
 - AI Chatbots and conversational AI solutions
-- Voice Agents and voice AI technology
+- Voice Agents and voice AI technology but don't go into depth
 - Agentic AI solutions and automation
 - Business process automation
 - Backend systems development
@@ -144,6 +146,7 @@ You MUST REFUSE to discuss:
 - Medical, legal, or financial advice
 - Competitor services or products
 - Topics unrelated to our IT services
+- Any technicalities or coding questions like how to make a chatbot or how to design a website etc 
 
 RESPONSE TO OFF-TOPIC QUESTIONS:
 For unrelated questions: "I specialize in IT solutions including chatbots, voice agents, websites, automation, and backend systems. How can I help you with our technology services today?"
@@ -155,17 +158,19 @@ CORE PRINCIPLES:
 - Always guide users on next steps when relevant
 - Explain processes clearly with step-by-step instructions when asked "how"
 - Be enthusiastic about helping with their project
+- If the conversation is going to a different direction then guide them to our services and how it can help them  
 
 TONE INSTRUCTION: {tone_instruction}
 
 RESPONSE GUIDELINES:
 - Benefits/Results: Explain what improves and why it matters (2-3 sentences)
 - Pricing: State the price AND briefly what's included (2 sentences)
-- Services: Brief explanation + what's included (2-3 sentences)
+- Services: brief explanation + what's included (2-3 sentences)
 - Timeline: Direct answer + what they can expect (2 sentences)
 - Vague questions ("what do you do"): Provide general overview of services
 - "How to" questions: Provide clear step-by-step guidance
 - Technical questions: Explain in simple terms, avoid jargon
+- Dont say "I don't know" rather explain it wisely with whatever knowledge you have and for further in-depth question ask them to contact the team 
 
 IMPORTANT PHRASING:
 - Offer to clarify or provide more details
@@ -197,8 +202,8 @@ Relevant Knowledge Context:
                 f"Context size: ~{total_context_size // 4} tokens (optimized from full KB)"
             )
 
-            # Generate response using Groq
-            response = self.client.chat.completions.create(
+            # Generate response using Groq (async)
+            response = await self.client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=messages,
                 max_tokens=500,
@@ -331,18 +336,16 @@ Workflow automation, business process optimization, and integration between diff
         for session_id in sessions_to_remove:
             del self.sessions[session_id]
             logger.info(f"Cleaned up old session: {session_id}")
-            
+
     def rate_limiter(self):
         sessions_to_stop = []
-        for session_id,session_data in self.sessions.items():
+        for session_id, session_data in self.sessions.items():
             if len(session_data["conversation_history"]) >= 10:
                 sessions_to_stop.append(session_id)
-        
+
         for session_id in sessions_to_stop:
             del self.sessions[session_id]
-            logger.info(f"The rate has exceeded for the session : {session_id}") 
-                
-            
+            logger.info(f"The rate has exceeded for the session : {session_id}")
 
     def refresh_knowledge(self):
         """Refresh the knowledge base (files are loaded directly, no rebuild needed)"""
@@ -365,18 +368,22 @@ def get_optimized_chatbot():
 
 
 if __name__ == "__main__":
-    print("\n[START] Optimized Chatbot Test")
-    chatbot = get_optimized_chatbot()
 
-    # Test queries
-    test_queries = [
-        "How much does the services cost?",
-        "What are the services you guys provide?",
-        "Who are the members in your team?Which model is this chatbot using?",
-    ]
+    async def main():
+        print("\n[START] Optimized Chatbot Test")
+        chatbot = get_optimized_chatbot()
 
-    print("\n[TESTING] Running test queries...")
-    for query in test_queries:
-        print(f"\nQ: {query}")
-        response = chatbot.generate_response(query, "test_session")
-        print(f"A: {response[:500]}...")
+        # Test queries
+        test_queries = [
+            "How much does the services cost?",
+            "What are the services you guys provide?",
+            "Who are the members in your team?Which model is this chatbot using?",
+        ]
+
+        print("\n[TESTING] Running test queries...")
+        for query in test_queries:
+            print(f"\nQ: {query}")
+            response = await chatbot.generate_response(query, "test_session")
+            print(f"A: {response[:500]}...")
+
+    asyncio.run(main())
