@@ -18,10 +18,10 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-gray-900">Quick Links</h4>
             <ul className="space-y-2 text-gray-600 font-medium">
-              <li><Link to="/" className="hover:text-black transition-colors">Home</Link></li>
-              <li><Link to="/services" className="hover:text-black transition-colors">Services</Link></li>
-              <li><Link to="/about" className="hover:text-black transition-colors">About Us</Link></li>
-              <li><Link to="/contact" className="hover:text-black transition-colors">Contact</Link></li>
+              <li><Link to="/" onClick={() => window.scrollTo(0, 0)} className="hover:text-black transition-colors">Home</Link></li>
+              <li><Link to="/services" onClick={() => window.scrollTo(0, 0)} className="hover:text-black transition-colors">Services</Link></li>
+              <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className="hover:text-black transition-colors">About Us</Link></li>
+              <li><Link to="/contact" onClick={() => window.scrollTo(0, 0)} className="hover:text-black transition-colors">Contact</Link></li>
             </ul>
           </div>
 
@@ -32,6 +32,7 @@ const Footer: React.FC = () => {
             </p>
             <Link
               to="/contact"
+              onClick={() => window.scrollTo(0, 0)}
               className="inline-block px-6 py-3 bg-black text-white font-medium rounded-full hover:bg-gray-800 transition-all duration-300 shadow-sm hover:-translate-y-1"
             >
               Contact Us

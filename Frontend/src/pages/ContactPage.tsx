@@ -97,7 +97,7 @@ const ContactPage: React.FC = () => {
               extraordinary.
             </h1>
 
-            <p className="text-gray-500 text-lg leading-relaxed max-w-md mb-12 font-medium">
+            <p className="text-white/70 text-lg leading-relaxed max-w-md mb-12 font-medium">
               Fill out the form, and our team of AI and software experts will get back to you within 24 hours to schedule a deep-dive consultation.
             </p>
 
@@ -108,7 +108,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg mb-1">Email directly</h4>
-                  <a href="mailto:chatterifyservice@gmail.com" className="text-gray-500 hover:text-amber-500 transition-colors font-medium">
+                  <a href="mailto:chatterifyservice@gmail.com" className="text-white/70 hover:text-amber-500 transition-colors font-medium">
                     chatterifyservice@gmail.com
                   </a>
                 </div>
@@ -120,7 +120,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg mb-1">Global Remote</h4>
-                  <p className="text-gray-500 font-medium">
+                  <p className="text-white/70 font-medium">
                     Serving innovative startups and enterprises worldwide.
                   </p>
                 </div>
