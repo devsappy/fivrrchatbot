@@ -55,30 +55,37 @@ const PillNav: React.FC<PillNavProps> = ({
     if (idx !== -1) setActiveIndex(idx);
   }, [currentHref, items]);
 
-  useEffect(() => {
+  const movePill = (duration: number) => {
     const targetIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
     const targetEl = itemsRef.current[targetIndex];
     const containerEl = containerRef.current;
     const pillEl = pillRef.current;
-    
+
     if (targetEl && containerEl && pillEl) {
       const targetRect = targetEl.getBoundingClientRect();
       const containerRect = containerEl.getBoundingClientRect();
-      
-      // Calculate padding from container top/bottom to the background pill
-      // Since container has padding and items have padding, we just match target element's boundaries
-      const paddingX = 0;
-      
+
       gsap.to(pillEl, {
-        x: targetRect.left - containerRect.left - paddingX,
+        x: targetRect.left - containerRect.left,
         y: targetRect.top - containerRect.top,
-        width: targetRect.width + paddingX * 2,
+        width: targetRect.width,
         height: targetRect.height,
         ease: ease,
-        duration: 0.4
+        duration: duration
       });
     }
+  };
+
+  useEffect(() => {
+    movePill(0.4);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, hoveredIndex, ease]);
+
+  useEffect(() => {
+    // Recalculate pill after fonts load so it covers the text properly
+    document.fonts.ready.then(() => movePill(0));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (initialLoadAnimation && containerRef.current) {
