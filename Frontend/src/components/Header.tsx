@@ -81,7 +81,10 @@ const Header: React.FC = () => {
               <div className="bg-white/95 backdrop-blur-xl border border-gray-100 rounded-2xl p-6 space-y-4 shadow-xl">
                 <Link
                   to="/"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (location.pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/'
                     ? 'text-black font-semibold'
                     : 'text-gray-600 hover:text-black'
@@ -92,7 +95,10 @@ const Header: React.FC = () => {
 
                 <Link
                   to="/services"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (location.pathname === '/services') window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/services'
                     ? 'text-black font-semibold'
                     : 'text-gray-600 hover:text-black'
@@ -103,7 +109,10 @@ const Header: React.FC = () => {
 
                 <Link
                   to="/about"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (location.pathname === '/about') window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/about'
                     ? 'text-black font-semibold'
                     : 'text-gray-600 hover:text-black'
@@ -114,7 +123,10 @@ const Header: React.FC = () => {
 
                 <Link
                   to="/blog"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (location.pathname === '/blog') window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/blog'
                     ? 'text-black font-semibold'
                     : 'text-gray-600 hover:text-black'
@@ -125,7 +137,10 @@ const Header: React.FC = () => {
 
                 <Link
                   to="/contact"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (location.pathname === '/contact') window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/contact'
                     ? 'text-black font-semibold'
                     : 'text-gray-600 hover:text-black'

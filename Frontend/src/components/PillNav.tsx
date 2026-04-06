@@ -161,6 +161,11 @@ const PillNav: React.FC<PillNavProps> = ({
               to={item.href}
               ref={(el) => { itemsRef.current[index] = el; }}
               onMouseEnter={() => setHoveredIndex(index)}
+              onClick={() => {
+                if (location.pathname === item.href) {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
               className="px-8 py-2 text-lg font-medium transition-colors duration-300 rounded-full tracking-wide"
               style={{ color }}
             >
