@@ -6,7 +6,7 @@ import { blogPosts } from '../data/blogPosts';
 
 const BlogPage: React.FC = () => {
     return (
-        <div className="min-h-screen pt-24 pb-16 bg-[#FAFAFA] text-gray-900">
+        <div className="min-h-screen pt-36 pb-16 bg-[#FAFAFA] text-gray-900">
             <div className="container mx-auto px-6">
 
                 {/* Header Section */}

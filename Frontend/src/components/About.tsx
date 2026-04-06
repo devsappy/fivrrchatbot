@@ -64,7 +64,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="pt-16 pb-32 bg-white relative overflow-hidden" style={{ zIndex: 10 }}>
+    <section id="about" className="pt-28 pb-16 bg-white relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Background elegant gradient */}
       <div className="absolute inset-0">
         <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-gray-100/50 rounded-full blur-3xl"></div>
@@ -218,7 +218,7 @@ const About: React.FC = () => {
       </div>
 
       {/* Spacer to close section properly */}
-      <div className="pb-16"></div>
+      <div className="pb-4"></div>
     </section>
   );
 };
