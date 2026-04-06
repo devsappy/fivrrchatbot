@@ -49,6 +49,7 @@ const PillNav: React.FC<PillNavProps> = ({
   });
   
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const hasMounted = useRef(false);
 
   useEffect(() => {
     const idx = items.findIndex(item => item.href === currentHref);
@@ -77,13 +78,33 @@ const PillNav: React.FC<PillNavProps> = ({
   };
 
   useEffect(() => {
+    // Skip animated transition on first render — the mount effect handles initial positioning
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
     movePill(0.4);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, hoveredIndex, ease]);
 
   useEffect(() => {
-    // Recalculate pill after fonts load so it covers the text properly
-    document.fonts.ready.then(() => movePill(0));
+    const containerEl = containerRef.current;
+    if (!containerEl) return;
+
+    // Reposition pill when any image inside the nav finishes loading
+    const images = containerEl.querySelectorAll('img');
+    const reposition = () => movePill(0);
+
+    images.forEach(img => {
+      if (img.complete) return;
+      img.addEventListener('load', reposition);
+    });
+
+    document.fonts.ready.then(reposition);
+
+    return () => {
+      images.forEach(img => img.removeEventListener('load', reposition));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
