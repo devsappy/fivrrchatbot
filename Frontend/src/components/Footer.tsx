@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-950 text-white py-12 relative" style={{ zIndex: 10 }}>
+    <footer className="bg-[#111113] text-white py-12 relative border-t border-gray-700/50" style={{ zIndex: 10 }}>
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8">
           <div>

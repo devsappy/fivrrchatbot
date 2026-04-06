@@ -142,34 +142,44 @@ const Contact: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <label className="block text-gray-700 text-sm mb-2 font-medium">Project Type</label>
-                  <select
-                    name="projectType"
-                    value={formData.projectType}
-                    onChange={handleChange}
-                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all text-sm md:text-base shadow-sm"
-                  >
-                    <option value="">Select Type</option>
-                    <option value="web-dev">Web Development</option>
-                    <option value="chatbot">Chatbot Integration</option>
-                    <option value="voice">Voice Agent</option>
-                    <option value="custom">Custom Solution</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      name="projectType"
+                      value={formData.projectType}
+                      onChange={handleChange}
+                      className="w-full px-4 md:px-6 py-3 md:py-4 pr-10 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all text-sm md:text-base shadow-sm appearance-none"
+                    >
+                      <option value="">Select Type</option>
+                      <option value="web-dev">Web Development</option>
+                      <option value="chatbot">Chatbot Integration</option>
+                      <option value="voice">Voice Agent</option>
+                      <option value="custom">Custom Solution</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2 font-medium">Budget Range</label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all text-sm md:text-base shadow-sm"
-                  >
-                    <option value="">Select Budget</option>
-                    <option value="< ₹5000">Less than ₹5000</option>
-                    <option value="₹5000 - ₹20000">₹5000 - ₹20000</option>
-                    <option value="₹20000 - ₹50000">₹20000 - ₹50000</option>
-                    <option value="₹50000 - ₹100000">₹50000 - ₹100000</option>
-                    <option value="> ₹100000">More than ₹100000</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="w-full px-4 md:px-6 py-3 md:py-4 pr-10 bg-[#FCFCFC] border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all text-sm md:text-base shadow-sm appearance-none"
+                    >
+                      <option value="">Select Budget</option>
+                      <option value="< ₹5000">Less than ₹5000</option>
+                      <option value="₹5000 - ₹20000">₹5000 - ₹20000</option>
+                      <option value="₹20000 - ₹50000">₹20000 - ₹50000</option>
+                      <option value="₹50000 - ₹100000">₹50000 - ₹100000</option>
+                      <option value="> ₹100000">More than ₹100000</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                  </div>
                 </div>
               </div>
 

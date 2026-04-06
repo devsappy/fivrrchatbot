@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import AnimatedChatWidget from './AnimatedChatWidget';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-white relative overflow-hidden" style={{ zIndex: 10 }}>
+    <section id="about" className="pt-16 pb-32 bg-white relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Background elegant gradient */}
       <div className="absolute inset-0">
         <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-gray-100/50 rounded-full blur-3xl"></div>
@@ -71,7 +72,7 @@ const About: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 items-start">
           {/* Left Content */}
           <div className="" >
             <div className="flex items-center gap-4 mb-6">
@@ -137,28 +138,35 @@ const About: React.FC = () => {
             </button>
           </div>
 
-          {/* Right Stats Grid */}
-          <div className=" grid grid-cols-3 gap-4 md:gap-6" >
-            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
-                5+
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500 font-medium">Projects</div>
-            </div>
+          {/* Right Column: Animated Chat & Stats Grid */}
+          <div className="flex flex-col gap-10 lg:gap-14 w-full pt-16">
+            
+            {/* Animated Chat Widget Mimicking the Screenshot */}
+            <AnimatedChatWidget />
+          </div>
+        </div>
 
-            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
-                80%
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500 font-medium">Satisfaction</div>
+        {/* Stats Grid - Full Width Centered */}
+        <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mt-8">
+          <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
+              5+
             </div>
+            <div className="text-xs sm:text-sm text-gray-500 font-medium">Projects</div>
+          </div>
 
-            <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
-                50+
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500 font-medium">Users</div>
+          <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
+              80%
             </div>
+            <div className="text-xs sm:text-sm text-gray-500 font-medium">Satisfaction</div>
+          </div>
+
+          <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
+              50+
+            </div>
+            <div className="text-xs sm:text-sm text-gray-500 font-medium">Users</div>
           </div>
         </div>
 

@@ -84,7 +84,7 @@ const Services: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="services" className="py-16 md:py-24 lg:py-32 bg-[#F7F7F5] relative overflow-hidden" style={{ zIndex: 10 }}>
+    <section id="services" className="py-16 md:pt-24 md:pb-12 lg:pt-32 lg:pb-16 bg-[#F7F7F5] relative overflow-hidden" style={{ zIndex: 10 }}>
       {/* Background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#EFEFE8] rounded-2xl blur-3xl opacity-60"></div>
@@ -199,7 +199,7 @@ const Services: React.FC = () => {
             {[...techRow1, ...techRow1, ...techRow1, ...techRow1].map((tech, index) => (
               <div
                 key={`tech1-${index}`}
-                className="flex-shrink-0 mx-3 px-6 py-4 rounded-3xl bg-white border border-gray-100 flex items-center gap-4 hover:border-gray-300 hover:shadow-md transition-all duration-300 cursor-default"
+                className="flex-shrink-0 mx-3 px-6 py-4 rounded-full bg-white border border-gray-100 flex items-center gap-4 hover:border-gray-300 hover:shadow-md transition-all duration-300 cursor-default"
               >
                 <span className="w-7 h-7 flex-shrink-0">{tech.svg}</span>
                 <span className="text-base font-medium text-gray-700 whitespace-nowrap">{tech.name}</span>
@@ -212,7 +212,7 @@ const Services: React.FC = () => {
             {[...techRow2, ...techRow2, ...techRow2, ...techRow2].map((tech, index) => (
               <div
                 key={`tech2-${index}`}
-                className="flex-shrink-0 mx-3 px-6 py-4 rounded-3xl bg-white border border-gray-100 flex items-center gap-4 hover:border-gray-300 hover:shadow-md transition-all duration-300 cursor-default"
+                className="flex-shrink-0 mx-3 px-6 py-4 rounded-full bg-white border border-gray-100 flex items-center gap-4 hover:border-gray-300 hover:shadow-md transition-all duration-300 cursor-default"
               >
                 <span className="w-7 h-7 flex-shrink-0">{tech.svg}</span>
                 <span className="text-base font-medium text-gray-700 whitespace-nowrap">{tech.name}</span>
@@ -222,7 +222,7 @@ const Services: React.FC = () => {
         </div>
       </div>
 
-      <div className="pb-8"></div>
+      <div className="pb-2"></div>
     </section>
   );
 };

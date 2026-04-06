@@ -240,6 +240,15 @@ code {
   @apply bg-gray-400;
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .delay-100 {
   animation-delay: 100ms;
 }
