@@ -154,52 +154,62 @@ const ServiceCard: React.FC<{ service: typeof services[0]; index: number }> = ({
       viewport={{ once: true }}
       className="relative bg-white rounded-3xl border border-gray-200 overflow-hidden flex flex-col hover:shadow-xl hover:shadow-black/10 transition-shadow duration-300"
     >
-      {/* Video background — Web Development card only */}
+      {/* Media backgrounds */}
       {service.tag === 'Web' && (
         <>
-          <video
-            src="/webdevelopment.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          {/* Dark overlay so content stays readable */}
+          <video src="/webdevelopment.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/70" />
+        </>
+      )}
+      {service.tag === 'AI' && (
+        <>
+          <video src="/chatbot.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/70" />
+        </>
+      )}
+      {service.tag === 'Voice' && (
+        <>
+          <img src="/voiceagent.png" alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/70" />
+        </>
+      )}
+      {service.tag === 'Creative' && (
+        <>
+          <video src="/videoediting.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/70" />
         </>
       )}
 
       {/* Top bar */}
-      <div className={`relative h-1 w-full ${service.tag === 'Web' ? 'bg-white/40' : 'bg-black'}`} />
+      <div className="relative h-1 w-full bg-white/40" />
 
-      <div className={`relative p-8 flex flex-col flex-1 ${service.tag === 'Web' ? 'text-white' : ''}`}>
+      <div className="relative p-8 flex flex-col flex-1 text-white">
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
-          <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${service.tag === 'Web' ? 'bg-white/15 border border-white/20' : 'bg-black'}`}>
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-white/15 border border-white/20">
             <service.icon className="w-7 h-7 text-white" strokeWidth={1.5} />
           </div>
-          <span className={`text-[10px] font-black tracking-[0.18em] uppercase mt-1 ${service.tag === 'Web' ? 'text-white/50' : 'text-gray-400'}`}>
+          <span className="text-[10px] font-black tracking-[0.18em] uppercase mt-1 text-white/50">
             {service.tag}
           </span>
         </div>
 
-        <h3 className={`text-xl font-bold mb-2 leading-tight ${service.tag === 'Web' ? 'text-white' : 'text-gray-900'}`}>{service.title}</h3>
-        <p className={`text-sm leading-relaxed mb-6 ${service.tag === 'Web' ? 'text-white/60' : 'text-gray-500'}`}>{service.description}</p>
+        <h3 className="text-xl font-bold mb-2 leading-tight text-white">{service.title}</h3>
+        <p className="text-sm leading-relaxed mb-6 text-white/60">{service.description}</p>
 
         {/* Pricing table */}
-        <div className={`flex-1 rounded-2xl p-5 mb-6 ${service.tag === 'Web' ? 'bg-white/10 border border-white/10' : 'bg-[#F5F2EA]'}`}>
-          <p className={`text-[10px] font-black tracking-[0.15em] uppercase mb-4 ${service.tag === 'Web' ? 'text-white/40' : 'text-gray-400'}`}>
+        <div className="flex-1 rounded-2xl p-5 mb-6 bg-white/10 border border-white/10">
+          <p className="text-[10px] font-black tracking-[0.15em] uppercase mb-4 text-white/40">
             Pricing Tiers
           </p>
           <div className="space-y-3">
             {service.pricing.map((tier) => (
               <div
                 key={tier.type}
-                className={`flex items-center justify-between gap-4 py-2 border-b last:border-0 last:pb-0 ${service.tag === 'Web' ? 'border-white/10' : 'border-black/8'}`}
+                className="flex items-center justify-between gap-4 py-2 border-b last:border-0 last:pb-0 border-white/10"
               >
-                <span className={`text-sm font-medium ${service.tag === 'Web' ? 'text-white/70' : 'text-gray-700'}`}>{tier.type}</span>
-                <span className={`text-sm font-bold whitespace-nowrap ${service.tag === 'Web' ? 'text-white' : 'text-gray-900'}`}>{tier.price}</span>
+                <span className="text-sm font-medium text-white/70">{tier.type}</span>
+                <span className="text-sm font-bold whitespace-nowrap text-white">{tier.price}</span>
               </div>
             ))}
           </div>
@@ -208,17 +218,17 @@ const ServiceCard: React.FC<{ service: typeof services[0]; index: number }> = ({
         {/* Addons */}
         {service.addons.length > 0 && (
           <div className="mb-6">
-            <p className={`text-[10px] font-black tracking-[0.15em] uppercase mb-3 ${service.tag === 'Web' ? 'text-white/40' : 'text-gray-400'}`}>
+            <p className="text-[10px] font-black tracking-[0.15em] uppercase mb-3 text-white/40">
               Add-ons
             </p>
             <div className="flex flex-wrap gap-2">
               {service.addons.map((a) => (
-                <span key={a} className={`px-3 py-1 text-xs font-semibold rounded-full ${service.tag === 'Web' ? 'bg-white/15 text-white/80' : 'bg-gray-100 text-gray-600'}`}>
+                <span key={a} className="px-3 py-1 text-xs font-semibold rounded-full bg-white/15 text-white/80">
                   {a}
                 </span>
               ))}
             </div>
-            {service.note && <p className={`text-xs mt-2 ${service.tag === 'Web' ? 'text-white/40' : 'text-gray-400'}`}>* {service.note}</p>}
+            {service.note && <p className="text-xs mt-2 text-white/40">* {service.note}</p>}
           </div>
         )}
 
@@ -226,13 +236,13 @@ const ServiceCard: React.FC<{ service: typeof services[0]; index: number }> = ({
         <div className="mt-auto flex gap-3">
           <button
             onClick={() => navigate(service.detailsRoute)}
-            className={`flex-1 py-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${service.tag === 'Web' ? 'border-white/40 text-white hover:bg-white hover:text-black' : 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'}`}
+            className="flex-1 py-3 rounded-xl border-2 border-white/40 text-white text-sm font-bold transition-all duration-200 hover:bg-white hover:text-black"
           >
             Learn More
           </button>
           <button
             onClick={() => navigate('/contact', { state: { service: service.title } })}
-            className={`flex-1 py-3 rounded-xl text-sm font-bold transition-colors ${service.tag === 'Web' ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-gray-800'}`}
+            className="flex-1 py-3 rounded-xl bg-white text-black text-sm font-bold transition-colors hover:bg-white/90"
           >
             Get a Quote
           </button>
