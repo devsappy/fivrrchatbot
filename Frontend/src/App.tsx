@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -18,32 +18,45 @@ import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import ChatbotIntegrationPage from './pages/ChatbotIntegrationPage';
 import VoiceAgentsPage from './pages/VoiceAgentsPage';
 import VideoEditingPage from './pages/VideoEditingPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+
+function AppContent() {
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+
+  return (
+    <div className="App">
+      {!isAuthPage && <Header />}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+        <Route path="/services/chatbot-integration" element={<ChatbotIntegrationPage />} />
+        <Route path="/services/voice-agents" element={<VoiceAgentsPage />} />
+        <Route path="/services/video-editing" element={<VideoEditingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogPostPage />} />
+        <Route path="/team/dipanjan" element={<DipanjanPortfolioPage />} />
+        <Route path="/team/rajatava" element={<RajatavaPortfolioPage />} />
+        <Route path="/team/saptarshi" element={<SaptarshiPortfolioPage />} />
+      </Routes>
+      {!isAuthPage && <Footer />}
+      {!isAuthPage && <Chatbot />}
+    </div>
+  );
+}
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
         <ScrollToTop />
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/services/web-development" element={<WebDevelopmentPage />} />
-            <Route path="/services/chatbot-integration" element={<ChatbotIntegrationPage />} />
-            <Route path="/services/voice-agents" element={<VoiceAgentsPage />} />
-            <Route path="/services/video-editing" element={<VideoEditingPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:id" element={<BlogPostPage />} />
-            <Route path="/team/dipanjan" element={<DipanjanPortfolioPage />} />
-            <Route path="/team/rajatava" element={<RajatavaPortfolioPage />} />
-            <Route path="/team/saptarshi" element={<SaptarshiPortfolioPage />} />
-          </Routes>
-          <Footer />
-          <Chatbot />
-        </div>
+        <AppContent />
       </Router>
     </ThemeProvider>
   );

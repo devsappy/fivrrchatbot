@@ -39,7 +39,8 @@ const Header: React.FC = () => {
                 { label: 'About', href: '/about' },
                 { label: 'Services', href: '/services' },
                 { label: 'Blog', href: '/blog' },
-                { label: 'Contact', href: '/contact' }
+                { label: 'Contact', href: '/contact' },
+                { label: 'Log In', href: '/login' }
               ]}
               activeHref={location.pathname}
               className="custom-nav"
@@ -149,6 +150,18 @@ const Header: React.FC = () => {
                   Contact
                 </Link>
 
+                <div className="pt-2">
+                  <Link
+                    to="/login"
+                    onClick={() => {
+                      setIsOpen(false);
+                      if (location.pathname === '/login') window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="block w-full py-3 px-4 bg-black text-white text-center rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors shadow-md"
+                  >
+                    Log In
+                  </Link>
+                </div>
 
               </div>
             </motion.div>
