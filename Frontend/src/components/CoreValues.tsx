@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import useMobileDetect from '../hooks/useMobileDetect';
+
 
 const CoreValues: React.FC = () => {
-  const { isMobile } = useMobileDetect();
-  const noAnim = isMobile ? false : undefined;
+
 
   const values = [
     {
