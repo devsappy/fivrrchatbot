@@ -120,31 +120,61 @@ const Services: React.FC = () => {
               onClick={() => navigate(service.link)}
               className="group relative bg-white rounded-2xl p-7 md:p-9 cursor-pointer border border-gray-100 hover:border-gray-200 hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
             >
-              {/* Hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-50/0 to-gray-100/0 group-hover:from-gray-50/50 group-hover:to-gray-50/80 transition-all duration-500 rounded-2xl"></div>
+              {/* Video backgrounds */}
+              {service.id === '01' && (
+                <>
+                  <video src="/webdevelopment.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/65" />
+                </>
+              )}
+              {service.id === '02' && (
+                <>
+                  <video src="/chatbot.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/65" />
+                </>
+              )}
+              {service.id === '03' && (
+                <>
+                  <img src="/voiceagent.png" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/65" />
+                </>
+              )}
+              {service.id === '04' && (
+                <>
+                  <video src="/videoediting.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/65" />
+                </>
+              )}
+
+              {/* Hover gradient overlay — only for non-video cards */}
+              {false && (
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-50/0 to-gray-100/0 group-hover:from-gray-50/50 group-hover:to-gray-50/80 transition-all duration-500 rounded-2xl"></div>
+              )}
 
               <div className="relative z-10">
                 {/* Top row: number + icon */}
                 <div className="flex items-center justify-between mb-8">
-                  <span className="text-xs font-bold text-gray-300 tracking-widest">{service.id}</span>
-                  <div className="w-12 h-12 rounded-2xl bg-gray-900 text-white flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  {(() => { const hasVideo = service.id === '01' || service.id === '02' || service.id === '03' || service.id === '04'; return (
+                  <span className={`text-xs font-bold tracking-widest ${hasVideo ? 'text-white/40' : 'text-gray-300'}`}>{service.id}</span>
+                  ); })()}
+                  <div className={`w-12 h-12 rounded-2xl text-white flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 ${(service.id === '01' || service.id === '02' || service.id === '03' || service.id === '04') ? 'bg-white/15 border border-white/20' : 'bg-gray-900'}`}>
                     {service.icon}
                   </div>
                 </div>
 
                 {/* Title + subtitle */}
                 <div className="mb-4">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{service.subtitle}</p>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">{service.title}</h3>
+                  <p className={`text-xs font-semibold uppercase tracking-wider mb-2 ${(service.id === '01' || service.id === '02' || service.id === '03' || service.id === '04') ? 'text-white/50' : 'text-gray-400'}`}>{service.subtitle}</p>
+                  <h3 className={`text-2xl md:text-3xl font-bold tracking-tight ${(service.id === '01' || service.id === '02' || service.id === '03' || service.id === '04') ? 'text-white' : 'text-gray-900'}`}>{service.title}</h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-500 leading-relaxed mb-8 text-sm md:text-base">
+                <p className={`leading-relaxed mb-8 text-sm md:text-base ${(service.id === '01' || service.id === '02' || service.id === '03' || service.id === '04') ? 'text-white/60' : 'text-gray-500'}`}>
                   {service.description}
                 </p>
 
                 {/* Arrow link */}
-                <div className="flex items-center gap-2 text-gray-900 font-semibold text-sm">
+                <div className={`flex items-center gap-2 font-semibold text-sm ${(service.id === '01' || service.id === '02' || service.id === '03' || service.id === '04') ? 'text-white' : 'text-gray-900'}`}>
                   <span className="group-hover:mr-2 transition-all duration-300">Learn More</span>
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

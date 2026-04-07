@@ -20,6 +20,7 @@ export interface PillNavProps {
   pillTextColor?: string;
   theme?: 'light' | 'dark';
   initialLoadAnimation?: boolean;
+  rightSlot?: React.ReactNode;
 }
 
 const PillNav: React.FC<PillNavProps> = ({
@@ -34,7 +35,8 @@ const PillNav: React.FC<PillNavProps> = ({
   hoveredPillTextColor = "#ffffff",
   pillTextColor = "#000000",
   theme = "light",
-  initialLoadAnimation = true
+  initialLoadAnimation = true,
+  rightSlot,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
@@ -144,7 +146,7 @@ const PillNav: React.FC<PillNavProps> = ({
         style={{ backgroundColor: pillColor, left: 0, top: 0 }}
       />
       
-      <div className="flex items-center relative z-10 gap-12 pr-8">
+      <div className="flex items-center relative z-10 gap-12 pr-4">
         {items.map((item, index) => {
           const isActive = index === activeIndex;
           const isHovered = index === hoveredIndex;
@@ -173,6 +175,12 @@ const PillNav: React.FC<PillNavProps> = ({
             </Link>
           );
         })}
+
+        {rightSlot && (
+          <div className="relative z-10 ml-2">
+            {rightSlot}
+          </div>
+        )}
       </div>
     </div>
   );
