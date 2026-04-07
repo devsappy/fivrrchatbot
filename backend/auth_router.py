@@ -97,7 +97,7 @@ def set_auth_cookie(response: Response, access_token: str) -> None:
         max_age=AUTH_COOKIE_MAX_AGE,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
-        samesite="lax",
+        samesite="none",
         path="/",
     )
 
@@ -107,7 +107,7 @@ def clear_auth_cookie(response: Response) -> None:
         key=AUTH_COOKIE_NAME,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
-        samesite="lax",
+        samesite="none",
         path="/",
     )
 
