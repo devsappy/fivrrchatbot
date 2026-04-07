@@ -86,7 +86,7 @@ const WebDevelopmentPage: React.FC = () => {
                 />
             </div>
 
-            <div className="h-[80vh] flex flex-col items-center justify-center relative z-10 w-full px-4 mb-20">
+            <div className="min-h-screen flex flex-col items-center justify-center relative z-10 w-full px-4">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -102,12 +102,13 @@ const WebDevelopmentPage: React.FC = () => {
             <div className="container mx-auto px-6 py-4 max-w-6xl relative z-10">
 
                 {/* Tech Stack Pillars */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mb-24"
-                >
+                <div className="min-h-screen flex flex-col justify-center py-20">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="w-full"
+                    >
                     <div className="grid md:grid-cols-2 gap-8">
                         {techStack.map((tech, index) => (
                             <motion.div
@@ -135,15 +136,17 @@ const WebDevelopmentPage: React.FC = () => {
                             </motion.div>
                         ))}
                     </div>
-                </motion.div>
+                    </motion.div>
+                </div>
 
                 {/* Unlimited Design Banner */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="bg-[#F5F2EA] rounded-[40px] p-8 md:p-14 lg:p-20 mb-20 overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10"
-                >
+                <div className="min-h-screen flex flex-col justify-center py-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="bg-[#F5F2EA] rounded-[40px] p-8 md:p-14 lg:p-20 overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10"
+                    >
                     {/* Left Side: Copy */}
                     <div className="lg:w-1/2 flex flex-col items-start gap-8 z-10 text-left">
                         <h2 className="text-[38px] md:text-6xl lg:text-[72px] font-serif font-black leading-[1.05] text-gray-900 tracking-tight">
@@ -193,15 +196,17 @@ const WebDevelopmentPage: React.FC = () => {
                             <Pill text="web" bg="bg-[#B5F942]" textColor="text-black" rotation="rotate(-5deg)" innerColor="bg-white" />
                         </div>
                     </div>
-                </motion.div>
+                    </motion.div>
+                </div>
 
                 {/* CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center bg-white/80 backdrop-blur-md border border-gray-200 text-gray-900 rounded-3xl p-12 shadow-2xl relative z-10"
-                >
+                <div className="min-h-screen flex flex-col justify-center py-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center bg-white/80 backdrop-blur-md border border-gray-200 text-gray-900 rounded-3xl p-12 shadow-2xl relative z-10"
+                    >
                     <h2 className="text-3xl font-bold mb-4 tracking-tight">Ready to Develop?</h2>
                     <p className="text-xl mb-8 text-gray-600 font-medium max-w-2xl mx-auto">
                         Let's translate your vision into robust code and deploy it to the world.
@@ -212,7 +217,8 @@ const WebDevelopmentPage: React.FC = () => {
                     >
                         Start Your Web Project
                     </button>
-                </motion.div>
+                    </motion.div>
+                </div>
 
             </div>
         </div>
