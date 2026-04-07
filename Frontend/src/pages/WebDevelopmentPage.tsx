@@ -8,7 +8,7 @@ import {
     CloudArrowUpIcon,
     CheckCircleIcon
 } from '@heroicons/react/24/outline';
-import { Cover } from '../components/ui/cover';
+
 import LiquidEther from '../components/LiquidEther';
 
 const Peanut = ({ color }: { color: string }) => (
@@ -55,14 +55,7 @@ const WebDevelopmentPage: React.FC = () => {
         }
     ];
 
-    const pricingTiers = [
-        { type: 'Landing Page', price: '₹5,000 – ₹12,000', desc: 'High-converting single page layout' },
-        { type: 'Business Website (4-6 pages)', price: '₹12,000 – ₹30,000', desc: 'Informational architecture for businesses' },
-        { type: 'E-commerce Website', price: '₹25,000 – ₹80,000', desc: 'Full digital storefront and cart systems' },
-        { type: 'Custom Web Application', price: '₹30,000 – ₹1,20,000+', desc: 'Bespoke complex software tools' }
-    ];
 
-    const addons = ['Login systems', 'Payment gateways', 'Admin dashboards', 'Custom backends'];
 
     return (
         <div className="bg-white text-gray-900 min-h-screen relative overflow-x-hidden">
