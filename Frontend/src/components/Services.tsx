@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import useMobileDetect from '../hooks/useMobileDetect';
 
 const services = [
   {
@@ -82,6 +83,8 @@ const techRow2 = [
 
 const Services: React.FC = () => {
   const navigate = useNavigate();
+  const { isMobile } = useMobileDetect();
+  const noAnim = isMobile ? false : undefined;
 
   return (
     <section id="services" className="py-16 md:pt-24 md:pb-12 lg:pt-32 lg:pb-16 bg-[#F7F7F5] relative overflow-hidden" style={{ zIndex: 10 }}>
@@ -110,10 +113,10 @@ const Services: React.FC = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={noAnim ?? { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: isMobile ? 0 : 0.5, delay: isMobile ? 0 : index * 0.1 }}
               onClick={() => navigate(service.link)}
               className="group relative bg-white rounded-2xl p-7 md:p-9 cursor-pointer border border-gray-100 hover:border-gray-200 hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
             >
@@ -154,10 +157,10 @@ const Services: React.FC = () => {
 
         {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={noAnim ?? { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: isMobile ? 0 : 0.6 }}
           className="mt-20 md:mt-24 text-center"
         >
           <div className="bg-gray-900 rounded-2xl p-8 md:p-14 max-w-4xl mx-auto relative overflow-hidden">

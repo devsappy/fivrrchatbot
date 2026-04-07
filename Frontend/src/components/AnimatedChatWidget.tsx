@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import useMobileDetect from '../hooks/useMobileDetect';
 
 const conversations = [
   {
@@ -54,10 +55,11 @@ const AnimatedChatWidget: React.FC = () => {
   }, [convIndex]);
 
   const currentConv = conversations[convIndex];
+  const { isMobile } = useMobileDetect();
 
   return (
     <motion.div 
-      animate={{ y: [0, -8, 0] }}
+      animate={isMobile ? {} : { y: [0, -8, 0] }}
       transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
       className="w-full relative group"
     >

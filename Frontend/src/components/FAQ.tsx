@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import useMobileDetect from '../hooks/useMobileDetect';
 
 const faqs = [
     {
@@ -27,6 +28,8 @@ const faqs = [
 
 const FAQ = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const { isMobile } = useMobileDetect();
+    const noAnim = isMobile ? false : undefined;
 
     const toggleFaq = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -36,10 +39,10 @@ const FAQ = () => {
         <section className="py-24 bg-[#FCFCFC] relative overflow-hidden" id="faq" style={{ zIndex: 10 }}>
             <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10 max-w-6xl">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={noAnim ?? { opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: isMobile ? 0 : 0.6 }}
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 tracking-tight">
@@ -54,10 +57,10 @@ const FAQ = () => {
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={noAnim ?? { opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.1 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: isMobile ? 0 : 0.5, delay: isMobile ? 0 : index * 0.1 }}
                             className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
                         >
                             <button

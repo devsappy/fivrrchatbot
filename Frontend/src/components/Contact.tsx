@@ -3,8 +3,11 @@ import { motion } from 'framer-motion';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
+import useMobileDetect from '../hooks/useMobileDetect';
 
 const Contact: React.FC = () => {
+  const { isMobile } = useMobileDetect();
+  const noAnim = isMobile ? false : undefined;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -75,7 +78,7 @@ const Contact: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={noAnim ?? { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mb-20"
@@ -95,7 +98,7 @@ const Contact: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={noAnim ?? { opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
@@ -213,7 +216,7 @@ const Contact: React.FC = () => {
 
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={noAnim ?? { opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-8"
