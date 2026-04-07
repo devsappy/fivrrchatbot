@@ -47,34 +47,19 @@ if allowed_origins_env:
         logger.info(f"Parsed ALLOWED_ORIGINS as comma-separated: {ALLOWED_ORIGINS}")
 
 
-# Combine custom and default origins
 all_origins = list(set(ALLOWED_ORIGINS))
 
 # Log CORS configuration for debugging
 logger.info(f"CORS Configuration - Allowed Origins: {all_origins}")
-logger.info(
-    f"CORS Configuration - Allow All Origins: {os.getenv('ALLOW_ALL_ORIGINS', 'false')}"
-)
 
-# If ALLOW_ALL_ORIGINS is set to true, allow all origins (use with caution in production)
-if os.getenv("ALLOW_ALL_ORIGINS", "false").lower() == "true":
-    chatbot_app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=["*"],
-        expose_headers=["Content-Disposition"],
-    )
-else:
-    chatbot_app.add_middleware(
-        CORSMiddleware,
-        allow_origins=all_origins,
-        allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=["*"],
-        expose_headers=["Content-Disposition"],
-    )
+chatbot_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=all_origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+    expose_headers=["Content-Disposition"],
+)
 
 
 class ChatRequest(BaseModel):

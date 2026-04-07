@@ -25,7 +25,7 @@ const SignupPage: React.FC = () => {
     try {
       const response = await signup(firstName, lastName, email, password);
       if (response.authenticated) {
-        navigate('/');
+        navigate('/dashboard');
         return;
       }
 

@@ -9,8 +9,11 @@ const DashboardPage: React.FC = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const handleLogout = async () => {
-    await logout();
-    navigate('/login');
+    try {
+      await logout();
+    } finally {
+      navigate('/login');
+    }
   };
 
   const navItems = [

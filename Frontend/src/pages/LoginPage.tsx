@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to log in right now.');
     } finally {

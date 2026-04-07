@@ -21,8 +21,16 @@ interface RequestOptions {
   body?: Record<string, unknown>;
 }
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '') || 'http://localhost:5137';
+const API_BASE_URL = (() => {
+  const url = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '');
+  if (!url) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('REACT_APP_API_BASE_URL is not configured for production.');
+    }
+    return 'http://localhost:5137';
+  }
+  return url;
+})();
 
 async function request<T>({ method = 'GET', body }: RequestOptions, path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -79,4 +87,8 @@ export function meRequest() {
 
 export function logoutRequest() {
   return request<AuthResponse>({ method: 'POST' }, '/api/auth/logout');
+}
+
+export function refreshRequest() {
+  return request<AuthResponse>({ method: 'POST' }, '/api/auth/refresh');
 }

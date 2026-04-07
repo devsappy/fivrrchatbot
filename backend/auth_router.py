@@ -4,14 +4,20 @@ from typing import Any
 import httpx
 from fastapi import APIRouter, HTTPException, Request, Response, status
 from pydantic import BaseModel, ConfigDict, Field
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 router = APIRouter()
+
+# Rate limiter — keyed by client IP address
+limiter = Limiter(key_func=get_remote_address)
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
 AUTH_COOKIE_NAME = os.getenv("AUTH_COOKIE_NAME", "chatterify_auth_token")
+AUTH_REFRESH_COOKIE_NAME = os.getenv("AUTH_REFRESH_COOKIE_NAME", "chatterify_refresh_token")
 AUTH_COOKIE_MAX_AGE = int(os.getenv("AUTH_COOKIE_MAX_AGE", str(60 * 60 * 24 * 7)))
-AUTH_COOKIE_SECURE = os.getenv("AUTH_COOKIE_SECURE", "false").lower() == "true"
+AUTH_COOKIE_SECURE = os.getenv("AUTH_COOKIE_SECURE", "true").lower() == "true"
 
 
 class LoginRequest(BaseModel):
@@ -90,16 +96,26 @@ async def supabase_auth_request(
     raise HTTPException(status_code=response.status_code, detail=message)
 
 
-def set_auth_cookie(response: Response, access_token: str) -> None:
-    response.set_cookie(
-        key=AUTH_COOKIE_NAME,
-        value=access_token,
-        max_age=AUTH_COOKIE_MAX_AGE,
+def _cookie_kwargs(name: str, value: str, max_age: int) -> dict:
+    return dict(
+        key=name,
+        value=value,
+        max_age=max_age,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
         samesite="none",
         path="/",
     )
+
+
+def set_auth_cookie(response: Response, access_token: str) -> None:
+    # SameSite=None is required for cross-domain cookies (frontend on Vercel,
+    # backend on Render). Secure=True is mandatory when SameSite=None.
+    response.set_cookie(**_cookie_kwargs(AUTH_COOKIE_NAME, access_token, AUTH_COOKIE_MAX_AGE))
+
+
+def set_refresh_cookie(response: Response, refresh_token: str) -> None:
+    response.set_cookie(**_cookie_kwargs(AUTH_REFRESH_COOKIE_NAME, refresh_token, AUTH_COOKIE_MAX_AGE))
 
 
 def clear_auth_cookie(response: Response) -> None:
@@ -112,14 +128,26 @@ def clear_auth_cookie(response: Response) -> None:
     )
 
 
+def clear_refresh_cookie(response: Response) -> None:
+    response.delete_cookie(
+        key=AUTH_REFRESH_COOKIE_NAME,
+        httponly=True,
+        secure=AUTH_COOKIE_SECURE,
+        samesite="none",
+        path="/",
+    )
+
+
 @router.post("/api/auth/login", response_model=AuthResponse)
-async def login(payload: LoginRequest, response: Response):
+@limiter.limit("5/minute")
+async def login(request: Request, payload: LoginRequest, response: Response):
     auth_payload = await supabase_auth_request(
         "POST",
         "/auth/v1/token?grant_type=password",
         json_body={"email": payload.email, "password": payload.password},
     )
     access_token = auth_payload.get("access_token")
+    refresh_token = auth_payload.get("refresh_token")
     user = auth_payload.get("user")
 
     if not access_token or not user:
@@ -129,6 +157,8 @@ async def login(payload: LoginRequest, response: Response):
         )
 
     set_auth_cookie(response, access_token)
+    if refresh_token:
+        set_refresh_cookie(response, refresh_token)
 
     return AuthResponse(
         user=AuthUser.model_validate(user),
@@ -138,7 +168,8 @@ async def login(payload: LoginRequest, response: Response):
 
 
 @router.post("/api/auth/signup", response_model=AuthResponse)
-async def signup(payload: SignupRequest, response: Response):
+@limiter.limit("5/minute")
+async def signup(request: Request, payload: SignupRequest, response: Response):
     auth_payload = await supabase_auth_request(
         "POST",
         "/auth/v1/signup",
@@ -156,10 +187,13 @@ async def signup(payload: SignupRequest, response: Response):
     user = auth_payload.get("user")
     session = auth_payload.get("session") or {}
     access_token = auth_payload.get("access_token") or session.get("access_token")
+    refresh_token = auth_payload.get("refresh_token") or session.get("refresh_token")
     authenticated = bool(access_token)
 
     if access_token:
         set_auth_cookie(response, access_token)
+    if refresh_token:
+        set_refresh_cookie(response, refresh_token)
 
     return AuthResponse(
         user=AuthUser.model_validate(user) if user else None,
@@ -206,9 +240,65 @@ async def me(request: Request, response: Response):
     )
 
 
+@router.post("/api/auth/refresh", response_model=AuthResponse)
+@limiter.limit("10/minute")
+async def refresh(request: Request, response: Response):
+    refresh_token = request.cookies.get(AUTH_REFRESH_COOKIE_NAME)
+    if not refresh_token:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No refresh token.")
+
+    try:
+        auth_payload = await supabase_auth_request(
+            "POST",
+            "/auth/v1/token?grant_type=refresh_token",
+            json_body={"refresh_token": refresh_token},
+        )
+    except HTTPException:
+        clear_auth_cookie(response)
+        clear_refresh_cookie(response)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Session expired. Please log in again.",
+        )
+
+    access_token = auth_payload.get("access_token")
+    new_refresh_token = auth_payload.get("refresh_token")
+    user = auth_payload.get("user")
+
+    if not access_token or not user:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Supabase did not return a valid session.",
+        )
+
+    set_auth_cookie(response, access_token)
+    if new_refresh_token:
+        set_refresh_cookie(response, new_refresh_token)
+
+    return AuthResponse(
+        user=AuthUser.model_validate(user),
+        message="Session refreshed.",
+        authenticated=True,
+    )
+
+
 @router.post("/api/auth/logout", response_model=AuthResponse)
-async def logout(response: Response):
+async def logout(request: Request, response: Response):
+    access_token = request.cookies.get(AUTH_COOKIE_NAME)
+    if access_token:
+        # Best-effort: revoke the token on Supabase so it can't be reused.
+        # If this fails (e.g. already expired), we still clear the local cookies.
+        try:
+            await supabase_auth_request(
+                "POST",
+                "/auth/v1/logout",
+                access_token=access_token,
+            )
+        except HTTPException:
+            pass
+
     clear_auth_cookie(response)
+    clear_refresh_cookie(response)
     return AuthResponse(
         user=None,
         message="Logged out successfully.",

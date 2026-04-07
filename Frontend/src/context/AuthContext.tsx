@@ -5,6 +5,7 @@ import {
   loginRequest,
   logoutRequest,
   meRequest,
+  refreshRequest,
   signupRequest,
 } from '../services/authApi';
 
@@ -33,7 +34,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const loadSession = async () => {
       try {
         const response = await meRequest();
-        setUser(response.authenticated ? response.user : null);
+        if (response.authenticated) {
+          setUser(response.user);
+        } else if (response.message === 'Session expired.') {
+          // Access token expired — try refreshing silently before giving up.
+          try {
+            const refreshed = await refreshRequest();
+            setUser(refreshed.authenticated ? refreshed.user : null);
+          } catch {
+            setUser(null);
+          }
+        } else {
+          setUser(null);
+        }
       } catch {
         setUser(null);
       } finally {
@@ -47,7 +60,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const refreshSession = async () => {
     try {
       const response = await meRequest();
-      setUser(response.authenticated ? response.user : null);
+      if (response.authenticated) {
+        setUser(response.user);
+      } else if (response.message === 'Session expired.') {
+        try {
+          const refreshed = await refreshRequest();
+          setUser(refreshed.authenticated ? refreshed.user : null);
+        } catch {
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
     } catch {
       setUser(null);
     } finally {
@@ -57,7 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string) => {
     const response = await loginRequest(email, password);
-    setUser(response.user);
+    setUser(response.authenticated ? response.user : null);
     return response;
   };
 
@@ -73,8 +97,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    await logoutRequest();
-    setUser(null);
+    try {
+      await logoutRequest();
+    } finally {
+      setUser(null);
+    }
   };
 
   const value = {

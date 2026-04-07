@@ -11,15 +11,18 @@ const Header: React.FC = () => {
   const { isAuthenticated, logout, user } = useAuth();
 
   const handleLogout = async () => {
-    await logout();
-    setIsOpen(false);
-    navigate('/login');
+    try {
+      await logout();
+    } finally {
+      setIsOpen(false);
+      navigate('/login');
+    }
   };
 
   const authLabel = isAuthenticated
     ? user?.user_metadata?.first_name || 'Account'
     : 'Log In';
-  const authHref = isAuthenticated ? '/' : '/login';
+  const authHref = isAuthenticated ? '/dashboard' : '/login';
 
   return (
     <motion.header
