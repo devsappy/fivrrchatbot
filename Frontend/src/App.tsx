@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -12,6 +13,7 @@ import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import DipanjanPortfolioPage from './pages/DipanjanPortfolioPage';
+
 import RajatavaPortfolioPage from './pages/RajatavaPortfolioPage';
 import SaptarshiPortfolioPage from './pages/SaptarshiPortfolioPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
@@ -20,18 +22,32 @@ import VoiceAgentsPage from './pages/VoiceAgentsPage';
 import VideoEditingPage from './pages/VideoEditingPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
 
 function AppContent() {
   const location = useLocation();
+  const { isAuthenticated, isLoading } = useAuth();
+  
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+  const isDashboardPage = location.pathname.startsWith('/dashboard');
+  const hideLayout = isAuthPage || isDashboardPage;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#F5F2EA] flex items-center justify-center text-gray-600">
+        Loading session...
+      </div>
+    );
+  }
 
   return (
     <div className="App">
-      {!isAuthPage && <Header />}
+      {!hideLayout && <Header />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
+        <Route path="/signup" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <SignupPage />} />
+        <Route path="/dashboard" element={isAuthenticated ? <DashboardPage /> : <Navigate to="/login" replace />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/web-development" element={<WebDevelopmentPage />} />
         <Route path="/services/chatbot-integration" element={<ChatbotIntegrationPage />} />
@@ -45,8 +61,8 @@ function AppContent() {
         <Route path="/team/rajatava" element={<RajatavaPortfolioPage />} />
         <Route path="/team/saptarshi" element={<SaptarshiPortfolioPage />} />
       </Routes>
-      {!isAuthPage && <Footer />}
-      {!isAuthPage && <Chatbot />}
+      {!hideLayout && <Footer />}
+      {!hideLayout && <Chatbot />}
     </div>
   );
 }
@@ -54,10 +70,12 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <ScrollToTop />
-        <AppContent />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <ScrollToTop />
+          <AppContent />
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

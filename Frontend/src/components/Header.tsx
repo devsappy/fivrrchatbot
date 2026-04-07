@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PillNav from './PillNav';
+import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, logout, user } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    setIsOpen(false);
+    navigate('/login');
+  };
+
+  const authLabel = isAuthenticated
+    ? user?.user_metadata?.first_name || 'Account'
+    : 'Log In';
+  const authHref = isAuthenticated ? '/' : '/login';
 
   return (
     <motion.header
@@ -30,7 +44,7 @@ const Header: React.FC = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex w-full justify-center">
+          <div className="hidden lg:flex w-full items-center justify-center gap-4">
             <PillNav
               logo={<div className="flex items-center gap-2"><img src="/logo.png" alt="Chatterify Logo" className="h-11 w-auto object-contain" /><span className="logo-rubik text-2xl text-gray-900 font-bold tracking-wide leading-none">Chatterify</span></div>}
               logoAlt="Chatterify Logo"
@@ -40,7 +54,7 @@ const Header: React.FC = () => {
                 { label: 'Services', href: '/services' },
                 { label: 'Blog', href: '/blog' },
                 { label: 'Contact', href: '/contact' },
-                { label: 'Log In', href: '/login' }
+                { label: authLabel, href: authHref }
               ]}
               activeHref={location.pathname}
               className="custom-nav"
@@ -52,6 +66,15 @@ const Header: React.FC = () => {
               theme="light"
               initialLoadAnimation
             />
+            {isAuthenticated && (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="px-5 py-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition-colors shadow-md"
+              >
+                Log Out
+              </button>
+            )}
           </div>
 
 
@@ -151,16 +174,26 @@ const Header: React.FC = () => {
                 </Link>
 
                 <div className="pt-2">
-                  <Link
-                    to="/login"
-                    onClick={() => {
-                      setIsOpen(false);
-                      if (location.pathname === '/login') window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="block w-full py-3 px-4 bg-black text-white text-center rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors shadow-md"
-                  >
-                    Log In
-                  </Link>
+                  {isAuthenticated ? (
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="block w-full py-3 px-4 bg-black text-white text-center rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors shadow-md"
+                    >
+                      Log Out
+                    </button>
+                  ) : (
+                    <Link
+                      to="/login"
+                      onClick={() => {
+                        setIsOpen(false);
+                        if (location.pathname === '/login') window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="block w-full py-3 px-4 bg-black text-white text-center rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors shadow-md"
+                    >
+                      Log In
+                    </Link>
+                  )}
                 </div>
 
               </div>
