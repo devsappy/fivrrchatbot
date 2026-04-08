@@ -23,13 +23,14 @@ import VideoEditingPage from './pages/VideoEditingPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
+import ProfilePage from './pages/ProfilePage';
 
 function AppContent() {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
   
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
-  const isDashboardPage = location.pathname.startsWith('/dashboard');
+  const isDashboardPage = location.pathname.startsWith('/dashboard') || location.pathname === '/profile';
   const hideLayout = isAuthPage || isDashboardPage;
 
   return (
@@ -40,6 +41,7 @@ function AppContent() {
         <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
         <Route path="/signup" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <SignupPage />} />
         <Route path="/dashboard" element={isAuthenticated ? <DashboardPage /> : <Navigate to="/login" replace />} />
+        <Route path="/profile" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" replace />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/web-development" element={<WebDevelopmentPage />} />
         <Route path="/services/chatbot-integration" element={<ChatbotIntegrationPage />} />
