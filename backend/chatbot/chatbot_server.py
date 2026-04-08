@@ -80,7 +80,14 @@ chatbot_app.include_router(auth_router)
 chatbot_app.include_router(websites_router)
 
 
+@chatbot_app.get("/")
+async def root():
+    return {"message": "Chatterify API is running", "status": "healthy"}
+
+
+
 @chatbot_app.get("/health")
+
 async def health(request: Request):
     return {"status": "healthy", "service": "chatbot", "port": "5137"}
 
