@@ -75,7 +75,7 @@ const AnimatedChatWidget: React.FC = () => {
             className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
           />
           <div className="w-1.5 h-1.5 rounded-full bg-[#5227FF] animate-pulse relative z-10"></div>
-          <span className="relative z-10">Chatterify Engine</span>
+          <span className="relative z-10">Chatterify</span>
         </div>
         <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-md text-gray-500 text-sm font-medium shadow-sm transition-colors duration-500">
           <motion.div 
