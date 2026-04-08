@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const CHATBOT_API_URL = process.env.REACT_APP_CHATBOT_API_URL || 'http://localhost:5137';
+// Empty string is valid in production — Vercel proxies /api/* to Render
+const CHATBOT_API_URL = (() => {
+  const url = process.env.REACT_APP_CHATBOT_API_URL?.replace(/\/$/, '') ?? '';
+  if (!url && process.env.NODE_ENV !== 'production') return 'http://localhost:5137';
+  return url;
+})();
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
