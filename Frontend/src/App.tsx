@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { BrowserRouter as Router, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -27,44 +26,11 @@ import DashboardPage from './pages/DashboardPage';
 
 function AppContent() {
   const location = useLocation();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated } = useAuth();
   
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
   const isDashboardPage = location.pathname.startsWith('/dashboard');
   const hideLayout = isAuthPage || isDashboardPage;
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#F5F2EA] flex flex-col items-center justify-center">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="flex items-center gap-3 mb-10"
-        >
-          <img src="/logo.png" alt="Chatterify" className="h-12 w-auto object-contain" />
-          <span className="logo-rubik text-3xl font-bold text-gray-900 tracking-wide">
-            Chatterify
-          </span>
-        </motion.div>
-
-        {/* Spinner */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="relative w-12 h-12"
-        >
-          <motion.span
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-            className="block w-12 h-12 rounded-full border-4 border-gray-200 border-t-gray-900"
-          />
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <div className="App">
