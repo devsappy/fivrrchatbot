@@ -87,7 +87,6 @@ async def root():
 
 
 @chatbot_app.get("/health")
-
 async def health(request: Request):
     return {"status": "healthy", "service": "chatbot", "port": "5137"}
 
