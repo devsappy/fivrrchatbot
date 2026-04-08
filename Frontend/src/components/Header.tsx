@@ -23,16 +23,16 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             className="lg:hidden"
           >
-            <Link to="/" className="flex items-center gap-2 transition-colors">
-              <img src="/logo.png" alt="Chatterify Logo" className="h-9 w-auto object-contain" />
-              <span className="logo-rubik text-xl text-gray-900 font-bold tracking-wide leading-none">Chatterify</span>
+            <Link to="/" className="flex items-center gap-2 transition-colors select-none" draggable={false}>
+              <img src="/logo.png" alt="Chatterify Logo" className="h-9 w-auto object-contain pointer-events-none" draggable={false} />
+              <span className="logo-rubik text-xl text-gray-900 font-bold tracking-wide leading-none pointer-events-none">Chatterify</span>
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex w-full justify-center">
             <PillNav
-              logo={<div className="flex items-center gap-2"><img src="/logo.png" alt="Chatterify Logo" className="h-11 w-auto object-contain" /><span className="logo-rubik text-2xl text-gray-900 font-bold tracking-wide leading-none">Chatterify</span></div>}
+              logo={<div className="flex items-center gap-2 select-none pointer-events-none" draggable={false}><img src="/logo.png" alt="Chatterify Logo" className="h-11 w-auto object-contain" draggable={false} /><span className="logo-rubik text-2xl text-gray-900 font-bold tracking-wide leading-none">Chatterify</span></div>}
               logoAlt="Chatterify Logo"
               items={[
                 { label: 'Home', href: '/' },

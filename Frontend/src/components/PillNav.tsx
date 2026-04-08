@@ -128,13 +128,13 @@ const PillNav: React.FC<PillNavProps> = ({
       onMouseLeave={() => setHoveredIndex(null)}
     >
       {logo && (
-        <div className="mr-48 pl-12 pr-8 flex items-center">
+        <Link to="/" className="mr-48 pl-12 pr-8 flex items-center select-none" draggable={false} style={{ textDecoration: 'none' }}>
           {typeof logo === 'string' ? (
-            <img src={logo} alt={logoAlt} className="h-8" />
+            <img src={logo} alt={logoAlt} className="h-8 select-none" draggable={false} />
           ) : (
-            logo
+            <div className="select-none" draggable={false}>{logo}</div>
           )}
-        </div>
+        </Link>
       )}
       
       {/* Animated Background Pill */}
