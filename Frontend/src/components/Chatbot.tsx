@@ -118,7 +118,7 @@ const Chatbot: React.FC = () => {
 
       {/* Minimal Chat Window with Animation */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[360px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-chatOpen"
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-2rem)] sm:w-[360px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-chatOpen"
           style={{ zIndex: 999999 }}>
           {/* Simple Header */}
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
