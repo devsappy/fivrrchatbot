@@ -22,11 +22,9 @@ interface RequestOptions {
 }
 
 const API_BASE_URL = (() => {
-  const url = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '');
-  if (!url) {
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('REACT_APP_API_BASE_URL is not configured for production.');
-    }
+  const url = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '') ?? '';
+  // Empty string is valid in production — Vercel proxies /api/* to Render
+  if (!url && process.env.NODE_ENV !== 'production') {
     return 'http://localhost:5137';
   }
   return url;
