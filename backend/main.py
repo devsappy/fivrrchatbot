@@ -10,7 +10,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from slowapi.errors import RateLimitExceeded
 
-from auth_router import limiter, router as auth_router
+from auth_router import limiter
 from chatbot.chatbot_server import chatbot_app, all_origins
 
 
@@ -32,7 +32,6 @@ def _cors_aware_rate_limit_handler(request: Request, exc: RateLimitExceeded) -> 
 
 chatbot_app.state.limiter = limiter
 chatbot_app.add_exception_handler(RateLimitExceeded, _cors_aware_rate_limit_handler)
-chatbot_app.include_router(auth_router)
 
 
 def main():

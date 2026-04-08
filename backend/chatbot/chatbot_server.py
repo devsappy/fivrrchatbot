@@ -56,7 +56,7 @@ chatbot_app.add_middleware(
     CORSMiddleware,
     allow_origins=all_origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
     expose_headers=["Content-Disposition"],
 )
@@ -71,6 +71,13 @@ class ChatResponse(BaseModel):
     response: str
     session_id: str | None = None
     status: str = "success"
+
+
+from auth_router import router as auth_router
+from websites_router import router as websites_router
+
+chatbot_app.include_router(auth_router)
+chatbot_app.include_router(websites_router)
 
 
 @chatbot_app.get("/health")
