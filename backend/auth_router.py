@@ -96,8 +96,11 @@ async def supabase_auth_request(
     raise HTTPException(status_code=response.status_code, detail=message)
 
 
+AUTH_COOKIE_DOMAIN = os.getenv("AUTH_COOKIE_DOMAIN", None)
+
+
 def _cookie_kwargs(name: str, value: str, max_age: int) -> dict:
-    return dict(
+    kwargs = dict(
         key=name,
         value=value,
         max_age=max_age,
@@ -106,6 +109,9 @@ def _cookie_kwargs(name: str, value: str, max_age: int) -> dict:
         samesite="none",
         path="/",
     )
+    if AUTH_COOKIE_DOMAIN:
+        kwargs["domain"] = AUTH_COOKIE_DOMAIN
+    return kwargs
 
 
 def set_auth_cookie(response: Response, access_token: str) -> None:
@@ -119,23 +125,29 @@ def set_refresh_cookie(response: Response, refresh_token: str) -> None:
 
 
 def clear_auth_cookie(response: Response) -> None:
-    response.delete_cookie(
+    kwargs = dict(
         key=AUTH_COOKIE_NAME,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
         samesite="none",
         path="/",
     )
+    if AUTH_COOKIE_DOMAIN:
+        kwargs["domain"] = AUTH_COOKIE_DOMAIN
+    response.delete_cookie(**kwargs)
 
 
 def clear_refresh_cookie(response: Response) -> None:
-    response.delete_cookie(
+    kwargs = dict(
         key=AUTH_REFRESH_COOKIE_NAME,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
         samesite="none",
         path="/",
     )
+    if AUTH_COOKIE_DOMAIN:
+        kwargs["domain"] = AUTH_COOKIE_DOMAIN
+    response.delete_cookie(**kwargs)
 
 
 @router.post("/api/auth/login", response_model=AuthResponse)
