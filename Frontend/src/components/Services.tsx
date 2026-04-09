@@ -30,13 +30,13 @@ const services = [
   },
   {
     id: '03',
-    title: 'Voice Agents',
-    subtitle: 'Smart Automation',
-    description: 'Developing AI-powered voice assistants and voice automation systems for businesses.',
-    link: '/services/voice-agents',
+    title: 'App Development',
+    subtitle: 'Mobile First',
+    description: 'High-performance mobile applications for Android and iOS — from MVPs to enterprise-grade platforms.',
+    link: '/services/app-development',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
       </svg>
     ),
   },
@@ -49,6 +49,18 @@ const services = [
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+      </svg>
+    ),
+  },
+  {
+    id: '05',
+    title: 'Voice Agents',
+    subtitle: 'Smart Automation',
+    description: 'Developing AI-powered voice assistants and voice automation systems for businesses.',
+    link: '/services/voice-agents',
+    icon: (
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
       </svg>
     ),
   }
@@ -118,7 +130,9 @@ const Services: React.FC = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: isMobile ? 0 : 0.5, delay: isMobile ? 0 : index * 0.1 }}
               onClick={() => navigate(service.link)}
-              className="group relative bg-white rounded-2xl p-7 md:p-9 cursor-pointer border border-gray-100 hover:border-gray-200 hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
+              className={`group relative bg-white rounded-2xl p-7 md:p-9 cursor-pointer border border-gray-100 hover:border-gray-200 hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 hover:-translate-y-1 overflow-hidden ${
+                index === services.length - 1 && services.length % 2 !== 0 ? 'md:col-span-2 md:max-w-[calc(50%-10px)] md:mx-auto' : ''
+              }`}
             >
               {/* Hover gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-gray-50/0 to-gray-100/0 group-hover:from-gray-50/50 group-hover:to-gray-50/80 transition-all duration-500 rounded-2xl"></div>

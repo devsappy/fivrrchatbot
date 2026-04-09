@@ -6,6 +6,7 @@ import {
   ChatBubbleLeftEllipsisIcon,
   MicrophoneIcon,
   VideoCameraIcon,
+  DevicePhoneMobileIcon,
   CheckCircleIcon,
   SparklesIcon,
   RocketLaunchIcon,
@@ -70,6 +71,19 @@ const ServicesPage: React.FC = () => {
       addons: [],
       note: '',
       detailsRoute: '/services/video-editing'
+    },
+    {
+      title: 'App Development',
+      icon: DevicePhoneMobileIcon,
+      description: 'High-performance mobile apps for Android and iOS — cross-platform and native.',
+      pricing: [
+        { type: 'Basic App (3-5 screens)', price: '₹15,000 – ₹35,000' },
+        { type: 'E-Commerce / Hybrid App', price: '₹35,000 – ₹80,000' },
+        { type: 'Enterprise / Custom App', price: '₹80,000 – ₹2,00,000+' }
+      ],
+      addons: ['Push Notifications', 'In-App Purchases', 'Admin Dashboard', 'Custom API Integration'],
+      note: '',
+      detailsRoute: '/services/app-development'
     }
   ];
 
@@ -111,7 +125,8 @@ const ServicesPage: React.FC = () => {
         'Custom Web App',
         'AI Chatbot',
         'Voice Agent',
-        'Video Editing Package'
+        'Video Editing Package',
+        'Mobile App (MVP)'
       ]
     },
     {

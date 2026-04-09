@@ -47,6 +47,7 @@ const Footer: React.FC = () => {
               <li><Link to="/services/chatbot-integration" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Chatbot Integration</Link></li>
               <li><Link to="/services/voice-agents" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Voice Agents</Link></li>
               <li><Link to="/services/video-editing" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Video Editing</Link></li>
+              <li><Link to="/services/app-development" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">App Development</Link></li>
             </ul>
           </div>
 
@@ -74,12 +75,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col items-center justify-center">
           <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Chatterify. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link to="/about" onClick={() => window.scrollTo(0, 0)} className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Privacy Policy</Link>
-            <Link to="/about" onClick={() => window.scrollTo(0, 0)} className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Terms of Service</Link>
-          </div>
         </div>
       </div>
     </footer>

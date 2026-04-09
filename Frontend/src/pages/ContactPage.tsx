@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import { EnvelopeIcon, MapPinIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { validateEmail, validateRequired, FormErrors } from '../lib/utils';
 
 const ContactPage: React.FC = () => {
   const location = useLocation();
@@ -19,18 +20,68 @@ const ContactPage: React.FC = () => {
     message: '',
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => {
+        const next = { ...prev };
+        delete next[name as keyof FormErrors];
+        return next;
+      });
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const fieldErrors: FormErrors = {};
+
+    if (name === 'name' && !validateRequired(value)) {
+      fieldErrors.name = 'Name is required';
+    }
+    if (name === 'email') {
+      if (!validateRequired(value)) {
+        fieldErrors.email = 'Email is required';
+      } else if (!validateEmail(value)) {
+        fieldErrors.email = 'Please enter a valid email address';
+      }
+    }
+    if (name === 'message' && !validateRequired(value)) {
+      fieldErrors.message = 'Project details are required';
+    }
+
+    if (Object.keys(fieldErrors).length > 0) {
+      setErrors(prev => ({ ...prev, ...fieldErrors }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!validateRequired(formData.name)) {
+      newErrors.name = 'Name is required';
+    }
+    if (!validateRequired(formData.email)) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    if (!validateRequired(formData.message)) {
+      newErrors.message = 'Project details are required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
 
     try {
@@ -65,6 +116,7 @@ const ContactPage: React.FC = () => {
           budget: '',
           message: '',
         });
+        setErrors({});
         setSubmitStatus('idle');
       }, 5000);
     } catch (error) {
@@ -74,17 +126,18 @@ const ContactPage: React.FC = () => {
     }
   };
 
+  const inputBaseClass = "w-full bg-transparent border-0 border-b-2 text-gray-900 px-0 py-2 focus:ring-0 transition-colors font-medium placeholder-gray-300";
+  const inputNormal = `${inputBaseClass} border-gray-200 focus:border-amber-500`;
+  const inputError = `${inputBaseClass} border-red-400 focus:border-red-500`;
+
   return (
     <div className="min-h-screen pt-32 pb-20 bg-white font-sans relative overflow-x-hidden flex items-center">
-      {/* Background Split - Bottom Half Dark */}
       <div className="absolute bottom-0 left-0 w-full h-[55%] bg-[#0a0a0a] z-0 rounded-tr-[100px] lg:rounded-tr-[200px]"></div>
       
-      {/* Decorative Blob */}
       <div className="absolute top-[10%] right-[-5%] w-96 h-96 bg-amber-500 rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-16 w-full">
         
-        {/* Left Side Content */}
         <div className="w-full lg:w-5/12 pt-8 lg:pt-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -129,7 +182,6 @@ const ContactPage: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right Side Form Card */}
         <div className="w-full lg:w-7/12 relative z-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -162,6 +214,7 @@ const ContactPage: React.FC = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleSubmit}
+                  noValidate
                   className="space-y-8"
                 >
                   {submitStatus === 'error' && (
@@ -175,51 +228,59 @@ const ContactPage: React.FC = () => {
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="relative">
-                      <label className="text-xs font-bold text-gray-400 mb-2 block">Your Name</label>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Your Name</label>
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         required
-                        className="w-full bg-transparent border-0 border-b-2 border-gray-200 text-gray-900 px-0 py-2 focus:ring-0 focus:border-amber-500 transition-colors font-medium placeholder-gray-300"
+                        className={errors.name ? inputError : inputNormal}
                         placeholder="Rahul Sharma"
                       />
+                      {errors.name && (
+                        <p className="text-red-500 text-xs mt-1 font-medium">{errors.name}</p>
+                      )}
                     </div>
                     <div className="relative">
-                      <label className="text-xs font-bold text-gray-400 mb-2 block">Email Address</label>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Email Address</label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         required
-                        className="w-full bg-transparent border-0 border-b-2 border-gray-200 text-gray-900 px-0 py-2 focus:ring-0 focus:border-amber-500 transition-colors font-medium placeholder-gray-300"
+                        className={errors.email ? inputError : inputNormal}
                         placeholder="rahul@example.com"
                       />
+                      {errors.email && (
+                        <p className="text-red-500 text-xs mt-1 font-medium">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="relative">
-                      <label className="text-xs font-bold text-gray-400 mb-2 block">Phone Number</label>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Phone Number</label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full bg-transparent border-0 border-b-2 border-gray-200 text-gray-900 px-0 py-2 focus:ring-0 focus:border-amber-500 transition-colors font-medium placeholder-gray-300"
+                        className={inputNormal}
                         placeholder="+91 98765 43210"
                       />
                     </div>
                     <div className="relative">
-                      <label className="text-xs font-bold text-gray-400 mb-2 block">Company</label>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Company</label>
                       <input
                         type="text"
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full bg-transparent border-0 border-b-2 border-gray-200 text-gray-900 px-0 py-2 focus:ring-0 focus:border-amber-500 transition-colors font-medium placeholder-gray-300"
+                        className={inputNormal}
                         placeholder="Your Company Inc."
                       />
                     </div>
@@ -227,7 +288,7 @@ const ContactPage: React.FC = () => {
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="relative">
-                      <label className="text-xs font-bold text-gray-400 mb-2 block">Service Needed</label>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Service Needed</label>
                       <div className="relative">
                         <select
                           name="service"
@@ -240,6 +301,7 @@ const ContactPage: React.FC = () => {
                           <option value="Voice Agent Development">Voice Agent Development</option>
                           <option value="Website Overhaul">Website Overhaul</option>
                           <option value="Enterprise AI Solutions">Enterprise AI Solutions</option>
+                          <option value="App Development">App Development</option>
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none text-gray-400">
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -247,7 +309,7 @@ const ContactPage: React.FC = () => {
                       </div>
                     </div>
                     <div className="relative">
-                      <label className="text-xs font-bold text-gray-400 mb-2 block">Project Budget</label>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Project Budget</label>
                       <div className="relative">
                         <select
                           name="budget"
@@ -270,16 +332,22 @@ const ContactPage: React.FC = () => {
                   </div>
 
                   <div className="relative pt-2">
-                    <label className="text-xs font-bold text-gray-400 mb-2 block">Project Details <span className="text-amber-500">*</span></label>
+                    <label className="text-sm font-medium text-gray-700 mb-2 block">Project Details <span className="text-amber-500">*</span></label>
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       required
                       rows={1}
-                      className="w-full bg-transparent border-0 border-b-2 border-gray-200 text-gray-900 px-0 py-2 focus:ring-0 focus:border-amber-500 transition-colors font-medium placeholder-gray-300 resize-y"
+                      className={`w-full bg-transparent border-0 border-b-2 text-gray-900 px-0 py-2 focus:ring-0 transition-colors font-medium placeholder-gray-300 resize-y ${
+                        errors.message ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-amber-500'
+                      }`}
                       placeholder="Tell us a little bit about your goals and vision..."
                     />
+                    {errors.message && (
+                      <p className="text-red-500 text-xs mt-1 font-medium">{errors.message}</p>
+                    )}
                   </div>
 
                   <motion.button

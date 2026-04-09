@@ -4,6 +4,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import useMobileDetect from '../hooks/useMobileDetect';
+import { validateEmail, validateRequired, FormErrors } from '../lib/utils';
 
 const Contact: React.FC = () => {
   const { isMobile } = useMobileDetect();
@@ -17,21 +18,72 @@ const Contact: React.FC = () => {
     message: ''
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => {
+        const next = { ...prev };
+        delete next[name as keyof FormErrors];
+        return next;
+      });
+    }
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const fieldErrors: FormErrors = {};
+
+    if (name === 'name' && !validateRequired(value)) {
+      fieldErrors.name = 'Name is required';
+    }
+    if (name === 'email') {
+      if (!validateRequired(value)) {
+        fieldErrors.email = 'Email is required';
+      } else if (!validateEmail(value)) {
+        fieldErrors.email = 'Please enter a valid email address';
+      }
+    }
+    if (name === 'message' && !validateRequired(value)) {
+      fieldErrors.message = 'Project details are required';
+    }
+
+    if (Object.keys(fieldErrors).length > 0) {
+      setErrors(prev => ({ ...prev, ...fieldErrors }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!validateRequired(formData.name)) {
+      newErrors.name = 'Name is required';
+    }
+    if (!validateRequired(formData.email)) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    if (!validateRequired(formData.message)) {
+      newErrors.message = 'Project details are required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS
       emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
-      // Prepare template parameters
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
@@ -43,7 +95,6 @@ const Contact: React.FC = () => {
         to_email: EMAILJS_CONFIG.TO_EMAIL
       };
 
-      // Send email using EmailJS
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
@@ -52,7 +103,6 @@ const Contact: React.FC = () => {
 
       alert('Thank you for your interest! We\'ll get back to you within 24 hours.');
 
-      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -61,6 +111,7 @@ const Contact: React.FC = () => {
         budget: '',
         message: ''
       });
+      setErrors({});
     } catch (error) {
       console.error('Error sending email:', error);
       alert('Sorry, there was an error sending your message. Please try again or email us directly.');
@@ -69,9 +120,12 @@ const Contact: React.FC = () => {
     }
   };
 
+  const inputBaseClass = "w-full px-4 md:px-6 py-3 md:py-4 bg-white border text-gray-900 rounded-xl focus:outline-none transition-all placeholder-gray-400 text-sm md:text-base shadow-sm";
+  const inputNormal = `${inputBaseClass} border-gray-200/60 focus:border-gray-400`;
+  const inputError = `${inputBaseClass} border-red-400 focus:border-red-500`;
+
   return (
     <section id="contact" className="py-16 md:py-24 lg:py-32 bg-[#F5F5F7] relative overflow-hidden" style={{ zIndex: 10 }}>
-      {/* Background element */}
       <div className="absolute inset-0">
         <div className="absolute bottom-0 right-1/4 w-[300px] md:w-[500px] lg:w-[600px] h-[300px] md:h-[500px] lg:h-[600px] bg-[#EDEDF0] rounded-full blur-3xl"></div>
       </div>
@@ -96,13 +150,12 @@ const Contact: React.FC = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
           <motion.div
             initial={noAnim ?? { opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4 md:space-y-6">
               <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <label className="block text-gray-700 text-sm mb-2 font-medium">Name *</label>
@@ -112,9 +165,13 @@ const Contact: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
+                    onBlur={handleBlur}
+                    className={errors.name ? inputError : inputNormal}
                     placeholder="Rahul Sharma"
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-xs mt-1 font-medium">{errors.name}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2 font-medium">Email *</label>
@@ -124,9 +181,13 @@ const Contact: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
+                    onBlur={handleBlur}
+                    className={errors.email ? inputError : inputNormal}
                     placeholder="rahul@company.com"
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1 font-medium">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -137,7 +198,7 @@ const Contact: React.FC = () => {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 text-sm md:text-base shadow-sm"
+                  className={inputNormal}
                   placeholder="Your Company Name"
                 />
               </div>
@@ -157,6 +218,7 @@ const Contact: React.FC = () => {
                       <option value="chatbot">Chatbot Integration</option>
                       <option value="voice">Voice Agent</option>
                       <option value="custom">Custom Solution</option>
+                      <option value="app-dev">App Development</option>
                     </select>
                     <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -193,10 +255,16 @@ const Contact: React.FC = () => {
                   required
                   value={formData.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   rows={6}
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-white border border-gray-200/60 text-gray-900 rounded-xl focus:outline-none focus:border-gray-400 transition-all placeholder-gray-400 resize-none text-sm md:text-base shadow-sm"
+                  className={`w-full px-4 md:px-6 py-3 md:py-4 bg-white border text-gray-900 rounded-xl focus:outline-none transition-all placeholder-gray-400 resize-none text-sm md:text-base shadow-sm ${
+                    errors.message ? 'border-red-400 focus:border-red-500' : 'border-gray-200/60 focus:border-gray-400'
+                  }`}
                   placeholder="Tell us about your project requirements..."
                 />
+                {errors.message && (
+                  <p className="text-red-500 text-xs mt-1 font-medium">{errors.message}</p>
+                )}
               </div>
 
               <motion.button
@@ -214,14 +282,12 @@ const Contact: React.FC = () => {
             </form>
           </motion.div>
 
-          {/* Contact Info */}
           <motion.div
             initial={noAnim ?? { opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-8"
           >
-            {/* Quick Contact */}
             <div className="bg-white border border-gray-200/60 shadow-sm rounded-2xl p-6 md:p-8">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Quick Contact</h3>
 
@@ -238,7 +304,6 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Why Choose Us */}
             <div className="bg-white border border-gray-200/60 shadow-sm rounded-2xl p-6 md:p-8">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">
                 Why Work With Us?

@@ -18,6 +18,7 @@ import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import ChatbotIntegrationPage from './pages/ChatbotIntegrationPage';
 import VoiceAgentsPage from './pages/VoiceAgentsPage';
 import VideoEditingPage from './pages/VideoEditingPage';
+import AppDevelopmentPage from './pages/AppDevelopmentPage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/services/chatbot-integration" element={<ChatbotIntegrationPage />} />
             <Route path="/services/voice-agents" element={<VoiceAgentsPage />} />
             <Route path="/services/video-editing" element={<VideoEditingPage />} />
+            <Route path="/services/app-development" element={<AppDevelopmentPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/blog" element={<BlogPage />} />
