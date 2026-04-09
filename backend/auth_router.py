@@ -15,7 +15,9 @@ limiter = Limiter(key_func=get_remote_address)
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
 AUTH_COOKIE_NAME = os.getenv("AUTH_COOKIE_NAME", "chatterify_auth_token")
-AUTH_REFRESH_COOKIE_NAME = os.getenv("AUTH_REFRESH_COOKIE_NAME", "chatterify_refresh_token")
+AUTH_REFRESH_COOKIE_NAME = os.getenv(
+    "AUTH_REFRESH_COOKIE_NAME", "chatterify_refresh_token"
+)
 AUTH_COOKIE_MAX_AGE = int(os.getenv("AUTH_COOKIE_MAX_AGE", str(60 * 60 * 24 * 7)))
 AUTH_COOKIE_SECURE = os.getenv("AUTH_COOKIE_SECURE", "true").lower() == "true"
 
@@ -106,7 +108,7 @@ def _cookie_kwargs(name: str, value: str, max_age: int) -> dict:
         max_age=max_age,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
-        samesite="none",
+        samesite="none" if AUTH_COOKIE_SECURE else "lax",
         path="/",
     )
     if AUTH_COOKIE_DOMAIN:
@@ -117,11 +119,15 @@ def _cookie_kwargs(name: str, value: str, max_age: int) -> dict:
 def set_auth_cookie(response: Response, access_token: str) -> None:
     # SameSite=None is required for cross-domain cookies (frontend on Vercel,
     # backend on Render). Secure=True is mandatory when SameSite=None.
-    response.set_cookie(**_cookie_kwargs(AUTH_COOKIE_NAME, access_token, AUTH_COOKIE_MAX_AGE))
+    response.set_cookie(
+        **_cookie_kwargs(AUTH_COOKIE_NAME, access_token, AUTH_COOKIE_MAX_AGE)
+    )
 
 
 def set_refresh_cookie(response: Response, refresh_token: str) -> None:
-    response.set_cookie(**_cookie_kwargs(AUTH_REFRESH_COOKIE_NAME, refresh_token, AUTH_COOKIE_MAX_AGE))
+    response.set_cookie(
+        **_cookie_kwargs(AUTH_REFRESH_COOKIE_NAME, refresh_token, AUTH_COOKIE_MAX_AGE)
+    )
 
 
 def clear_auth_cookie(response: Response) -> None:
@@ -129,7 +135,7 @@ def clear_auth_cookie(response: Response) -> None:
         key=AUTH_COOKIE_NAME,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
-        samesite="none",
+        samesite="none" if AUTH_COOKIE_SECURE else "lax",
         path="/",
     )
     if AUTH_COOKIE_DOMAIN:
@@ -142,7 +148,7 @@ def clear_refresh_cookie(response: Response) -> None:
         key=AUTH_REFRESH_COOKIE_NAME,
         httponly=True,
         secure=AUTH_COOKIE_SECURE,
-        samesite="none",
+        samesite="none" if AUTH_COOKIE_SECURE else "lax",
         path="/",
     )
     if AUTH_COOKIE_DOMAIN:
@@ -257,7 +263,9 @@ async def me(request: Request, response: Response):
 async def refresh(request: Request, response: Response):
     refresh_token = request.cookies.get(AUTH_REFRESH_COOKIE_NAME)
     if not refresh_token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No refresh token.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No refresh token."
+        )
 
     try:
         auth_payload = await supabase_auth_request(

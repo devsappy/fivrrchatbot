@@ -81,7 +81,7 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full overflow-y-auto overflow-x-hidden" style={{ background: '#0B0B10' }}>
+    <div className="relative w-full h-full overflow-y-auto overflow-x-hidden" style={{ background: '#111111' }}>
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[1480px] flex-col px-5 py-6 lg:px-8 lg:py-8">
         <div className="mb-6 flex items-start justify-between gap-4 shrink-0">
           <div>
@@ -111,7 +111,7 @@ const ProfilePage: React.FC = () => {
                   <p className="text-[11px] uppercase tracking-[0.24em]" style={{ color: '#8A8AA0' }}>Primary Identity</p>
                   <p className="mt-2 text-sm leading-6" style={{ color: '#B5B6C8' }}>Everything important on one canvas with less chrome and clearer grouping.</p>
                 </div>
-                <div className="rounded-full px-3 py-1 text-[11px] font-semibold" style={{ background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.22)', color: '#86EFAC' }}>
+                <div className="rounded-full px-3 py-1 text-[11px] font-semibold" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#E5E7EB' }}>
                   Active
                 </div>
               </div>
@@ -123,7 +123,7 @@ const ProfilePage: React.FC = () => {
                     {initials}
                   </div>
                   <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full"
-                    style={{ background: '#22C55E', border: '3px solid #101017' }}>
+                    style={{ background: '#2B2B2B', border: '3px solid #101017' }}>
                     <CheckIcon />
                   </div>
                 </div>
@@ -136,7 +136,7 @@ const ProfilePage: React.FC = () => {
           <div className="relative flex items-center p-5 md:col-span-1 xl:col-span-3 xl:row-span-1" style={tile('muted')}
             onMouseEnter={hoverLift} onMouseLeave={hoverLeave}>
             <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 mr-4"
-              style={{ background: 'rgba(139,92,246,0.14)', color: '#C4B5FD' }}>
+              style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB' }}>
               <CalendarIcon />
             </div>
             <div className="min-w-0">
@@ -148,12 +148,12 @@ const ProfilePage: React.FC = () => {
           <div className="relative flex items-center p-5 md:col-span-1 xl:col-span-4 xl:row-span-1" style={tile('muted')}
             onMouseEnter={hoverLift} onMouseLeave={hoverLeave}>
             <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 mr-4"
-              style={{ background: 'rgba(244,114,182,0.10)', color: '#F9A8D4' }}>
+              style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB' }}>
               <FingerprintIcon />
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em]" style={{ color: '#73738A' }}>User ID</p>
-              <p className="mt-2 text-sm font-mono truncate" style={{ color: '#DDD6FE' }}>{user?.id ? `${user.id.slice(0, 12)}…${user.id.slice(-4)}` : '—'}</p>
+              <p className="mt-2 text-sm font-mono truncate" style={{ color: '#D4D4D8' }}>{user?.id ? `${user.id.slice(0, 12)}…${user.id.slice(-4)}` : '—'}</p>
             </div>
             <button onClick={handleCopyId}
               className="shrink-0 rounded-full px-3 py-2 text-xs font-medium transition-colors"
@@ -254,7 +254,7 @@ const ProfilePage: React.FC = () => {
             onMouseEnter={hoverLift} onMouseLeave={hoverLeave}
             onClick={() => navigate('/dashboard')}>
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
-              style={{ background: 'rgba(255,255,255,0.05)', color: '#D4D4E0' }}>
+              style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB' }}>
               <GlobeIconBig />
             </div>
             <div className="mt-10">
@@ -267,7 +267,7 @@ const ProfilePage: React.FC = () => {
           <div className="relative flex min-h-[180px] flex-col justify-between p-5 md:col-span-1 xl:col-span-2 xl:row-span-2" style={tile('muted')}
             onMouseEnter={hoverLift} onMouseLeave={hoverLeave}>
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
-              style={{ background: 'rgba(255,255,255,0.05)', color: '#86EFAC' }}>
+              style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB' }}>
               <ShieldIcon />
             </div>
             <div className="mt-8">
@@ -276,16 +276,16 @@ const ProfilePage: React.FC = () => {
               <p className="mt-2 text-sm leading-6" style={{ color: '#8A8AA0' }}>Your current account session looks healthy.</p>
             </div>
             <div className="mt-4 w-fit rounded-full px-3 py-1 text-[10px] font-bold"
-              style={{ background: 'rgba(34,197,94,0.15)', color: '#22C55E', border: '1px solid rgba(34,197,94,0.25)' }}>
+              style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB', border: '1px solid rgba(255,255,255,0.1)' }}>
               Protected
             </div>
           </div>
 
-          <button className="relative flex min-h-[140px] flex-col justify-between p-5 text-left md:col-span-1 xl:col-span-2 xl:row-span-1"
+          <button className="relative flex min-h-[210px] flex-col justify-between p-6 text-left md:col-span-1 xl:col-span-4 xl:row-span-1"
             style={tile('muted')}
             onMouseEnter={hoverLift} onMouseLeave={hoverLeave}>
             <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
-              style={{ background: 'rgba(255,255,255,0.05)', color: '#D8B4FE' }}>
+              style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB' }}>
               <KeyIcon />
             </div>
             <div className="mt-6">
@@ -311,7 +311,7 @@ const ProfilePage: React.FC = () => {
 
           <div className="relative flex flex-col gap-4 px-5 py-4 md:col-span-2 xl:col-span-12 xl:row-span-1 xl:flex-row xl:items-center xl:justify-between" style={tile('muted')}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)', color: '#D4D4E0' }}>
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)', color: '#E5E7EB' }}>
                 <ActivityIcon />
               </div>
               <div>
@@ -320,8 +320,8 @@ const ProfilePage: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-full px-4 py-2" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-semibold text-green-300">Online</span>
+              <div className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ background: '#D4D4D8' }} />
+              <span className="text-xs font-semibold" style={{ color: '#E5E7EB' }}>Online</span>
             </div>
           </div>
 

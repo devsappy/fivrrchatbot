@@ -1,10 +1,10 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
 Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /profile
 
-# Sitemap
 Sitemap: https://www.chatterify.in/sitemap.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1
+Host: https://www.chatterify.in

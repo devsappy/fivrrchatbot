@@ -13,6 +13,25 @@ SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 AUTH_COOKIE_NAME = os.getenv("AUTH_COOKIE_NAME", "chatterify_auth_token")
 
 
+async def log_activity(
+    user_id: str, type: str, title: str, description: str, metadata: dict | None = None
+) -> None:
+    try:
+        await supabase_request(
+            "POST",
+            "/activity_events",
+            json_body={
+                "user_id": user_id,
+                "type": type,
+                "title": title,
+                "description": description,
+                "metadata": metadata or {},
+            },
+        )
+    except Exception:
+        pass
+
+
 def get_supabase_service_headers() -> dict[str, str]:
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         raise HTTPException(
@@ -31,7 +50,9 @@ async def get_user_id_from_request(request: Request) -> str:
     """Validate the access token cookie and return the user's UUID."""
     access_token = request.cookies.get(AUTH_COOKIE_NAME)
     if not access_token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated."
+        )
 
     headers = {
         "apikey": os.getenv("SUPABASE_ANON_KEY", ""),
@@ -41,7 +62,10 @@ async def get_user_id_from_request(request: Request) -> str:
         resp = await client.get(f"{SUPABASE_URL}/auth/v1/user", headers=headers)
 
     if not resp.is_success:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Session invalid or expired.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Session invalid or expired.",
+        )
 
     return resp.json()["id"]
 
@@ -82,7 +106,9 @@ async def supabase_request(
     payload = resp.json() if resp.content else {}
 
     if not resp.is_success:
-        detail = payload.get("message") or payload.get("error") or "Supabase request failed."
+        detail = (
+            payload.get("message") or payload.get("error") or "Supabase request failed."
+        )
         raise HTTPException(status_code=resp.status_code, detail=detail)
 
     return payload
@@ -107,7 +133,15 @@ async def add_website(request: Request, payload: WebsiteIn):
         "/user_websites",
         json_body={"user_id": user_id, "name": payload.name, "url": payload.url},
     )
-    return data[0]
+    website = data[0]
+    await log_activity(
+        user_id,
+        "deployment",
+        "New deployment",
+        f"{payload.name} deployed",
+        {"website_id": website["id"], "url": payload.url},
+    )
+    return website
 
 
 @router.patch("/api/websites/{website_id}", response_model=WebsiteOut)
@@ -121,14 +155,34 @@ async def update_website(request: Request, website_id: str, payload: WebsiteIn):
     )
     if not data:
         raise HTTPException(status_code=404, detail="Website not found.")
+    await log_activity(
+        user_id,
+        "update",
+        "Site updated",
+        f"Updated {payload.name}",
+        {"website_id": website_id},
+    )
     return data[0]
 
 
 @router.delete("/api/websites/{website_id}", status_code=204)
 async def delete_website(request: Request, website_id: str):
     user_id = await get_user_id_from_request(request)
+    websites = await supabase_request(
+        "GET",
+        "/user_websites",
+        params={"id": f"eq.{website_id}", "user_id": f"eq.{user_id}", "select": "name"},
+    )
+    name = websites[0]["name"] if websites else "Website"
     await supabase_request(
         "DELETE",
         "/user_websites",
         params={"id": f"eq.{website_id}", "user_id": f"eq.{user_id}"},
+    )
+    await log_activity(
+        user_id,
+        "delete",
+        "Site removed",
+        f"{name} was deleted",
+        {"website_id": website_id},
     )

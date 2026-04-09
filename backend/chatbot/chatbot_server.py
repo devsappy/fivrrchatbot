@@ -75,15 +75,16 @@ class ChatResponse(BaseModel):
 
 from auth_router import router as auth_router
 from websites_router import router as websites_router
+from insights_router import router as insights_router
 
 chatbot_app.include_router(auth_router)
 chatbot_app.include_router(websites_router)
+chatbot_app.include_router(insights_router)
 
 
 @chatbot_app.get("/")
 async def root():
     return {"message": "Chatterify API is running", "status": "healthy"}
-
 
 
 @chatbot_app.get("/health")
