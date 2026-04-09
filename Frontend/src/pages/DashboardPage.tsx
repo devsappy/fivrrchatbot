@@ -1806,12 +1806,6 @@ const CheckCircleIcon = () => (
     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
   </svg>
 );
-const CrownIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M2 4l3 12h14l3-12-6 7-4-9-4 9-6-7z"/>
-    <line x1="5" x2="19" y1="20" y2="20"/>
-  </svg>
-);
 const ActivityIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
