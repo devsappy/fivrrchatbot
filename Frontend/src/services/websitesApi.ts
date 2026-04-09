@@ -1,8 +1,9 @@
 // Empty string is valid in production — Vercel proxies /api/* to Render
 const API_BASE = (() => {
+  if (process.env.NODE_ENV === 'production') return '';
+
   const url = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '') ?? '';
-  if (!url && process.env.NODE_ENV !== 'production') return 'http://localhost:5137';
-  return url;
+  return url || 'http://localhost:5137';
 })();
 
 export interface Website {

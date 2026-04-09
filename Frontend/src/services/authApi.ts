@@ -22,12 +22,12 @@ interface RequestOptions {
 }
 
 const API_BASE_URL = (() => {
-  const url = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '') ?? '';
-  // Empty string is valid in production — Vercel proxies /api/* to Render
-  if (!url && process.env.NODE_ENV !== 'production') {
-    return 'http://localhost:5137';
+  if (process.env.NODE_ENV === 'production') {
+    return '';
   }
-  return url;
+
+  const url = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, '') ?? '';
+  return url || 'http://localhost:5137';
 })();
 
 async function request<T>({ method = 'GET', body }: RequestOptions, path: string): Promise<T> {
