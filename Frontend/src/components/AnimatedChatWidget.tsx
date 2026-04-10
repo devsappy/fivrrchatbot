@@ -36,23 +36,30 @@ const AnimatedChatWidget: React.FC = () => {
 
   // Conversation Loop
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    
-    const runSequence = async () => {
+    const timeouts: NodeJS.Timeout[] = [];
+    let cancelled = false;
+
+    const runSequence = () => {
+      if (cancelled) return;
       setStep(0); // clear
-      timeout = setTimeout(() => setStep(1), 500); // User shows
-      timeout = setTimeout(() => setStep(2), 2000); // AI thinking
-      timeout = setTimeout(() => setStep(3), 4000); // AI response
-      timeout = setTimeout(() => {
-        setConvIndex((prev) => (prev + 1) % conversations.length);
-        runSequence();
-      }, 9000); // Next after 5s
+      timeouts.push(setTimeout(() => { if (!cancelled) setStep(1); }, 500)); // User shows
+      timeouts.push(setTimeout(() => { if (!cancelled) setStep(2); }, 2000)); // AI thinking
+      timeouts.push(setTimeout(() => { if (!cancelled) setStep(3); }, 4000)); // AI response
+      timeouts.push(setTimeout(() => {
+        if (!cancelled) {
+          setConvIndex((prev) => (prev + 1) % conversations.length);
+          runSequence();
+        }
+      }, 9000)); // Next after 5s
     };
 
     runSequence();
 
-    return () => clearTimeout(timeout);
-  }, [convIndex]);
+    return () => {
+      cancelled = true;
+      timeouts.forEach(clearTimeout);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const currentConv = conversations[convIndex];
   const { isMobile } = useMobileDetect();
@@ -88,12 +95,13 @@ const AnimatedChatWidget: React.FC = () => {
       </div>
 
       {/* Main Chat Box */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="bg-white/95 backdrop-blur-xl border border-gray-100 rounded-3xl overflow-hidden shadow-2xl shadow-gray-200/50 font-sans relative"
+        style={{ willChange: 'opacity' }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50/80 to-white/80">
@@ -113,7 +121,7 @@ const AnimatedChatWidget: React.FC = () => {
         </div>
         
         {/* Chat Content */}
-        <div className="p-6 space-y-6 min-h-[260px] relative">
+        <div className="p-6 space-y-6 h-[320px] sm:h-[280px] relative overflow-hidden">
           {/* Subtle scanning background line */}
           <motion.div 
             animate={{ top: ['0%', '100%', '0%'] }} 
@@ -126,8 +134,8 @@ const AnimatedChatWidget: React.FC = () => {
             {step >= 1 && (
               <motion.div 
                 key={`user-${convIndex}`}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 className="flex justify-end relative z-10"
               >
@@ -179,10 +187,10 @@ const AnimatedChatWidget: React.FC = () => {
               {step >= 3 && (
                 <motion.div 
                   key={`ai-${convIndex}`}
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  transition={{ duration: 0.3 }}
                   className="bg-transparent border border-gray-100 text-gray-700 px-5 py-4 rounded-[20px] rounded-tl-sm max-w-[90%] text-[14px] md:text-[15px] leading-relaxed relative mt-1"
                 >
                   <p className="font-medium">
