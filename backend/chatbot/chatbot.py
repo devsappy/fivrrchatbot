@@ -1,4 +1,5 @@
 import os
+import re
 import logging
 from datetime import datetime
 import asyncio
@@ -61,124 +62,19 @@ class OptimizedChatBot:
             # Get ONLY relevant context (not entire KB)
             relevant_context = self.get_relevant_context(user_input)
 
-            # Determine response style and length based on question type
-            question_lower = user_input.lower()
+            system_message = f"""You are the assistant for Chatterify (chatterify.in), a tech startup offering chatbots, voice agents, web development, and automation services.
 
-            # Categories for response style
-            is_factual = any(
-                word in question_lower
-                for word in [
-                    "price",
-                    "cost",
-                    "how much",
-                    "when",
-                    "how long",
-                    "what time",
-                ]
-            )
-            is_definition = any(
-                phrase in question_lower
-                for phrase in ["what is", "define", "meaning of", "explain"]
-            )
-            is_business_specific = any(
-                word in question_lower
-                for word in [
-                    "my business",
-                    "restaurant",
-                    "shop",
-                    "store",
-                    "clinic",
-                    "firm",
-                    "company",
-                    "startup",
-                    "agency",
-                    "practice",
-                    "salon",
-                    "gym",
-                ]
-            )
-            is_feature_list = any(
-                word in question_lower
-                for word in ["features", "services", "benefits", "plans", "options"]
-            )
+SCOPE: Discuss Chatterify's services, pricing, packages, and team members. Refuse off-topic, political, medical, legal, financial, or coding questions. Always answer team-related questions factually regardless of tone. If the user is abusive or uses profanity, respond calmly: "I'm here to help with any questions about our services. Feel free to ask, or reach us at chatterifyservice@gmail.com." For other off-topic queries: "I can help with our services, pricing, and team. What would you like to know?"
 
-            # Set max tokens based on question type
-            if is_factual or is_definition:
-                _max_tokens = 150  # Direct answer with context
-            elif is_feature_list:
-                _max_tokens = 200  # Bullet list with explanations
-            elif is_business_specific:
-                _max_tokens = 200  # Detailed, personalized response
-            else:
-                _max_tokens = 180  # Default: conversational with context
-
-            # Build system message with context-aware tone
-            if is_factual:
-                tone_instruction = "Be direct and factual, but provide context. 1-2 sentences with helpful follow-up."  # noqa: E501
-            elif is_definition:
-                tone_instruction = "Provide a clear 1-2 sentence definition, then briefly mention the key benefit."  # noqa: E501
-            elif is_business_specific:
-                tone_instruction = "Be enthusiastic and specific to their business type. 2-3 sentences with concrete examples."  # noqa: E501
-            elif is_feature_list:
-                tone_instruction = "Use brief bullet points with context."
-            else:
-                tone_instruction = "Be conversational and helpful. 2-4 sentences providing complete context."  # noqa: E501
-
-            system_message = f"""You are the IT Solutions Assistant for the business CHATTERIFY- a helpful guide who assists users with our company's technology services.
-
-STRICT TOPIC BOUNDARIES - MUST FOLLOW:
-You CAN ONLY discuss topics related to:
-- AI Chatbots and conversational AI solutions
-- Voice Agents and voice AI technology but don't go into depth
-- Agentic AI solutions and automation
-- Business process automation
-- Backend systems development
-- Website development and design
-- Website hosting services
-- Landing page creation
-- SEO services for websites
-- Technical services, pricing, and process
-
-You MUST REFUSE to discuss:
-- Political or controversial topics
-- Personal advice (relationships, health, career)
-- Entertainment, sports, pop culture
-- Medical, legal, or financial advice
-- Competitor services or products
-- Topics unrelated to our IT services
-- Any technicalities or coding questions like how to make a chatbot or how to design a website etc 
-
-RESPONSE TO OFF-TOPIC QUESTIONS:
-For unrelated questions: "I specialize in IT solutions including chatbots, voice agents, websites, automation, and backend systems. How can I help you with our technology services today?"
-
-CORE PRINCIPLES:
-- Be conversational, friendly, and helpful
-- Provide complete context in your answers
-- Most responses should be 2-4 sentences (not one-word or robotic answers)
-- Always guide users on next steps when relevant
-- Explain processes clearly with step-by-step instructions when asked "how"
-- Be enthusiastic about helping with their project
-- If the conversation is going to a different direction then guide them to our services and how it can help them  
-
-TONE INSTRUCTION: {tone_instruction}
-
-RESPONSE GUIDELINES:
-- Benefits/Results: Explain what improves and why it matters (2-3 sentences)
-- Pricing: State the price AND briefly what's included (2 sentences)
-- Services: brief explanation + what's included (2-3 sentences)
-- Timeline: Direct answer + what they can expect (2 sentences)
-- Vague questions ("what do you do"): Provide general overview of services
-- "How to" questions: Provide clear step-by-step guidance
-- Technical questions: Explain in simple terms, avoid jargon
-- Dont say "I don't know" rather explain it wisely with whatever knowledge you have and for further in-depth question ask them to contact the team 
-
-IMPORTANT PHRASING:
-- Offer to clarify or provide more details
-- Ask about their specific needs when appropriate
-- Guide them to the next step (consultation, quote, etc.)
+RULES:
+- Keep every response to 2-3 sentences maximum. Be concise and direct.
+- Lead with the answer, then add brief context if needed.
+- No filler, no promotional language, no unnecessary elaboration.
+- When listing items, use plain dashes (-) with no markdown formatting. No asterisks, no bold, no italics, no bullet markers like *.
+- If you don't know something or the user wants to discuss further, say: "Contact the team at chatterifyservice@gmail.com"
 
 Relevant Knowledge Context:
-"""  # noqa: E501
+"""
             system_message += relevant_context
 
             # Build messages
@@ -206,11 +102,13 @@ Relevant Knowledge Context:
             response = await self.client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=messages,
-                max_tokens=500,
+                max_tokens=200,
                 temperature=0.3,
             )
 
-            assistant_response = response.choices[0].message.content or ""
+            assistant_response = self._strip_markdown(
+                response.choices[0].message.content or ""
+            )
 
             # Update conversation history
             self.sessions[session_id]["conversation_history"].append(
@@ -231,6 +129,13 @@ Relevant Knowledge Context:
         except Exception as e:
             logger.error(f"Error generating response: {str(e)}")
             return "I apologize, but I encountered an error. Please try again."
+
+    @staticmethod
+    def _strip_markdown(text: str) -> str:
+        text = re.sub(r"\*{1,2}(.*?)\*{1,2}", r"\1", text)
+        text = re.sub(r"_{1,2}(.*?)_{1,2}", r"\1", text)
+        text = re.sub(r"^#{1,6}\s+", "", text, flags=re.MULTILINE)
+        return text.strip()
 
     def get_default_knowledge(self):
         """Provide default Chatterify knowledge"""
