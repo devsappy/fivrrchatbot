@@ -43,6 +43,34 @@ const Chatbot: React.FC = () => {
     }
     setFullyHidden(false);
   }, [hidden]);
+
+  // Track visualViewport so the chat window (a) shrinks when the software
+  // keyboard opens on iOS/Android and (b) hugs the bottom of the visible
+  // area instead of being pushed behind the keyboard.
+  const [viewport, setViewport] = useState<{ height: number; offsetTop: number }>(() => ({
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+    offsetTop: 0,
+  }));
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const vv = window.visualViewport;
+    const update = () => {
+      setViewport({
+        height: vv?.height ?? window.innerHeight,
+        offsetTop: vv?.offsetTop ?? 0,
+      });
+    };
+    update();
+    vv?.addEventListener('resize', update);
+    vv?.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    return () => {
+      vv?.removeEventListener('resize', update);
+      vv?.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [isOpen]);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -151,8 +179,17 @@ const Chatbot: React.FC = () => {
 
       {/* Minimal Chat Window with Animation */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[360px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-chatOpen"
-          style={{ zIndex: 999999 }}>
+        <div
+          className="fixed left-3 right-3 sm:left-auto sm:right-6 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-chatOpen sm:w-[360px] sm:h-[500px]"
+          style={{
+            zIndex: 999999,
+            // On mobile: anchor to bottom of the *visual* viewport (handles keyboard), cap height so it never overflows.
+            // On desktop (sm+): these values are overridden by Tailwind's sm:* classes, so they're safe defaults.
+            bottom: `${Math.max(12, window.innerHeight - viewport.height - viewport.offsetTop + 12)}px`,
+            maxHeight: `${Math.max(320, viewport.height - 24)}px`,
+            height: window.matchMedia('(min-width: 640px)').matches ? undefined : `${Math.min(560, viewport.height - 32)}px`,
+          }}
+        >
           {/* Simple Header */}
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h3 className="font-medium text-gray-900">Chat</h3>
@@ -218,7 +255,9 @@ const Chatbot: React.FC = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Type a message"
-                className="flex-1 px-4 py-2 bg-gray-50 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-1 focus:ring-gray-200 transition-all"
+                enterKeyHint="send"
+                className="flex-1 min-w-0 px-4 py-2 bg-gray-50 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-1 focus:ring-gray-200 transition-all"
+                style={{ fontSize: '16px' }}
               />
               <button
                 type="submit"
