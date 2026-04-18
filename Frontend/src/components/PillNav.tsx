@@ -102,8 +102,11 @@ const PillNav: React.FC<PillNavProps> = ({
 
     document.fonts.ready.then(reposition);
 
+    window.addEventListener('resize', reposition);
+
     return () => {
       images.forEach(img => img.removeEventListener('load', reposition));
+      window.removeEventListener('resize', reposition);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -128,7 +131,7 @@ const PillNav: React.FC<PillNavProps> = ({
       onMouseLeave={() => setHoveredIndex(null)}
     >
       {logo && (
-        <a href="/" className="mr-48 pl-12 pr-8 flex items-center select-none" draggable={false} style={{ textDecoration: 'none' }}>
+        <a href="/" className="mr-4 xl:mr-12 2xl:mr-24 pl-4 xl:pl-8 pr-2 xl:pr-4 flex items-center select-none" draggable={false} style={{ textDecoration: 'none' }}>
           {typeof logo === 'string' ? (
             <img src={logo} alt={logoAlt} className="h-8 select-none" draggable={false} />
           ) : (
@@ -136,20 +139,20 @@ const PillNav: React.FC<PillNavProps> = ({
           )}
         </a>
       )}
-      
+
       {/* Animated Background Pill */}
       <div
         ref={pillRef}
         className="absolute rounded-full pointer-events-none"
         style={{ backgroundColor: pillColor, left: 0, top: 0 }}
       />
-      
-      <div className="flex items-center relative z-10 gap-12 pr-8">
+
+      <div className="flex items-center relative z-10 gap-1 xl:gap-4 2xl:gap-8 pr-2 xl:pr-4">
         {items.map((item, index) => {
           const isActive = index === activeIndex;
           const isHovered = index === hoveredIndex;
           const isTarget = hoveredIndex !== null ? isHovered : isActive;
-          
+
           let color = defaultTextColor;
           if (isTarget) {
             color = isHovered ? hoveredPillTextColor : pillTextColor;
@@ -166,7 +169,7 @@ const PillNav: React.FC<PillNavProps> = ({
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              className="px-8 py-2 text-lg font-medium transition-colors duration-300 rounded-full tracking-wide"
+              className="px-4 xl:px-6 2xl:px-8 py-2 text-sm xl:text-base 2xl:text-lg font-medium transition-colors duration-300 rounded-full tracking-wide whitespace-nowrap"
               style={{ color }}
             >
               {item.label}
