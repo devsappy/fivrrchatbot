@@ -261,6 +261,23 @@ code {
   animation-delay: 1000ms;
 }
 
+/* Hero dot-grid texture — very subtle paper feel */
+.hero-dotgrid {
+  background-image: radial-gradient(rgba(15, 15, 15, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}
+
+/* Hero underline reveal on word change */
+@keyframes heroUnderline {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+.animate-heroUnderline {
+  animation: heroUnderline 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-origin: left center;
+}
+
 @keyframes chatOpen {
   0% {
     opacity: 0;
