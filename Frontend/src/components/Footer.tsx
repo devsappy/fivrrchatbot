@@ -40,6 +40,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li><Link to="/" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
               <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
+              <li><Link to="/templates" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Templates</Link></li>
               <li><Link to="/blog" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
               <li><Link to="/contact" onClick={() => window.scrollTo(0, 0)} className="text-base text-gray-400 hover:text-white transition-colors duration-200">Contact</Link></li>
             </ul>

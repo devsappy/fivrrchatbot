@@ -38,6 +38,7 @@ const Header: React.FC = () => {
                 { label: 'Home', href: '/' },
                 { label: 'About', href: '/about' },
                 { label: 'Services', href: '/services' },
+                { label: 'Templates', href: '/templates' },
                 { label: 'Blog', href: '/blog' },
                 { label: 'Contact', href: '/contact' }
               ]}
@@ -119,6 +120,20 @@ const Header: React.FC = () => {
                     }`}
                 >
                   About
+                </Link>
+
+                <Link
+                  to="/templates"
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (location.pathname === '/templates') window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className={`block py-3 text-lg font-medium transition-colors ${location.pathname === '/templates'
+                    ? 'text-black font-semibold'
+                    : 'text-gray-600 hover:text-black'
+                    }`}
+                >
+                  Templates
                 </Link>
 
                 <Link
