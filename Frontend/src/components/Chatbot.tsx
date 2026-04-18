@@ -11,19 +11,38 @@ interface Message {
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navOverlayOpen, setNavOverlayOpen] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const hidden = navOverlayOpen || previewOpen;
 
   useEffect(() => {
     const handleNavToggle = (e: Event) => {
       const detail = (e as CustomEvent<{ open: boolean }>).detail;
       setNavOverlayOpen(Boolean(detail?.open));
     };
+    const handlePreviewToggle = (e: Event) => {
+      const detail = (e as CustomEvent<{ open: boolean }>).detail;
+      setPreviewOpen(Boolean(detail?.open));
+    };
     window.addEventListener('mobile-nav-toggle', handleNavToggle);
-    return () => window.removeEventListener('mobile-nav-toggle', handleNavToggle);
+    window.addEventListener('preview-modal-toggle', handlePreviewToggle);
+    return () => {
+      window.removeEventListener('mobile-nav-toggle', handleNavToggle);
+      window.removeEventListener('preview-modal-toggle', handlePreviewToggle);
+    };
   }, []);
 
   useEffect(() => {
-    if (navOverlayOpen) setIsOpen(false);
-  }, [navOverlayOpen]);
+    if (hidden) setIsOpen(false);
+  }, [hidden]);
+
+  const [fullyHidden, setFullyHidden] = useState(false);
+  useEffect(() => {
+    if (hidden) {
+      const t = window.setTimeout(() => setFullyHidden(true), 320);
+      return () => window.clearTimeout(t);
+    }
+    setFullyHidden(false);
+  }, [hidden]);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -110,15 +129,13 @@ const Chatbot: React.FC = () => {
     }
   };
 
-  if (navOverlayOpen) return null;
-
   return (
     <>
       {/* Minimalistic Black and White Floating Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-black text-white rounded-full shadow-lg shadow-black/50 hover:bg-gray-800 hover:scale-105 transition-all duration-200 flex items-center justify-center ring-2 ring-white/20 hover:ring-white/40"
+          className={`fixed bottom-6 right-6 w-14 h-14 bg-black text-white rounded-full shadow-lg shadow-black/50 hover:bg-gray-800 hover:scale-105 flex items-center justify-center ring-2 ring-white/20 hover:ring-white/40 transition-all duration-300 ease-out ${hidden ? 'opacity-0 translate-y-3 pointer-events-none' : 'opacity-100 translate-y-0'} ${fullyHidden ? 'invisible' : 'visible'}`}
           aria-label="Open chat"
           style={{
             zIndex: 999999,

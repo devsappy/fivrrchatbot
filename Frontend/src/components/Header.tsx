@@ -49,7 +49,17 @@ const itemVariants = {
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hiddenByModal, setHiddenByModal] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ open: boolean }>).detail;
+      setHiddenByModal(Boolean(detail?.open));
+    };
+    window.addEventListener('preview-modal-toggle', handler);
+    return () => window.removeEventListener('preview-modal-toggle', handler);
+  }, []);
 
   // Close menu when route changes
   useEffect(() => {
@@ -85,9 +95,9 @@ const Header: React.FC = () => {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed w-full z-[1001] pt-6 transition-all duration-300"
+      animate={{ y: hiddenByModal ? -120 : 0, opacity: hiddenByModal ? 0 : 1 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed w-full z-[1001] pt-6 transition-all duration-300 ${hiddenByModal ? 'pointer-events-none' : ''}`}
     >
       <nav className="container mx-auto px-6 py-4 relative z-[1002]">
         <div className="flex items-center justify-between lg:bg-transparent lg:shadow-none lg:border-0 lg:backdrop-blur-none lg:rounded-none lg:p-0 bg-white/50 backdrop-blur-md shadow-lg border border-gray-100 rounded-full p-2 px-4">
@@ -165,7 +175,8 @@ const Header: React.FC = () => {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="lg:hidden fixed inset-0 z-[1000] bg-white overflow-y-auto flex flex-col px-7 pt-28 pb-8"
+            className="lg:hidden fixed inset-0 z-[1000] bg-white overflow-y-auto flex flex-col px-6 sm:px-7 pt-24 pb-[max(env(safe-area-inset-bottom),16px)]"
+            style={{ height: '100dvh' }}
           >
             {/* Links */}
             <div className="flex-1 flex flex-col justify-center">
@@ -176,7 +187,7 @@ const Header: React.FC = () => {
                     <Link
                       to={link.href}
                       onClick={() => handleLinkClick(link.href)}
-                      className={`group relative flex items-center justify-center w-full px-8 sm:px-14 py-6 sm:py-7 text-[28px] sm:text-[36px] font-bold uppercase tracking-tight border-b border-black/10 first:border-t transition-opacity hover:opacity-60 ${
+                      className={`group relative flex items-center justify-center w-full px-8 sm:px-14 py-[clamp(12px,2.2vh,28px)] text-[clamp(20px,4.2vh,36px)] font-bold uppercase tracking-tight leading-none border-b border-black/10 first:border-t transition-opacity hover:opacity-60 ${
                         isActive ? 'text-black' : 'text-gray-900'
                       }`}
                     >
@@ -191,7 +202,7 @@ const Header: React.FC = () => {
             {/* Socials */}
             <motion.div
               variants={itemVariants}
-              className="flex items-center justify-center gap-7 pt-8 pb-5"
+              className="flex items-center justify-center gap-7 pt-5 pb-3 sm:pt-7 sm:pb-4"
             >
               <a
                 href="https://www.instagram.com/chatterify.in/"
@@ -233,7 +244,7 @@ const Header: React.FC = () => {
               <Link
                 to="/contact"
                 onClick={() => handleLinkClick('/contact')}
-                className="w-full inline-flex items-center justify-center bg-black text-white rounded-full px-6 py-[18px] text-[15px] sm:text-base font-semibold uppercase tracking-wider hover:bg-gray-900 transition-colors"
+                className="w-full inline-flex items-center justify-center bg-black text-white rounded-full px-6 py-[14px] sm:py-[18px] text-[14px] sm:text-base font-semibold uppercase tracking-wider hover:bg-gray-900 transition-colors"
               >
                 Book a Call
               </Link>

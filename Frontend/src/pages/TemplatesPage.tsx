@@ -113,8 +113,10 @@ const TemplatesPage: React.FC = () => {
 
   useEffect(() => {
     document.body.style.overflow = activeProject ? 'hidden' : '';
+    window.dispatchEvent(new CustomEvent('preview-modal-toggle', { detail: { open: Boolean(activeProject) } }));
     return () => {
       document.body.style.overflow = '';
+      window.dispatchEvent(new CustomEvent('preview-modal-toggle', { detail: { open: false } }));
     };
   }, [activeProject]);
 

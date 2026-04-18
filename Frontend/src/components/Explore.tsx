@@ -28,8 +28,10 @@ const Explore: React.FC = () => {
 
   useEffect(() => {
     document.body.style.overflow = activeSample ? 'hidden' : '';
+    window.dispatchEvent(new CustomEvent('preview-modal-toggle', { detail: { open: Boolean(activeSample) } }));
     return () => {
       document.body.style.overflow = '';
+      window.dispatchEvent(new CustomEvent('preview-modal-toggle', { detail: { open: false } }));
     };
   }, [activeSample]);
 
@@ -67,20 +69,20 @@ const Explore: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <div className="flex items-end justify-between mb-8">
+          <div className="flex items-end justify-between mb-6 md:mb-8">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
               Our Templates
             </h3>
             <Link
               to="/templates"
               onClick={() => window.scrollTo(0, 0)}
-              className="hidden sm:inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm transition-colors"
+              className="hidden md:inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm transition-colors"
             >
               View all <ArrowRightIcon className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-6 px-6 pb-3 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:mx-0 md:px-0 md:pb-0 md:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {templateSamples.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -94,7 +96,7 @@ const Explore: React.FC = () => {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') setActiveSample(item);
                 }}
-                className="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-sm cursor-pointer flex flex-col"
+                className="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 shadow-sm cursor-pointer flex flex-col flex-shrink-0 w-[78%] max-w-[300px] snap-start md:w-auto md:max-w-none md:flex-shrink"
               >
                 <div className="relative w-full aspect-[4/3] bg-gray-50 overflow-hidden">
                   <iframe
@@ -110,35 +112,24 @@ const Explore: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <div className="px-5 py-4">
-                  <span className="text-base font-semibold text-gray-900">{item.title}</span>
+                <div className="px-4 py-3 md:px-5 md:py-4">
+                  <span className="text-sm md:text-base font-semibold text-gray-900">{item.title}</span>
                 </div>
               </motion.div>
             ))}
 
-            {/* View all card */}
+            {/* View all card — dark theme on mobile, dashed on desktop */}
             <Link
               to="/templates"
               onClick={() => window.scrollTo(0, 0)}
-              className="group bg-white border border-dashed border-gray-300 rounded-2xl flex items-center justify-center p-8 hover:border-black hover:bg-gray-50 hover:-translate-y-1 transition-all duration-300 min-h-[220px]"
+              className="group rounded-2xl flex items-center justify-center p-8 transition-all duration-300 flex-shrink-0 w-[78%] max-w-[300px] snap-start md:w-auto md:max-w-none md:flex-shrink bg-gray-900 text-white md:bg-white md:text-gray-900 md:border md:border-dashed md:border-gray-300 md:hover:border-black md:hover:bg-gray-50 md:hover:-translate-y-1 min-h-[220px]"
             >
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gray-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-white text-gray-900 md:bg-gray-900 md:text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                   <ArrowRightIcon className="w-5 h-5" />
                 </div>
-                <span className="font-semibold text-gray-900">View all templates</span>
+                <span className="font-semibold">View all templates</span>
               </div>
-            </Link>
-          </div>
-
-          {/* Mobile view-all */}
-          <div className="sm:hidden mt-6 text-center">
-            <Link
-              to="/templates"
-              onClick={() => window.scrollTo(0, 0)}
-              className="inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm transition-colors"
-            >
-              View all <ArrowRightIcon className="w-4 h-4" />
             </Link>
           </div>
         </motion.div>
@@ -150,20 +141,20 @@ const Explore: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-end justify-between mb-8">
+          <div className="flex items-end justify-between mb-6 md:mb-8">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
               Latest blog posts
             </h3>
             <Link
               to="/blog"
               onClick={() => window.scrollTo(0, 0)}
-              className="hidden sm:inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm transition-colors"
+              className="hidden md:inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm transition-colors"
             >
               View all <ArrowRightIcon className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-6 px-6 pb-3 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:mx-0 md:px-0 md:pb-0 md:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {featuredPosts.map((post, index) => (
               <motion.div
                 key={post.id}
@@ -171,11 +162,12 @@ const Explore: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="flex-shrink-0 w-[78%] max-w-[300px] snap-start md:w-auto md:max-w-none md:flex-shrink"
               >
                 <Link
                   to={`/blog/${post.id}`}
                   onClick={() => window.scrollTo(0, 0)}
-                  className="group block h-full bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-sm flex flex-col"
+                  className="group block h-full bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 shadow-sm flex flex-col"
                 >
                   <div className="relative w-full aspect-[4/3] overflow-hidden">
                     <img
@@ -189,8 +181,8 @@ const Explore: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-3 font-medium">
+                  <div className="p-4 md:p-5 flex-1 flex flex-col">
+                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-2 md:mb-3 font-medium">
                       <div className="flex items-center gap-1.5">
                         <CalendarIcon className="w-3.5 h-3.5" />
                         <span>{post.date}</span>
@@ -200,7 +192,7 @@ const Explore: React.FC = () => {
                         <span>{post.readTime}</span>
                       </div>
                     </div>
-                    <h4 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-black transition-colors">
+                    <h4 className="text-sm md:text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-black transition-colors">
                       {post.title}
                     </h4>
                   </div>
@@ -212,25 +204,14 @@ const Explore: React.FC = () => {
             <Link
               to="/blog"
               onClick={() => window.scrollTo(0, 0)}
-              className="group bg-white border border-dashed border-gray-300 rounded-2xl flex items-center justify-center p-8 hover:border-black hover:bg-gray-50 hover:-translate-y-1 transition-all duration-300 min-h-[220px]"
+              className="group rounded-2xl flex items-center justify-center p-8 transition-all duration-300 flex-shrink-0 w-[78%] max-w-[300px] snap-start md:w-auto md:max-w-none md:flex-shrink bg-gray-900 text-white md:bg-white md:text-gray-900 md:border md:border-dashed md:border-gray-300 md:hover:border-black md:hover:bg-gray-50 md:hover:-translate-y-1 min-h-[220px]"
             >
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gray-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-white text-gray-900 md:bg-gray-900 md:text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                   <ArrowRightIcon className="w-5 h-5" />
                 </div>
-                <span className="font-semibold text-gray-900">View all articles</span>
+                <span className="font-semibold">View all articles</span>
               </div>
-            </Link>
-          </div>
-
-          {/* Mobile view-all */}
-          <div className="sm:hidden mt-6 text-center">
-            <Link
-              to="/blog"
-              onClick={() => window.scrollTo(0, 0)}
-              className="inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm transition-colors"
-            >
-              View all <ArrowRightIcon className="w-4 h-4" />
             </Link>
           </div>
         </motion.div>
