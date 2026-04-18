@@ -96,8 +96,8 @@ const Header: React.FC = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: hiddenByModal ? -120 : 0, opacity: hiddenByModal ? 0 : 1 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed w-full z-[1001] pt-6 transition-all duration-300 ${hiddenByModal ? 'pointer-events-none' : ''}`}
+      transition={{ duration: hiddenByModal ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed w-full z-[1001] pt-6 ${hiddenByModal ? 'pointer-events-none' : ''}`}
     >
       <nav className="container mx-auto px-6 py-4 relative z-[1002]">
         <div className="flex items-center justify-between lg:bg-transparent lg:shadow-none lg:border-0 lg:backdrop-blur-none lg:rounded-none lg:p-0 bg-white/50 backdrop-blur-md shadow-lg border border-gray-100 rounded-full p-2 px-4">

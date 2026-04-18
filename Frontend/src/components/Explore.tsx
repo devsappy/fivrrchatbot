@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -26,7 +26,11 @@ const Explore: React.FC = () => {
   const [activeSample, setActiveSample] = useState<TemplateSample | null>(null);
   const featuredPosts = blogPosts.slice(0, 3);
 
-  useEffect(() => {
+  // useLayoutEffect (not useEffect) so the event fires BEFORE paint. Otherwise
+  // there's a 1-frame gap where the modal is already on screen but the Header
+  // hasn't been told to hide yet — visible as a pill nav that flashes then
+  // slides up once the modal is already covering the page.
+  useLayoutEffect(() => {
     document.body.style.overflow = activeSample ? 'hidden' : '';
     window.dispatchEvent(new CustomEvent('preview-modal-toggle', { detail: { open: Boolean(activeSample) } }));
     return () => {

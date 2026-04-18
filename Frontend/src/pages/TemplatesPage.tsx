@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EyeIcon, ArrowTopRightOnSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -111,7 +111,10 @@ const TemplatesPage: React.FC = () => {
   const filteredProjects =
     activeCategory === 'All' ? projects : projects.filter((p) => p.category === activeCategory);
 
-  useEffect(() => {
+  // useLayoutEffect: fires before paint so Header's hiddenByModal state flips
+  // in the same frame the modal appears — no one-frame gap where the pill
+  // nav is still visible on top of the opening modal.
+  useLayoutEffect(() => {
     document.body.style.overflow = activeProject ? 'hidden' : '';
     window.dispatchEvent(new CustomEvent('preview-modal-toggle', { detail: { open: Boolean(activeProject) } }));
     return () => {
