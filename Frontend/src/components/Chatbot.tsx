@@ -10,6 +10,20 @@ interface Message {
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [navOverlayOpen, setNavOverlayOpen] = useState(false);
+
+  useEffect(() => {
+    const handleNavToggle = (e: Event) => {
+      const detail = (e as CustomEvent<{ open: boolean }>).detail;
+      setNavOverlayOpen(Boolean(detail?.open));
+    };
+    window.addEventListener('mobile-nav-toggle', handleNavToggle);
+    return () => window.removeEventListener('mobile-nav-toggle', handleNavToggle);
+  }, []);
+
+  useEffect(() => {
+    if (navOverlayOpen) setIsOpen(false);
+  }, [navOverlayOpen]);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -95,6 +109,8 @@ const Chatbot: React.FC = () => {
       setIsTyping(false);
     }
   };
+
+  if (navOverlayOpen) return null;
 
   return (
     <>
