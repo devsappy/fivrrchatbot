@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import SEO, { pageSEO } from '../components/SEO';
 import {
     ComputerDesktopIcon,
     ServerStackIcon,
@@ -59,6 +60,7 @@ const WebDevelopmentPage: React.FC = () => {
 
     return (
         <div className="bg-white text-gray-900 min-h-screen relative overflow-x-hidden">
+            <SEO {...pageSEO.webDevelopment} />
             <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
                 <LiquidEther
                     colors={['#5227FF', '#FF9FFC', '#B19EEF']}

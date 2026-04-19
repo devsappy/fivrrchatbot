@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { CommandLineIcon, BriefcaseIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import SEO, { pageSEO } from '../components/SEO';
 
 const AboutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen pt-20 bg-white text-gray-900">
+      <SEO {...pageSEO.about} />
       <div className="container mx-auto px-6 py-16">
         {/* Hero Section */}
         <motion.div

@@ -1,7 +1,7 @@
 {
   "short_name": "Chatterify",
-  "name": "Chatterify - AI Chatbot Solutions",
-  "description": "Transform your business with cutting-edge conversational AI. Build intelligent chatbots that understand, engage, and convert.",
+  "name": "Chatterify — Web Development & AI Solutions India",
+  "description": "India's top web development & digital services agency. Custom websites, AI chatbots, voice agents & video editing. Affordable pricing starting ₹5,000.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,12 +21,13 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#d97706",
+  "theme_color": "#000000",
   "background_color": "#ffffff",
   "orientation": "portrait-primary",
-  "categories": ["business", "productivity", "ai"],
+  "categories": ["business", "productivity", "ai", "web development", "technology"],
   "lang": "en-US",
-  "dir": "ltr"
+  "dir": "ltr",
+  "scope": "/"
 }

@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import { EnvelopeIcon, MapPinIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { validateEmail, validateRequired, FormErrors } from '../lib/utils';
+import SEO, { pageSEO } from '../components/SEO';
 
 const ContactPage: React.FC = () => {
   const location = useLocation();
@@ -132,6 +133,7 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen pt-32 pb-20 bg-white font-sans relative overflow-x-hidden flex items-center">
+      <SEO {...pageSEO.contact} />
       <div className="absolute bottom-0 left-0 w-full h-[55%] bg-[#0a0a0a] z-0 rounded-tr-[100px] lg:rounded-tr-[200px]"></div>
       
       <div className="absolute top-[10%] right-[-5%] w-96 h-96 bg-amber-500 rounded-full blur-[120px] opacity-10 pointer-events-none"></div>

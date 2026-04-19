@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import SEO, { pageSEO } from '../components/SEO';
 import {
     MicrophoneIcon,
     PhoneArrowUpRightIcon,
@@ -49,6 +50,7 @@ const VoiceAgentsPage: React.FC = () => {
 
     return (
         <div className="min-h-screen pt-20 bg-[#FCFCFC] text-gray-900">
+            <SEO {...pageSEO.voiceAgents} />
             <div className="container mx-auto px-6 py-16 max-w-6xl">
 
                 {/* Header Section */}

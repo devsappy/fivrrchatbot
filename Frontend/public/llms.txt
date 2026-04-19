@@ -1,0 +1,45 @@
+# Chatterify
+
+> India's leading web development and digital services agency specializing in custom websites, AI chatbots, voice agents, and video editing.
+
+## About Us
+
+Chatterify (chatterify.in) is a technology startup based in Kolkata, India, focused on delivering modern digital solutions for businesses and individuals at affordable prices. Our goal is to help organizations build strong online presence, automate communication, and create engaging digital content.
+
+## Services
+
+### Web Development
+- Landing Page Websites: ₹5,000 – ₹12,000
+- Business Websites (4-6 pages): ₹12,000 – ₹30,000
+- E-commerce Websites: ₹25,000 – ₹80,000
+- Custom Web Applications: ₹30,000 – ₹1,20,000+
+- Technologies: React, Next.js, Node.js, TypeScript, MongoDB, PostgreSQL, Tailwind CSS, AWS, Vercel
+
+### AI Chatbot Integration
+- Basic Website Chatbot: ₹5,000 – ₹12,000
+- AI Chatbot with Automation: ₹12,000 – ₹30,000
+- Advanced AI Chatbot (API + LLM): ₹30,000 – ₹70,000
+- Features: OpenAI Integration, WhatsApp Automation, RAG Architecture, Omnichannel Deployment
+
+### AI Voice Agents
+- Basic Voice Bot: ₹10,000 – ₹25,000
+- AI Voice Call Agent: ₹25,000 – ₹60,000
+- Advanced AI Voice Automation: ₹60,000 – ₹1,50,000
+- Features: ElevenLabs TTS/STT, Twilio Integration, CRM Sync, Call Summaries
+
+### Video Editing
+- Short Reels / Shorts: ₹300 – ₹800
+- YouTube Video: ₹1,000 – ₹3,000
+- Professional Content: ₹3,000 – ₹8,000
+- Business Promotional Video: ₹5,000 – ₹20,000
+
+### Startup Packages
+- Starter: ₹10,000 (Landing Page + Chatbot + 2 Reels)
+- Business: ₹25,000 (Business Website + Chatbot + 5 Videos)
+- Premium: ₹60,000+ (Web App + AI Chatbot + Voice Agent + Video Editing)
+
+## Contact
+- Website: https://www.chatterify.in
+- Email: chatterifyservice@gmail.com
+- Location: Kolkata, India (serving clients worldwide)
+- Contact Page: https://www.chatterify.in/contact

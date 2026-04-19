@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { blogPosts } from '../data/blogPosts';
+import SEO from '../components/SEO';
 
 const BlogPostPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -27,6 +28,23 @@ const BlogPostPage: React.FC = () => {
 
     return (
         <div className="min-h-screen pt-36 pb-16 bg-white text-gray-900">
+            <SEO
+                title={`${post.title} — Chatterify Blog`}
+                description={post.excerpt}
+                keywords={`${post.category}, Chatterify blog, ${post.title}`}
+                canonicalPath={`/blog/${post.id}`}
+                ogImage={post.image}
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'BlogPosting',
+                    headline: post.title,
+                    description: post.excerpt,
+                    image: post.image,
+                    author: { '@type': 'Organization', name: 'Chatterify' },
+                    datePublished: post.date,
+                    publisher: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' }
+                }}
+            />
             <div className="container mx-auto px-6 max-w-4xl">
                 <Link to="/blog" className="inline-flex items-center gap-2 text-gray-700 bg-gray-100 hover:bg-gray-200 px-5 py-2.5 rounded-full font-medium mb-10 transition-all duration-300 text-sm">
                     <ArrowLeftIcon className="w-4 h-4" /> Back to Blog
