@@ -10,17 +10,16 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { blogPosts } from '../data/blogPosts';
+import { projects } from '../data/templates';
 
 interface TemplateSample {
   title: string;
   url: string;
 }
 
-const templateSamples: TemplateSample[] = [
-  { title: 'Crunchbox', url: 'https://crunchbox-eight.vercel.app' },
-  { title: 'Anon Store', url: 'https://anon-demo.vercel.app' },
-  { title: 'StudioType', url: 'https://studiotype.vercel.app' },
-];
+const templateSamples: TemplateSample[] = projects
+  .slice(0, 3)
+  .map(({ title, url }) => ({ title, url }));
 
 const Explore: React.FC = () => {
   const [activeSample, setActiveSample] = useState<TemplateSample | null>(null);
