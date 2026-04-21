@@ -100,6 +100,30 @@ const projects: Project[] = [
     category: 'SaaS',
     url: 'https://collab-tracker.vercel.app',
   },
+  {
+    id: 11,
+    title: 'Kilnforge',
+    description: 'E-commerce site for a specialty coffee roasting equipment brand with crafted product showcases and shop flow.',
+    tags: ['E-Commerce', 'Coffee', 'Brand'],
+    category: 'E-Commerce',
+    url: 'https://kilnforge.vercel.app',
+  },
+  {
+    id: 12,
+    title: 'Pixel Forge',
+    description: 'Web development agency site with bold motion and interactive visuals — "websites that feel alive."',
+    tags: ['Agency', 'Portfolio', 'Interactive'],
+    category: 'Portfolio',
+    url: 'https://pixelforge-tau.vercel.app',
+  },
+  {
+    id: 13,
+    title: 'Ferrari LaFerrari 3D',
+    description: 'Immersive 3D product showcase for the Ferrari LaFerrari with interactive controls, specs and performance highlights.',
+    tags: ['3D', 'Landing Page', 'Interactive'],
+    category: 'Landing Page',
+    url: 'https://ferrari3d.vercel.app',
+  },
 ];
 
 const categories = ['All', 'E-Commerce', 'Landing Page', 'Portfolio', 'SaaS', 'B2B', 'Travel & Hospitality'];
