@@ -259,53 +259,133 @@ const ServicesPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {packages.map((pkg, index) => (
-              <motion.div
-                key={pkg.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`relative border rounded-3xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col bg-white ${pkg.badge === 'Most Popular' ? 'border-gray-900 shadow-lg scale-100 lg:scale-105 z-10' : 'border-gray-100'
-                  }`}
-              >
-                {pkg.badge && (
-                  <div className={`absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap border uppercase tracking-wider ${pkg.color}`}>
-                    {pkg.badge}
+            {packages.map((pkg, index) => {
+              const isPopular = pkg.badge === 'Most Popular';
+              return (
+                <motion.div
+                  key={pkg.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  className={[
+                    'group relative rounded-[28px] p-8 flex flex-col transition-all duration-300',
+                    isPopular
+                      ? 'bg-gray-900 text-white border border-gray-900 shadow-[0_24px_60px_-24px_rgba(15,15,15,0.45)] lg:-mt-2'
+                      : 'bg-white border border-gray-200/70 hover:border-gray-300 hover:shadow-[0_14px_40px_-14px_rgba(0,0,0,0.12)] hover:-translate-y-1',
+                  ].join(' ')}
+                >
+                  {/* Top row: tier number + badge */}
+                  <div className="flex items-center justify-between mb-10">
+                    <span
+                      className={`text-[11px] font-semibold tracking-[0.22em] uppercase ${
+                        isPopular ? 'text-amber-400' : 'text-gray-400'
+                      }`}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    {pkg.badge && (
+                      <span
+                        className={[
+                          'px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.14em] whitespace-nowrap',
+                          isPopular
+                            ? 'bg-amber-400 text-gray-900'
+                            : 'bg-gray-50 text-gray-600 border border-gray-200',
+                        ].join(' ')}
+                      >
+                        {pkg.badge}
+                      </span>
+                    )}
                   </div>
-                )}
 
-                <div className="text-center mb-6 pt-4">
-                  <pkg.icon className={`w-10 h-10 mx-auto mb-4 stroke-1 ${pkg.iconColor}`} />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.title}</h3>
-                  <div className="flex items-end justify-center gap-1">
-                    <span className="text-3xl font-black text-gray-900">{pkg.price}</span>
-                    {pkg.priceSuffix && <span className="text-gray-500 font-bold mb-1">{pkg.priceSuffix}</span>}
+                  {/* Title */}
+                  <h3
+                    className={`text-xl font-bold mb-3 tracking-tight ${
+                      isPopular ? 'text-white' : 'text-gray-900'
+                    }`}
+                  >
+                    {pkg.title}
+                  </h3>
+
+                  {/* Price */}
+                  <div className="flex items-baseline gap-1.5 mb-8">
+                    <span
+                      className={`text-[38px] leading-none font-black tracking-[-0.02em] ${
+                        isPopular ? 'text-white' : 'text-gray-900'
+                      }`}
+                    >
+                      {pkg.price}
+                    </span>
+                    {pkg.priceSuffix && (
+                      <span
+                        className={`text-sm font-semibold ${
+                          isPopular ? 'text-gray-400' : 'text-gray-500'
+                        }`}
+                      >
+                        {pkg.priceSuffix}
+                      </span>
+                    )}
                   </div>
-                </div>
 
-                <div className="flex-1">
-                  <ul className="space-y-4 mb-8">
+                  {/* Divider */}
+                  <div className={`h-px mb-6 ${isPopular ? 'bg-white/10' : 'bg-gray-100'}`} />
+
+                  {/* Features */}
+                  <ul className="flex-1 space-y-3.5 mb-8">
                     {pkg.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-3">
-                        <CheckCircleIcon className="w-5 h-5 text-gray-400 stroke-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 font-medium text-sm">{feature}</span>
+                        <span
+                          className={`mt-0.5 flex-shrink-0 w-[18px] h-[18px] rounded-full flex items-center justify-center ${
+                            isPopular
+                              ? 'bg-amber-400/15 text-amber-400'
+                              : 'bg-amber-400/10 text-amber-600'
+                          }`}
+                        >
+                          <svg className="w-[11px] h-[11px]" viewBox="0 0 20 20" fill="currentColor">
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          className={`text-[14px] leading-[1.5] font-medium ${
+                            isPopular ? 'text-gray-200' : 'text-gray-700'
+                          }`}
+                        >
+                          {feature}
+                        </span>
                       </li>
                     ))}
                   </ul>
-                </div>
 
-                <button
-                  onClick={() => navigate('/contact', { state: { service: pkg.title } })}
-                  className={`w-full py-3.5 rounded-xl font-bold transition-all duration-200 ${pkg.badge === 'Most Popular'
-                    ? 'bg-black text-white hover:bg-gray-800 shadow-md'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                    }`}
-                >
-                  Select Package
-                </button>
-              </motion.div>
-            ))}
+                  {/* CTA */}
+                  <button
+                    onClick={() => navigate('/contact', { state: { service: pkg.title } })}
+                    className={[
+                      'relative w-full py-3.5 rounded-full font-semibold text-[14px] inline-flex items-center justify-center gap-2 transition-all duration-300',
+                      isPopular
+                        ? 'bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-[0_10px_24px_-8px_rgba(245,158,11,0.55)]'
+                        : 'bg-gray-900 text-white hover:bg-black',
+                    ].join(' ')}
+                  >
+                    Select Package
+                    <svg
+                      className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
 

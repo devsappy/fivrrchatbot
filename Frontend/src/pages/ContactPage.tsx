@@ -132,27 +132,27 @@ const ContactPage: React.FC = () => {
   const inputError = `${inputBaseClass} border-red-400 focus:border-red-500`;
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-white font-sans relative overflow-x-hidden flex items-center">
+    <div className="min-h-screen pt-28 sm:pt-32 pb-16 sm:pb-20 bg-white font-sans relative overflow-x-hidden flex items-center">
       <SEO {...pageSEO.contact} />
-      <div className="absolute bottom-0 left-0 w-full h-[55%] bg-[#0a0a0a] z-0 rounded-tr-[100px] lg:rounded-tr-[200px]"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[45%] sm:h-[50%] lg:h-[55%] bg-[#0a0a0a] z-0 rounded-tr-[72px] sm:rounded-tr-[100px] lg:rounded-tr-[200px]"></div>
       
       <div className="absolute top-[10%] right-[-5%] w-96 h-96 bg-amber-500 rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-16 w-full">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row gap-10 sm:gap-12 lg:gap-16 w-full">
         
-        <div className="w-full lg:w-5/12 pt-8 lg:pt-16">
+        <div className="w-full lg:w-5/12 pt-2 sm:pt-8 lg:pt-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-5 sm:mb-6 leading-tight">
               Let's build <br />
               <span className="text-amber-500">something</span> <br />
               extraordinary.
             </h1>
 
-            <p className="text-white/70 text-lg leading-relaxed max-w-md mb-12 font-medium">
+            <p className="text-gray-600 lg:text-white/70 text-base sm:text-lg leading-relaxed max-w-md mb-10 sm:mb-12 font-medium">
               Fill out the form, and our team of AI and software experts will get back to you within 24 hours to schedule a deep-dive consultation.
             </p>
 
@@ -162,8 +162,11 @@ const ContactPage: React.FC = () => {
                   <EnvelopeIcon className="w-6 h-6 text-amber-500" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Email directly</h4>
-                  <a href="mailto:chatterifyservice@gmail.com" className="text-white/70 hover:text-amber-500 transition-colors font-medium">
+                  <h4 className="text-gray-900 lg:text-white font-bold text-lg mb-1">Email directly</h4>
+                  <a
+                    href="mailto:chatterifyservice@gmail.com"
+                    className="text-gray-600 lg:text-white/70 hover:text-amber-500 transition-colors font-medium break-all"
+                  >
                     chatterifyservice@gmail.com
                   </a>
                 </div>
@@ -174,8 +177,8 @@ const ContactPage: React.FC = () => {
                   <MapPinIcon className="w-6 h-6 text-amber-500" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Global Remote</h4>
-                  <p className="text-white/70 font-medium">
+                  <h4 className="text-gray-900 lg:text-white font-bold text-lg mb-1">Global Remote</h4>
+                  <p className="text-gray-600 lg:text-white/70 font-medium">
                     Serving innovative startups and enterprises worldwide.
                   </p>
                 </div>
@@ -189,9 +192,9 @@ const ContactPage: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.12)] p-10 md:p-14 w-full"
+            className="bg-white rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.12)] p-6 sm:p-8 md:p-14 w-full"
           >
-            <h2 className="text-3xl font-bold text-amber-500 mb-10 text-center">Send us a message</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-amber-500 mb-8 sm:mb-10 text-center">Send us a message</h2>
             <AnimatePresence mode="wait">
               {submitStatus === 'success' ? (
                 <motion.div
@@ -217,7 +220,7 @@ const ContactPage: React.FC = () => {
                   exit={{ opacity: 0 }}
                   onSubmit={handleSubmit}
                   noValidate
-                  className="space-y-8"
+                  className="space-y-6 sm:space-y-8"
                 >
                   {submitStatus === 'error' && (
                     <div className="p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl flex items-center gap-3">
@@ -228,7 +231,7 @@ const ContactPage: React.FC = () => {
                     </div>
                   )}
 
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                     <div className="relative">
                       <label className="text-sm font-medium text-gray-700 mb-2 block">Your Name</label>
                       <input
@@ -263,7 +266,7 @@ const ContactPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                     <div className="relative">
                       <label className="text-sm font-medium text-gray-700 mb-2 block">Phone Number</label>
                       <input
@@ -288,7 +291,7 @@ const ContactPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                     <div className="relative">
                       <label className="text-sm font-medium text-gray-700 mb-2 block">Service Needed</label>
                       <div className="relative">

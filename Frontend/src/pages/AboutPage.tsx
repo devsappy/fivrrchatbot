@@ -174,7 +174,7 @@ const AboutPage: React.FC = () => {
         >
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center bg-[#FCFCFC] border border-gray-100 rounded-2xl p-8 shadow-sm">
-              <h3 className="text-5xl font-bold text-gray-900 mb-2">5+</h3>
+              <h3 className="text-5xl font-bold text-gray-900 mb-2">120+</h3>
               <p className="text-xl text-gray-600 font-medium">Projects Completed</p>
             </div>
             <div className="text-center bg-[#FCFCFC] border border-gray-100 rounded-2xl p-8 shadow-sm">

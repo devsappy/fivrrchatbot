@@ -1,22 +1,111 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRightIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline';
-import Grainient from './Grainient';
+import HeroCanvas from './HeroCanvas';
+import HeroMessages from './HeroMessages';
 
 const WORDS = ['chatbots', 'websites', 'voice agents', 'mobile apps'];
 
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+// Typewriter timing
+const TYPE_MS = 95;
+const DELETE_MS = 45;
+const HOLD_MS = 1600;
+const GAP_MS = 350;
+
+const LineReveal: React.FC<{ children: React.ReactNode; delay?: number; className?: string }> = ({
+  children,
+  delay = 0,
+  className,
+}) => (
+  <span className={`block overflow-hidden ${className ?? ''}`}>
+    <motion.span
+      className="block will-change-transform"
+      initial={{ y: '110%' }}
+      animate={{ y: '0%' }}
+      transition={{ duration: 0.9, delay, ease: EASE_OUT }}
+    >
+      {children}
+    </motion.span>
+  </span>
+);
+
 const Hero: React.FC = () => {
   const navigate = useNavigate();
-  const shouldReduceMotion = useReducedMotion();
-  const [currentWord, setCurrentWord] = useState(0);
+  const shouldReduceMotion = useReducedMotion() ?? false;
+  const [wordIdx, setWordIdx] = useState(0);
+  const [displayed, setDisplayed] = useState('');
+  const [phase, setPhase] = useState<'typing' | 'holding' | 'deleting' | 'gap'>('typing');
+  const magneticRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setDisplayed(WORDS[wordIdx]);
+      return;
+    }
+    const word = WORDS[wordIdx];
+    let timeout: number;
+
+    if (phase === 'typing') {
+      if (displayed.length < word.length) {
+        timeout = window.setTimeout(() => {
+          setDisplayed(word.slice(0, displayed.length + 1));
+        }, TYPE_MS + Math.random() * 50);
+      } else {
+        timeout = window.setTimeout(() => setPhase('holding'), 40);
+      }
+    } else if (phase === 'holding') {
+      timeout = window.setTimeout(() => setPhase('deleting'), HOLD_MS);
+    } else if (phase === 'deleting') {
+      if (displayed.length > 0) {
+        timeout = window.setTimeout(() => {
+          setDisplayed(word.slice(0, displayed.length - 1));
+        }, DELETE_MS);
+      } else {
+        timeout = window.setTimeout(() => setPhase('gap'), 10);
+      }
+    } else if (phase === 'gap') {
+      timeout = window.setTimeout(() => {
+        setWordIdx((i) => (i + 1) % WORDS.length);
+        setPhase('typing');
+      }, GAP_MS);
+    }
+
+    return () => window.clearTimeout(timeout);
+  }, [displayed, phase, wordIdx, shouldReduceMotion]);
 
   useEffect(() => {
     if (shouldReduceMotion) return;
-    const id = window.setInterval(() => {
-      setCurrentWord((prev) => (prev + 1) % WORDS.length);
-    }, 2600);
-    return () => window.clearInterval(id);
+    const el = magneticRef.current;
+    if (!el) return;
+
+    const strength = 18;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const relX = e.clientX - (rect.left + rect.width / 2);
+      const relY = e.clientY - (rect.top + rect.height / 2);
+      const dist = Math.hypot(relX, relY);
+      const radius = Math.max(rect.width, rect.height) * 1.1;
+      if (dist < radius) {
+        const k = 1 - dist / radius;
+        el.style.transform = `translate(${(relX / radius) * strength * k}px, ${
+          (relY / radius) * strength * k
+        }px)`;
+      } else {
+        el.style.transform = 'translate(0,0)';
+      }
+    };
+    const onLeave = () => {
+      el.style.transform = 'translate(0,0)';
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseleave', onLeave);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseleave', onLeave);
+    };
   }, [shouldReduceMotion]);
 
   return (
@@ -25,168 +114,166 @@ const Hero: React.FC = () => {
       className="relative overflow-hidden bg-[#fafaf7] min-h-[100svh] flex flex-col"
       style={{ zIndex: 1 }}
     >
-      {/* Ambient background — subtle grainient + soft glows + paper dot-grid */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none">
-        {/* Animated grainient — warm neutrals, present but not loud */}
-        <div className="absolute inset-0 opacity-60">
-          <Grainient
-            color1="#f4e7d1"
-            color2="#d9b98a"
-            color3="#c4d0e6"
-            timeSpeed={0.16}
-            colorBalance={1}
-            warpStrength={0.9}
-            warpFrequency={4}
-            warpSpeed={5}
-            warpAmplitude={45}
-            blendAngle={0}
-            blendSoftness={0.1}
-            rotationAmount={400}
-            noiseScale={2}
-            grainAmount={0.08}
-            grainScale={2}
-            grainAnimated={false}
-            contrast={1.35}
-            gamma={1}
-            saturation={0.85}
-            centerX={0}
-            centerY={0}
-            zoom={0.9}
-          />
-        </div>
-        {/* Directional color glows on top of grainient */}
-        <div className="absolute -top-40 -right-40 w-[55vw] h-[55vw] max-w-[780px] max-h-[780px] rounded-full bg-gradient-to-br from-amber-200/30 via-orange-100/15 to-transparent blur-[120px]" />
-        <div className="absolute -bottom-48 -left-40 w-[50vw] h-[50vw] max-w-[720px] max-h-[720px] rounded-full bg-gradient-to-tr from-indigo-100/35 via-sky-50/15 to-transparent blur-[120px]" />
-        {/* Paper dot-grid texture — eased back since grainient carries grain */}
-        <div className="absolute inset-0 hero-dotgrid opacity-40" />
-        {/* Soft fade toward the base color at the bottom for a clean edge */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#fafaf7]" />
+      {/* Ambient background */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none bg-[#fafaf7]">
+        <div className="absolute top-0 inset-x-0 h-[70vh] bg-gradient-to-b from-white to-transparent opacity-90" />
       </div>
 
-      {/* Top editorial ribbon */}
-      <div className="relative z-10 container mx-auto px-6 pt-28 sm:pt-32">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="flex items-center justify-between text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500"
-        >
-          <span className="flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-900" aria-hidden />
-            Chatterify <span className="hidden sm:inline text-gray-400">— a digital studio</span>
-          </span>
-        </motion.div>
-      </div>
+      {/* Grain overlay */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-[0.06]"
+        style={{
+          zIndex: 2,
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: '160px 160px',
+        }}
+      />
 
-      {/* Main content */}
-      <div className="relative z-10 flex-1 container mx-auto px-6 py-10 sm:py-14 lg:py-16 flex flex-col items-center justify-center text-center">
-        {/* Availability badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200/80 text-[12px] sm:text-[13px] font-medium text-gray-700 mb-8 sm:mb-10 shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
-        >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-          </span>
-          Booking projects for Q2 · 2026
-        </motion.div>
+      {/* Main content — two columns on lg+ */}
+      <div className="relative z-10 flex-1 container mx-auto px-6 pt-28 sm:pt-36 lg:pt-44 pb-8 sm:pb-12 lg:pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center h-full">
+          {/* LEFT — text */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            {/* Availability badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200/80 text-[12px] sm:text-[13px] font-medium text-gray-700 mb-8 sm:mb-10 shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+              </span>
+              Booking projects for Q2 · 2026
+            </motion.div>
 
-        {/* Headline */}
-        <h1
-          className="font-black text-gray-900 leading-[0.96] tracking-[-0.04em]"
-          style={{ fontSize: 'clamp(2.75rem, 8.5vw, 8rem)' }}
-        >
-          <motion.span
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="block"
-          >
-            We build
-          </motion.span>
-          <span className="block relative h-[1em]" aria-hidden="true">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={currentWord}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-x-0 top-0 text-gray-900 inline-flex justify-center"
-              >
-                <span className="relative inline-block">
-                  {WORDS[currentWord]}
-                  <span
-                    key={`u-${currentWord}`}
+            {/* Headline */}
+            <h1
+              className="font-black text-gray-900 leading-[0.96] tracking-[-0.04em]"
+              style={{ fontSize: 'clamp(2.5rem, 7vw, 6.5rem)' }}
+            >
+              <LineReveal delay={0.05}>We build</LineReveal>
+
+              <span className="block relative h-[1em]" aria-hidden="true">
+                <span className="absolute left-0 top-0 inline-flex items-center text-gray-900">
+                  <span className="whitespace-pre">{displayed}</span>
+                  <motion.span
                     aria-hidden
-                    className="absolute left-0 right-0 -bottom-[0.06em] h-[0.08em] rounded-full bg-amber-400/90 animate-heroUnderline"
+                    animate={shouldReduceMotion ? undefined : { opacity: [1, 1, 0, 0] }}
+                    transition={{
+                      duration: 0.95,
+                      repeat: Infinity,
+                      ease: 'linear',
+                      times: [0, 0.5, 0.5, 1],
+                    }}
+                    className="ml-[0.06em] inline-block align-middle rounded-[2px] bg-amber-400"
+                    style={{
+                      width: '0.055em',
+                      height: '0.82em',
+                      boxShadow: '0 0 12px rgba(245,158,11,0.55)',
+                    }}
                   />
                 </span>
-              </motion.span>
-            </AnimatePresence>
-          </span>
-          <span className="sr-only">{WORDS.join(', ')}</span>
-          <motion.span
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="block text-gray-400"
-          >
-            that people love.
-          </motion.span>
-        </h1>
+              </span>
+              <span className="sr-only">{WORDS.join(', ')}</span>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 sm:mt-10 max-w-xl text-base sm:text-lg text-gray-500 leading-relaxed"
-        >
-          A senior digital studio crafting AI-first websites, chatbots, voice agents and apps. Two-week sprints. No process theater.
-        </motion.p>
+              <LineReveal delay={0.18}>
+                <span className="text-gray-400">that people love.</span>
+              </LineReveal>
+            </h1>
 
-        {/* CTAs — matched primary & ghost pills for perfect alignment */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.42 }}
-          className="mt-10 sm:mt-12 w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3"
-        >
-          <motion.button
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/contact')}
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-gray-900 text-white text-[15px] font-semibold rounded-full hover:bg-black transition-colors duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_12px_30px_-10px_rgba(15,15,15,0.4)]"
-          >
-            Start a project
-            <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/templates')}
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/60 backdrop-blur-sm border border-gray-900/15 text-gray-900 text-[15px] font-semibold rounded-full hover:bg-white hover:border-gray-900/30 transition-all duration-300"
-          >
-            View our work
-            <ArrowUpRightIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </motion.button>
-        </motion.div>
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.55 }}
+              className="mt-8 sm:mt-10 max-w-xl text-base sm:text-lg text-gray-500 leading-relaxed"
+            >
+              A senior digital studio crafting AI-first websites, chatbots, voice agents and apps. Two-week sprints. No process theater.
+            </motion.p>
 
-        {/* Trust row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.58 }}
-          className="mt-14 sm:mt-16 flex items-center flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] sm:text-[13px] text-gray-500"
-        >
-          <span>10+ projects shipped</span>
-          <span aria-hidden className="text-gray-300 hidden sm:inline">·</span>
-          <span className="hidden sm:inline">On-time, every time</span>
-        </motion.div>
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.68 }}
+              className="mt-10 sm:mt-12 w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+            >
+              <motion.button
+                ref={magneticRef}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => navigate('/contact')}
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-gray-900 text-white text-[15px] font-semibold rounded-full hover:bg-black transition-colors duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_12px_30px_-10px_rgba(15,15,15,0.45)] will-change-transform"
+                style={{ transition: 'transform 0.25s cubic-bezier(0.22,1,0.36,1), background-color 0.3s' }}
+              >
+                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-400/0 via-amber-400/30 to-amber-400/0 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500" aria-hidden />
+                <span className="relative">Start a project</span>
+                <ArrowRightIcon className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate('/templates')}
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/60 backdrop-blur-sm border border-gray-900/15 text-gray-900 text-[15px] font-semibold rounded-full hover:bg-white hover:border-gray-900/30 transition-all duration-300"
+              >
+                View our work
+                <ArrowUpRightIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </motion.button>
+            </motion.div>
+
+            {/* Trust row */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.85 }}
+              className="mt-14 sm:mt-16 flex flex-col items-start text-left gap-3"
+            >
+              <div className="text-[14px] sm:text-[15px] font-medium text-gray-600">
+                Trusted by <span className="font-semibold text-gray-900">120+</span> users
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3">
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/46.jpg" alt="User" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/85.jpg" alt="User" />
+                </div>
+                <div className="flex gap-1 text-[#F59E0B]">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* RIGHT — Three.js orb */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, delay: 0.3, ease: EASE_OUT }}
+            className="lg:col-span-5 relative w-full aspect-square max-w-[22rem] sm:max-w-[24rem] md:max-w-[27rem] lg:max-w-[32rem] xl:max-w-[35rem] mx-auto lg:mx-0 lg:ml-auto"
+          >
+            {/* Amber glow behind orb */}
+            <div
+              aria-hidden
+              className="absolute inset-0 rounded-full opacity-70 blur-3xl"
+              style={{
+                background:
+                  'radial-gradient(closest-side, rgba(245,158,11,0.22), rgba(245,158,11,0.05) 55%, transparent 75%)',
+              }}
+            />
+            <HeroCanvas reducedMotion={shouldReduceMotion} />
+            <HeroMessages />
+          </motion.div>
+        </div>
       </div>
 
       {/* Bottom editorial ribbon */}
@@ -194,7 +281,7 @@ const Hero: React.FC = () => {
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          transition={{ duration: 0.8, delay: 0.95 }}
           className="flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-400"
         >
           <motion.span

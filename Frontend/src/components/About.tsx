@@ -96,7 +96,7 @@ const About: React.FC = () => {
         <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mt-8">
           <div className="bg-[#FCFCFC] border border-gray-100 shadow-sm rounded-2xl p-4 sm:p-6 md:p-8 hover:shadow-md transition-shadow text-center">
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 md:mb-2">
-              5+
+              120+
             </div>
             <div className="text-xs sm:text-sm text-gray-500 font-medium">Projects</div>
           </div>
