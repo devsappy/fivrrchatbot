@@ -8,7 +8,6 @@ import {
   MicrophoneIcon,
   VideoCameraIcon,
   DevicePhoneMobileIcon,
-  CheckCircleIcon,
   SparklesIcon,
   RocketLaunchIcon,
   StarIcon,
