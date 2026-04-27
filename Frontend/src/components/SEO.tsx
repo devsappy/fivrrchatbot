@@ -16,7 +16,7 @@ const SEO: React.FC<SEOProps> = ({
   keywords,
   canonicalPath,
   ogType = 'website',
-  ogImage = 'https://www.chatterify.in/logo512.png',
+  ogImage = 'https://www.chatterify.in/logo.png',
   jsonLd,
 }) => {
   const baseUrl = 'https://www.chatterify.in';
@@ -216,6 +216,98 @@ export const pageSEO: Record<string, SEOProps> = {
     description: 'Insights, tutorials, and updates from the Chatterify team on web development, AI chatbots, voice agents, and digital strategy.',
     keywords: 'web development blog, AI blog, chatbot tutorials, digital strategy, tech insights India, Chatterify blog',
     canonicalPath: '/blog',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: 'Chatterify Blog',
+      description: 'Insights and tutorials on web development, AI chatbots, voice agents, and digital strategy.',
+      url: 'https://www.chatterify.in/blog',
+      publisher: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' }
+    }
+  },
+  templates: {
+    title: 'Free Website Templates — React & Next.js Starter Templates',
+    description: 'Free, production-ready website templates for startups, agencies, e-commerce stores, portfolios, and SaaS products. Built with React, Next.js, and Tailwind CSS.',
+    keywords: 'free website templates, React templates, Next.js templates, Tailwind CSS templates, startup landing page template, SaaS template, portfolio template, e-commerce template, agency template, Chatterify templates',
+    canonicalPath: '/templates',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Chatterify Website Templates',
+      description: 'A curated collection of production-ready website templates for startups, agencies, and SaaS products.',
+      url: 'https://www.chatterify.in/templates',
+      isPartOf: { '@type': 'WebSite', name: 'Chatterify', url: 'https://www.chatterify.in' }
+    }
+  },
+  appDevelopment: {
+    title: 'Mobile App Development Services — React Native & Flutter | Chatterify',
+    description: 'Cross-platform mobile app development services. iOS and Android apps built with React Native and Flutter. From MVP prototypes to production-grade SaaS apps.',
+    keywords: 'mobile app development, React Native development, Flutter development, iOS app development, Android app development, cross-platform app, MVP development, app development India, hire app developer, Chatterify',
+    canonicalPath: '/services/app-development',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'Mobile App Development',
+      description: 'Cross-platform mobile app development services using React Native and Flutter.',
+      provider: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/services/app-development',
+      serviceType: 'Mobile App Development',
+      areaServed: { '@type': 'Country', name: 'India' }
+    }
+  },
+  teamDipanjan: {
+    title: 'Dipanjan Chowdhury — Full Stack Developer at Chatterify',
+    description: 'Dipanjan Chowdhury is a Full Stack Developer at Chatterify specializing in React, Next.js, Node.js, MongoDB, and TypeScript for scalable web applications.',
+    keywords: 'Dipanjan Chowdhury, full stack developer Kolkata, React developer India, Chatterify team',
+    canonicalPath: '/team/dipanjan',
+    ogImage: 'https://www.chatterify.in/dipanjan.jpg',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Dipanjan Chowdhury',
+      jobTitle: 'Full Stack Developer',
+      worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/team/dipanjan',
+      image: 'https://www.chatterify.in/dipanjan.jpg',
+      description: 'Full Stack Developer specializing in modern, scalable, and responsive web applications using React, Next.js, Node.js, MongoDB, and TypeScript.',
+      knowsAbout: ['React', 'Next.js', 'Node.js', 'MongoDB', 'TypeScript', 'Tailwind CSS', 'Full Stack Development']
+    }
+  },
+  teamRajatava: {
+    title: 'Rajatava Ghosh — AI Engineer & Machine Learning Lead at Chatterify',
+    description: 'Rajatava Ghosh is an AI Software Developer at Chatterify specializing in Generative AI, NLP, conversational agents, and scalable backend architectures.',
+    keywords: 'Rajatava Ghosh, AI engineer India, machine learning engineer Kolkata, generative AI developer, NLP engineer, Chatterify team',
+    canonicalPath: '/team/rajatava',
+    ogImage: 'https://www.chatterify.in/rajatava.jpg',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Rajatava Ghosh',
+      jobTitle: 'AI Software Developer & Machine Learning Engineer',
+      worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/team/rajatava',
+      image: 'https://www.chatterify.in/rajatava.jpg',
+      description: 'AI Software Developer and Machine Learning Engineer specializing in Generative AI, NLP, conversational AI agents, and scalable backend architectures.',
+      knowsAbout: ['Generative AI', 'Natural Language Processing', 'Machine Learning', 'LLMs', 'Python', 'PyTorch', 'TensorFlow', 'Backend Architecture']
+    }
+  },
+  teamSaptarshi: {
+    title: 'Saptarshi Chattopadhyay — Frontend Developer & Creative Technologist at Chatterify',
+    description: 'Saptarshi Chattopadhyay is a Frontend Developer and Video Editor at Chatterify, building immersive web experiences with modern frontend technologies and creative animation.',
+    keywords: 'Saptarshi Chattopadhyay, frontend developer India, creative technologist Kolkata, video editor, motion designer, Chatterify team',
+    canonicalPath: '/team/saptarshi',
+    ogImage: 'https://www.chatterify.in/saptarshi.jpg',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Saptarshi Chattopadhyay',
+      jobTitle: 'Frontend Developer & Creative Technologist',
+      worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/team/saptarshi',
+      image: 'https://www.chatterify.in/saptarshi.jpg',
+      description: 'Frontend Developer and Video Editor specializing in visually immersive and interactive web experiences using modern frontend technologies and creative animation.',
+      knowsAbout: ['React', 'Frontend Development', 'Framer Motion', 'GSAP', 'Video Editing', 'Motion Design', 'UI Animation']
+    }
   },
 };
 

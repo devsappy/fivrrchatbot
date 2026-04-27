@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EyeIcon, ArrowTopRightOnSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { projects, categories, type Project } from '../data/templates';
+import SEO, { pageSEO } from '../components/SEO';
 
 const TemplatesPage: React.FC = () => {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -27,6 +28,7 @@ const TemplatesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen pt-20 bg-[#FCFCFC] text-gray-900">
+      <SEO {...pageSEO.templates} />
       <div className="container mx-auto px-6 py-16">
         {/* Header */}
         <motion.div

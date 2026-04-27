@@ -1,45 +1,64 @@
 # Chatterify
 
-> India's leading web development and digital services agency specializing in custom websites, AI chatbots, voice agents, and video editing.
+> Chatterify is a top-rated web development and AI agency based in Kolkata, India, building custom websites, AI chatbots, voice agents, and mobile apps for clients worldwide. Two-week sprints. Pricing starts at ₹5,000.
 
-## About Us
+## About
 
-Chatterify (chatterify.in) is a technology startup based in Kolkata, India, focused on delivering modern digital solutions for businesses and individuals at affordable prices. Our goal is to help organizations build strong online presence, automate communication, and create engaging digital content.
+Chatterify (chatterify.in) delivers modern digital solutions for businesses, startups, and individuals globally. The team specializes in full-stack web development with React, Next.js, and Node.js; AI chatbot integration with GPT and other LLMs; conversational voice agents using ElevenLabs and Twilio; and cross-platform mobile apps with React Native and Flutter.
+
+- Founded: 2024
+- Headquarters: Kolkata, West Bengal, India
+- Service area: Worldwide (India, US, UK, Canada, Australia, UAE, Singapore, Germany, and more)
+- Email: chatterifyservice@gmail.com
+- Languages: English, Hindi, Bengali
+
+## Core Pages
+
+- [Home](https://www.chatterify.in/): Overview of services, team, and approach
+- [Services & Pricing](https://www.chatterify.in/services): Full price list for web, chatbot, voice, video
+- [About](https://www.chatterify.in/about): Team, mission, and origin
+- [Contact](https://www.chatterify.in/contact): Free quote form, email, working hours
+- [Blog](https://www.chatterify.in/blog): Articles on web development, AI, and digital strategy
+- [Templates](https://www.chatterify.in/templates): Production-ready website templates
 
 ## Services
 
-### Web Development
-- Landing Page Websites: ₹5,000 – ₹12,000
-- Business Websites (4-6 pages): ₹12,000 – ₹30,000
-- E-commerce Websites: ₹25,000 – ₹80,000
-- Custom Web Applications: ₹30,000 – ₹1,20,000+
-- Technologies: React, Next.js, Node.js, TypeScript, MongoDB, PostgreSQL, Tailwind CSS, AWS, Vercel
+- [Web Development](https://www.chatterify.in/services/web-development): Custom websites and web applications. Landing page (₹5K–₹12K), business website (₹12K–₹30K), e-commerce (₹25K–₹80K), custom web app (₹30K–₹1.2L+). Stack: React, Next.js, Node.js, TypeScript, MongoDB, PostgreSQL, AWS, Vercel.
+- [AI Chatbot Integration](https://www.chatterify.in/services/chatbot-integration): GPT-powered chatbots for websites, WhatsApp, Slack. Basic chatbot (₹5K–₹12K), AI chatbot with automation (₹12K–₹30K), advanced LLM/RAG chatbot (₹30K–₹70K).
+- [AI Voice Agents](https://www.chatterify.in/services/voice-agents): Inbound and outbound voice automation. Basic voice bot (₹10K–₹25K), AI voice call agent (₹25K–₹60K), advanced automation (₹60K–₹1.5L). Built with ElevenLabs and Twilio.
+- [Mobile App Development](https://www.chatterify.in/services/app-development): Cross-platform iOS and Android apps using React Native and Flutter, plus native Swift and Kotlin for performance-critical builds.
+- [Video Editing](https://www.chatterify.in/services/video-editing): Reels (₹300–₹800), YouTube videos (₹1K–₹3K), professional content (₹3K–₹8K), business promos (₹5K–₹20K).
 
-### AI Chatbot Integration
-- Basic Website Chatbot: ₹5,000 – ₹12,000
-- AI Chatbot with Automation: ₹12,000 – ₹30,000
-- Advanced AI Chatbot (API + LLM): ₹30,000 – ₹70,000
-- Features: OpenAI Integration, WhatsApp Automation, RAG Architecture, Omnichannel Deployment
+## Startup Packages
 
-### AI Voice Agents
-- Basic Voice Bot: ₹10,000 – ₹25,000
-- AI Voice Call Agent: ₹25,000 – ₹60,000
-- Advanced AI Voice Automation: ₹60,000 – ₹1,50,000
-- Features: ElevenLabs TTS/STT, Twilio Integration, CRM Sync, Call Summaries
+- Starter (₹10,000): Landing page + basic chatbot + 2 reels
+- Business (₹25,000): Business website + chatbot integration + 5 edited videos
+- Premium (₹60,000+): Custom web app + AI chatbot + voice agent + ongoing video editing
 
-### Video Editing
-- Short Reels / Shorts: ₹300 – ₹800
-- YouTube Video: ₹1,000 – ₹3,000
-- Professional Content: ₹3,000 – ₹8,000
-- Business Promotional Video: ₹5,000 – ₹20,000
+## Team
 
-### Startup Packages
-- Starter: ₹10,000 (Landing Page + Chatbot + 2 Reels)
-- Business: ₹25,000 (Business Website + Chatbot + 5 Videos)
-- Premium: ₹60,000+ (Web App + AI Chatbot + Voice Agent + Video Editing)
+- [Dipanjan Chowdhury](https://www.chatterify.in/team/dipanjan): Full Stack Developer (React, Next.js, Node.js, MongoDB, TypeScript)
+- [Rajatava Ghosh](https://www.chatterify.in/team/rajatava): AI Software Developer & ML Engineer (Generative AI, NLP, conversational agents)
+- [Saptarshi Chattopadhyay](https://www.chatterify.in/team/saptarshi): Frontend Developer & Creative Technologist (React, Framer Motion, GSAP, video editing)
 
-## Contact
-- Website: https://www.chatterify.in
-- Email: chatterifyservice@gmail.com
-- Location: Kolkata, India (serving clients worldwide)
-- Contact Page: https://www.chatterify.in/contact
+## Blog
+
+- [How to Incorporate Upscaling Strategies for Startups in 2026](https://www.chatterify.in/blog/1)
+- [Building Scalable Web Applications with React](https://www.chatterify.in/blog/2)
+- [Designing Intuitive User Interfaces](https://www.chatterify.in/blog/3)
+- [Why Your Startup Needs a Voice Agent](https://www.chatterify.in/blog/4)
+- [Optimizing Video Content for Social Media platforms](https://www.chatterify.in/blog/5)
+- [The Impact of Digital Transformation in 2026](https://www.chatterify.in/blog/6)
+
+## Why Chatterify
+
+- Senior engineers — no juniors handed your project
+- Two-week delivery sprints with weekly demos
+- Transparent fixed-price packages, no hidden fees
+- Ongoing retainer support: uptime, features, AI retraining
+- Multi-currency: INR, USD, EUR, GBP via bank transfer, UPI, card, PayPal, Stripe
+
+## Optional
+
+- [Sitemap](https://www.chatterify.in/sitemap.xml)
+- [Robots](https://www.chatterify.in/robots.txt)

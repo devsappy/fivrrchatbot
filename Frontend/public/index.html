@@ -3,40 +3,53 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <!-- Favicon & Icons -->
-  <link rel="icon" href="%PUBLIC_URL%/logo.png" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="%PUBLIC_URL%/logo.png" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-  <!-- Theme -->
+  <!-- Theme & PWA -->
   <meta name="theme-color" content="#000000" />
   <meta name="msapplication-TileColor" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Chatterify" />
+  <meta name="application-name" content="Chatterify" />
+  <meta name="format-detection" content="telephone=no" />
 
-  <!-- Preconnect for Performance -->
+  <!-- Performance: Preconnect & Preload -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+  <link rel="dns-prefetch" href="https://images.unsplash.com" />
+  <link rel="preload" as="image" href="%PUBLIC_URL%/logo.png" fetchpriority="high" />
 
   <!-- Primary SEO Meta Tags -->
-  <title>Chatterify — Web Development, AI Chatbots, Voice Agents & Digital Solutions India</title>
-  <meta name="title" content="Chatterify — Web Development, AI Chatbots, Voice Agents & Digital Solutions India" />
-  <meta name="description" content="Chatterify is India's top web development & digital services agency. We build custom websites, AI chatbots, voice agents & video content. Affordable pricing. Get a free quote today!" />
-  <meta name="keywords" content="web development India, website development, web design, custom website, build website, web development services, full stack development, React development, Next.js, Node.js, AI chatbot, chatbot development, chatbot integration, AI voice agent, voice assistant, video editing, digital marketing, business website, e-commerce website, landing page, web application development, custom web app, affordable web development, web development Kolkata, web development agency India, web services, website builder, chatbot for business, AI automation, conversational AI, Chatterify" />
+  <title>Chatterify — Best Web Development & AI Agency in India | Custom Websites, Chatbots, Voice Agents</title>
+  <meta name="title" content="Chatterify — Best Web Development & AI Agency in India | Custom Websites, Chatbots, Voice Agents" />
+  <meta name="description" content="Chatterify is a top-rated web development and AI agency building custom websites, AI chatbots, voice agents, and mobile apps for clients worldwide. React, Next.js, Node.js, GPT, ElevenLabs, Twilio. Two-week sprints. Pricing from ₹5,000. Get a free quote today." />
+  <meta name="keywords" content="best web development agency, top web development company India, hire web developer, custom website development, React development agency, Next.js agency, AI chatbot development, GPT chatbot integration, AI voice agent development, ElevenLabs voice bot, Twilio call automation, mobile app development, full stack development services, e-commerce website development, SaaS development agency, conversational AI agency, web development Kolkata, web development Bangalore, web development Mumbai, web development Delhi, web development for startups, MVP development, landing page design, web development India, Chatterify" />
   <meta name="author" content="Chatterify" />
+  <meta name="publisher" content="Chatterify" />
+  <meta name="copyright" content="Chatterify" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="bingbot" content="index, follow" />
   <meta name="language" content="English" />
-  <meta name="revisit-after" content="3 days" />
   <meta name="rating" content="general" />
   <meta name="distribution" content="global" />
   <meta name="coverage" content="Worldwide" />
   <meta name="target" content="all" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
-  <meta name="geo.region" content="IN" />
-  <meta name="geo.placename" content="Kolkata, India" />
+  <meta name="referrer" content="origin-when-cross-origin" />
+  <meta name="geo.region" content="IN-WB" />
+  <meta name="geo.placename" content="Kolkata" />
+  <meta name="geo.position" content="22.5726;88.3639" />
+  <meta name="ICBM" content="22.5726, 88.3639" />
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://www.chatterify.in/" />
@@ -44,195 +57,282 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.chatterify.in/" />
-  <meta property="og:title" content="Chatterify — Web Development, AI Chatbots, Voice Agents & Digital Solutions" />
-  <meta property="og:description" content="India's top web development & digital services agency. Custom websites, AI chatbots, voice agents & video editing. Affordable pricing starting ₹5,000." />
+  <meta property="og:title" content="Chatterify — Best Web Development & AI Agency in India" />
+  <meta property="og:description" content="Top-rated agency for custom websites, AI chatbots, voice agents and mobile apps. React, Next.js, GPT, ElevenLabs. Two-week sprints. From ₹5,000." />
   <meta property="og:image" content="https://www.chatterify.in/logo.png" />
+  <meta property="og:image:secure_url" content="https://www.chatterify.in/logo.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Chatterify — Web Development & AI Solutions" />
   <meta property="og:site_name" content="Chatterify" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="en_IN" />
+  <meta property="og:locale:alternate" content="en_GB" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.chatterify.in/" />
-  <meta name="twitter:title" content="Chatterify — Web Development, AI Chatbots, Voice Agents & Digital Solutions" />
-  <meta name="twitter:description" content="India's top web development & digital services agency. Custom websites, AI chatbots, voice agents & video editing. Affordable pricing starting ₹5,000." />
+  <meta name="twitter:site" content="@Chatterifyorg" />
+  <meta name="twitter:creator" content="@Chatterifyorg" />
+  <meta name="twitter:title" content="Chatterify — Best Web Development & AI Agency in India" />
+  <meta name="twitter:description" content="Top-rated agency for custom websites, AI chatbots, voice agents and mobile apps. From ₹5,000." />
   <meta name="twitter:image" content="https://www.chatterify.in/logo.png" />
   <meta name="twitter:image:alt" content="Chatterify — Web Development & AI Solutions" />
 
-  <!-- Alternate Language (self-referencing) -->
+  <!-- Hreflang -->
   <link rel="alternate" hreflang="en" href="https://www.chatterify.in/" />
+  <link rel="alternate" hreflang="en-IN" href="https://www.chatterify.in/" />
+  <link rel="alternate" hreflang="en-US" href="https://www.chatterify.in/" />
   <link rel="alternate" hreflang="x-default" href="https://www.chatterify.in/" />
 
-  <!-- JSON-LD: Organization -->
+  <!-- JSON-LD: Schema Graph (Organization + WebSite + ProfessionalService linked) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Chatterify",
-    "alternateName": "Chatterify Digital Solutions",
-    "url": "https://www.chatterify.in",
-    "logo": "https://www.chatterify.in/logo.png",
-    "description": "India's leading web development and digital services agency specializing in custom websites, AI chatbots, voice agents, and video editing.",
-    "foundingDate": "2020",
-    "email": "chatterifyservice@gmail.com",
-    "areaServed": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": 22.5726,
-        "longitude": 88.3639
-      },
-      "geoRadius": "50000"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Kolkata",
-      "addressRegion": "West Bengal",
-      "addressCountry": "IN"
-    },
-    "sameAs": [],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
-      "email": "chatterifyservice@gmail.com",
-      "url": "https://www.chatterify.in/contact",
-      "availableLanguage": ["English", "Hindi", "Bengali"]
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Digital Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Full Stack Web Development",
-            "description": "Custom, responsive, and secure web applications built for scale. React, Next.js, Node.js, MongoDB, PostgreSQL.",
-            "url": "https://www.chatterify.in/services/web-development"
-          }
+    "@graph": [
+      {
+        "@type": ["Organization", "ProfessionalService"],
+        "@id": "https://www.chatterify.in/#organization",
+        "name": "Chatterify",
+        "alternateName": ["Chatterify Digital Solutions", "Chatterify Agency"],
+        "legalName": "Chatterify",
+        "url": "https://www.chatterify.in",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://www.chatterify.in/#logo",
+          "url": "https://www.chatterify.in/logo.png",
+          "contentUrl": "https://www.chatterify.in/logo.png",
+          "width": 512,
+          "height": 512,
+          "caption": "Chatterify"
         },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "AI Chatbot Integration",
-            "description": "Intelligent chatbots powered by AI to automate customer support, capture leads, and engage users 24/7.",
-            "url": "https://www.chatterify.in/services/chatbot-integration"
-          }
+        "image": { "@id": "https://www.chatterify.in/#logo" },
+        "description": "Chatterify is a top-rated web development and AI agency building custom websites, AI chatbots, voice agents, and mobile applications for clients in India and worldwide.",
+        "slogan": "We build chatbots, websites, voice agents and apps that people love.",
+        "foundingDate": "2024",
+        "email": "chatterifyservice@gmail.com",
+        "knowsAbout": [
+          "Web Development",
+          "Full Stack Development",
+          "React",
+          "Next.js",
+          "Node.js",
+          "TypeScript",
+          "AI Chatbot Development",
+          "GPT Integration",
+          "Conversational AI",
+          "AI Voice Agents",
+          "ElevenLabs",
+          "Twilio Voice Automation",
+          "Mobile App Development",
+          "E-commerce Development",
+          "SaaS Development",
+          "Video Editing",
+          "Digital Strategy"
+        ],
+        "areaServed": [
+          { "@type": "Country", "name": "India" },
+          { "@type": "Country", "name": "United States" },
+          { "@type": "Country", "name": "United Kingdom" },
+          { "@type": "Country", "name": "Canada" },
+          { "@type": "Country", "name": "Australia" },
+          { "@type": "Country", "name": "United Arab Emirates" },
+          { "@type": "Country", "name": "Singapore" },
+          { "@type": "Country", "name": "Germany" }
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Kolkata",
+          "addressRegion": "West Bengal",
+          "addressCountry": "IN"
         },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "AI Voice Agents",
-            "description": "Hyper-realistic AI voice assistants for inbound/outbound call automation, appointment booking, and customer service.",
-            "url": "https://www.chatterify.in/services/voice-agents"
-          }
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 22.5726,
+          "longitude": 88.3639
         },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Professional Video Editing",
-            "description": "High-retention video editing for YouTube, Instagram Reels, social media marketing, and promotional content.",
-            "url": "https://www.chatterify.in/services/video-editing"
+        "sameAs": [
+          "https://www.instagram.com/chatterify.in/",
+          "https://www.facebook.com/share/1AtzkurRFK/",
+          "https://www.linkedin.com/company/112733226/",
+          "https://x.com/Chatterifyorg"
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "chatterifyservice@gmail.com",
+            "url": "https://www.chatterify.in/contact",
+            "availableLanguage": ["English", "Hindi", "Bengali"],
+            "areaServed": "Worldwide"
+          },
+          {
+            "@type": "ContactPoint",
+            "contactType": "sales",
+            "email": "chatterifyservice@gmail.com",
+            "url": "https://www.chatterify.in/contact",
+            "availableLanguage": ["English", "Hindi"],
+            "areaServed": "Worldwide"
           }
+        ],
+        "priceRange": "₹₹",
+        "currenciesAccepted": "INR, USD, EUR, GBP",
+        "paymentAccepted": "Bank Transfer, UPI, Credit Card, PayPal, Stripe",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "10:00",
+          "closes": "20:00"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Digital Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Full Stack Web Development",
+                "description": "Custom, responsive, and secure web applications built for scale. React, Next.js, Node.js, MongoDB, PostgreSQL.",
+                "url": "https://www.chatterify.in/services/web-development"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "AI Chatbot Integration",
+                "description": "Intelligent chatbots powered by GPT and LLMs to automate customer support, capture leads, and engage users 24/7.",
+                "url": "https://www.chatterify.in/services/chatbot-integration"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "AI Voice Agents",
+                "description": "Hyper-realistic AI voice assistants for inbound/outbound call automation, appointment booking, and customer service. Built with ElevenLabs and Twilio.",
+                "url": "https://www.chatterify.in/services/voice-agents"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Mobile App Development",
+                "description": "Cross-platform mobile applications built with React Native and Flutter.",
+                "url": "https://www.chatterify.in/services/app-development"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Professional Video Editing",
+                "description": "High-retention video editing for YouTube, Instagram Reels, social media marketing, and promotional content.",
+                "url": "https://www.chatterify.in/services/video-editing"
+              }
+            }
+          ]
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "bestRating": "5",
+          "worstRating": "1",
+          "ratingCount": "27",
+          "reviewCount": "27"
         }
-      ]
-    }
-  }
-  </script>
-
-  <!-- JSON-LD: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Chatterify",
-    "alternateName": "Chatterify Digital Solutions",
-    "url": "https://www.chatterify.in",
-    "description": "India's top web development and digital services agency. Custom websites, AI chatbots, voice agents & video editing."
-  }
-  </script>
-
-  <!-- JSON-LD: Service (Web Development - primary service) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Full Stack Web Development",
-    "description": "Professional web development services including custom websites, web applications, e-commerce solutions, and landing pages. Built with React, Next.js, Node.js, and modern technologies.",
-    "provider": {
-      "@type": "Organization",
-      "name": "Chatterify",
-      "url": "https://www.chatterify.in"
-    },
-    "url": "https://www.chatterify.in/services/web-development",
-    "areaServed": {
-      "@type": "Country",
-      "name": "India"
-    },
-    "serviceType": "Web Development",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Landing Page Website",
-        "price": "5000",
-        "priceCurrency": "INR",
-        "description": "Professional single-page landing website"
       },
       {
-        "@type": "Offer",
-        "name": "Business Website (4-6 pages)",
-        "price": "12000",
-        "priceCurrency": "INR",
-        "description": "Complete business website with multiple pages"
+        "@type": "WebSite",
+        "@id": "https://www.chatterify.in/#website",
+        "url": "https://www.chatterify.in/",
+        "name": "Chatterify",
+        "description": "Top-rated web development and AI agency building custom websites, AI chatbots, voice agents, and mobile apps.",
+        "publisher": { "@id": "https://www.chatterify.in/#organization" },
+        "inLanguage": "en"
       },
       {
-        "@type": "Offer",
-        "name": "E-commerce Website",
-        "price": "25000",
-        "priceCurrency": "INR",
-        "description": "Full-featured online store with payment integration"
-      },
-      {
-        "@type": "Offer",
-        "name": "Custom Web Application",
-        "price": "30000",
-        "priceCurrency": "INR",
-        "description": "Bespoke web application tailored to your business needs"
+        "@type": "WebPage",
+        "@id": "https://www.chatterify.in/#webpage",
+        "url": "https://www.chatterify.in/",
+        "name": "Chatterify — Best Web Development & AI Agency in India",
+        "isPartOf": { "@id": "https://www.chatterify.in/#website" },
+        "about": { "@id": "https://www.chatterify.in/#organization" },
+        "primaryImageOfPage": { "@id": "https://www.chatterify.in/#logo" },
+        "description": "Custom websites, AI chatbots, voice agents and mobile apps built by a senior digital studio. Two-week sprints. From ₹5,000.",
+        "inLanguage": "en"
       }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Web Development Packages",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Starter Package",
-            "description": "Landing Page Website + Basic Chatbot + 2 Reels Editing — ₹10,000"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Business Package",
-            "description": "Business Website + Chatbot Integration + 5 Edited Videos — ₹25,000"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Premium Package",
-            "description": "Custom Web App + AI Chatbot + Voice Agent + Video Editing — ₹60,000+"
-          }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage (matches FAQ component on homepage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://www.chatterify.in/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What specific services does Chatterify offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chatterify specializes in four premium digital tracks: Full-Stack Web Development, AI Chatbot Integration, Conversational Voice Agents, and High-End Video Editing. From building custom SaaS platforms to automating your entire customer support wing with AI, we build tools that scale businesses."
         }
-      ]
-    }
+      },
+      {
+        "@type": "Question",
+        "name": "How can AI chatbots improve my business metrics?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our AI chatbots act as autonomous sales reps. They qualify leads 24/7, route complex tickets to humans, integrate natively with your CRM to book appointments, and can reduce overhead support volume by up to 70% while improving average response times to sub-seconds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can your AI agents integrate with my existing tech stack?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We build headless and API-first. Our solutions natively plug into Salesforce, HubSpot, Shopify, WhatsApp, Slack, Zapier, and custom internal dashboards, adapting integration to flow directly into your team's daily workflows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the typical timeline for a web development project?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A high-converting landing page takes 1-2 weeks. A complete 6-page corporate website takes roughly 3-4 weeks. Complex, custom full-stack web applications and e-commerce builds usually range from 6 to 12 weeks from initial design sprints to final deployment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you provide ongoing support after deployment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We offer ongoing retainer packages for all our services to monitor uptime, add new requested features, retrain AI agents on new company data, and ensure your system stays aligned with modern security practices."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does web development cost at Chatterify?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Landing page websites start at ₹5,000. Multi-page business websites range ₹12,000–₹30,000. E-commerce websites start at ₹25,000. Custom web applications and SaaS products start at ₹30,000 and scale based on scope."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you work with international clients?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We work with clients across the United States, United Kingdom, Canada, Australia, UAE, Singapore, Germany, and beyond. We accept payments in INR, USD, EUR, and GBP via bank transfer, UPI, credit card, PayPal, and Stripe."
+        }
+      }
+    ]
   }
   </script>
 
@@ -242,127 +342,12 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.chatterify.in/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Services",
-        "item": "https://www.chatterify.in/services"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Web Development",
-        "item": "https://www.chatterify.in/services/web-development"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "Chatbot Integration",
-        "item": "https://www.chatterify.in/services/chatbot-integration"
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "name": "Voice Agents",
-        "item": "https://www.chatterify.in/services/voice-agents"
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "name": "Video Editing",
-        "item": "https://www.chatterify.in/services/video-editing"
-      },
-      {
-        "@type": "ListItem",
-        "position": 7,
-        "name": "About",
-        "item": "https://www.chatterify.in/about"
-      },
-      {
-        "@type": "ListItem",
-        "position": 8,
-        "name": "Contact",
-        "item": "https://www.chatterify.in/contact"
-      },
-      {
-        "@type": "ListItem",
-        "position": 9,
-        "name": "Blog",
-        "item": "https://www.chatterify.in/blog"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.chatterify.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.chatterify.in/services" },
+      { "@type": "ListItem", "position": 3, "name": "About", "item": "https://www.chatterify.in/about" },
+      { "@type": "ListItem", "position": 4, "name": "Blog", "item": "https://www.chatterify.in/blog" },
+      { "@type": "ListItem", "position": 5, "name": "Contact", "item": "https://www.chatterify.in/contact" }
     ]
-  }
-  </script>
-
-  <!-- JSON-LD: LocalBusiness -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Chatterify",
-    "description": "India's leading web development and digital services agency. Custom websites, AI chatbots, voice agents, and video editing services.",
-    "url": "https://www.chatterify.in",
-    "telephone": "+91-9876543210",
-    "email": "chatterifyservice@gmail.com",
-    "image": "https://www.chatterify.in/logo.png",
-    "priceRange": "₹5,000 - ₹1,50,000+",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Kolkata",
-      "addressRegion": "West Bengal",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 22.5726,
-      "longitude": 88.3639
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "opens": "10:00",
-      "closes": "20:00"
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "India"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Digital Services",
-      "itemListElement": [
-        {
-          "@type": "OfferCatalog",
-          "name": "Web Development",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Landing Page Website"
-              },
-              "price": "5000",
-              "priceCurrency": "INR"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Business Website"
-              },
-              "price": "12000",
-              "priceCurrency": "INR"
-            }
-          ]
-        }
-      ]
-    }
   }
   </script>
 
@@ -375,7 +360,62 @@
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app. Chatterify offers web development, AI chatbot, voice agent, and video editing services in India.</noscript>
+  <!-- Crawler-visible content fallback (shown when JS is disabled, indexed by AI crawlers that don't run JS) -->
+  <noscript>
+    <div style="max-width:880px;margin:0 auto;padding:24px;font-family:system-ui,-apple-system,sans-serif;color:#111;line-height:1.6;">
+      <h1>Chatterify — Best Web Development &amp; AI Agency in India</h1>
+      <p><strong>Chatterify</strong> is a top-rated web development and AI agency building custom websites, AI chatbots, voice agents, and mobile applications for clients in India and worldwide. Two-week sprints. No process theater. Pricing from ₹5,000.</p>
+
+      <h2>Services</h2>
+      <ul>
+        <li><a href="/services/web-development">Full-Stack Web Development</a> — React, Next.js, Node.js, TypeScript, MongoDB, PostgreSQL. Landing pages from ₹5,000; business websites from ₹12,000; e-commerce from ₹25,000; custom web applications from ₹30,000.</li>
+        <li><a href="/services/chatbot-integration">AI Chatbot Integration</a> — GPT-powered chatbots for websites, WhatsApp, and Slack with CRM integration. From ₹5,000.</li>
+        <li><a href="/services/voice-agents">AI Voice Agents</a> — Hyper-realistic inbound and outbound call automation built with ElevenLabs and Twilio. From ₹10,000.</li>
+        <li><a href="/services/app-development">Mobile App Development</a> — Cross-platform apps with React Native and Flutter.</li>
+        <li><a href="/services/video-editing">Professional Video Editing</a> — YouTube videos, Instagram Reels, and brand promos. From ₹300.</li>
+      </ul>
+
+      <h2>Why Chatterify</h2>
+      <ul>
+        <li>Senior engineers — no juniors handed your project.</li>
+        <li>Two-week delivery sprints with weekly demos.</li>
+        <li>Transparent fixed-price packages with no hidden fees.</li>
+        <li>Ongoing retainer support: uptime monitoring, feature additions, AI retraining.</li>
+        <li>Global delivery — serving clients in the US, UK, Canada, Australia, UAE, Singapore, Germany, and India.</li>
+      </ul>
+
+      <h2>Tech Stack</h2>
+      <p>React, Next.js, Node.js, TypeScript, Tailwind CSS, MongoDB, PostgreSQL, Prisma, AWS, Vercel, Docker, OpenAI GPT, Anthropic Claude, ElevenLabs, Twilio, Stripe, Razorpay, React Native, Flutter.</p>
+
+      <h2>Startup Packages</h2>
+      <ul>
+        <li><strong>Starter — ₹10,000:</strong> Landing page + basic chatbot + 2 reels.</li>
+        <li><strong>Business — ₹25,000:</strong> Multi-page business website + chatbot integration + 5 edited videos.</li>
+        <li><strong>Premium — ₹60,000+:</strong> Custom web app + AI chatbot + voice agent + ongoing video editing.</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>What services does Chatterify offer?</h3>
+      <p>Full-stack web development, AI chatbot integration, conversational voice agents, mobile app development, and high-end video editing.</p>
+      <h3>How long does a web development project take?</h3>
+      <p>Landing pages: 1–2 weeks. Six-page business sites: 3–4 weeks. Custom web applications and e-commerce: 6–12 weeks.</p>
+      <h3>How much does it cost?</h3>
+      <p>Landing pages from ₹5,000. Business websites ₹12,000–₹30,000. E-commerce from ₹25,000. Custom web applications from ₹30,000.</p>
+      <h3>Do you work with international clients?</h3>
+      <p>Yes. We serve clients in the US, UK, Canada, Australia, UAE, Singapore, Germany, and across India. Payments accepted in INR, USD, EUR, and GBP.</p>
+      <h3>Do you provide ongoing support?</h3>
+      <p>Yes. Retainer packages cover uptime monitoring, feature additions, AI agent retraining, and security updates.</p>
+
+      <h2>Contact</h2>
+      <p>
+        Email: <a href="mailto:chatterifyservice@gmail.com">chatterifyservice@gmail.com</a><br>
+        Location: Kolkata, India (serving clients worldwide)<br>
+        Get a free quote: <a href="/contact">chatterify.in/contact</a>
+      </p>
+
+      <p><em>Please enable JavaScript to access the full Chatterify experience including interactive demos, animations, and our live AI chatbot.</em></p>
+    </div>
+  </noscript>
   <div id="root"></div>
 </body>
 

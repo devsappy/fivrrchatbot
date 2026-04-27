@@ -1,47 +1,103 @@
-# robots.txt for Chatterify - https://www.chatterify.in
+# robots.txt for Chatterify — https://www.chatterify.in
+# Last updated: 2026-04-27
 
-# Allow all crawlers (including AI crawlers)
+# Default: allow all crawlers
 User-agent: *
 Allow: /
 Disallow: /static/
 Disallow: /*.json$
 
-# Explicitly allow major AI crawlers for maximum AI visibility
+# --- Search engines ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# --- AI crawlers (training & retrieval) ---
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: CCBot
+User-agent: OAI-SearchBot
 Allow: /
 
+# Google AI
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Google-Extended
+User-agent: Perplexity-User
+Allow: /
+
+# Common Crawl (used by many LLMs)
+User-agent: CCBot
+Allow: /
+
+# Apple
+User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
 
-User-agent: Anthropic-AI
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
+# Meta
 User-agent: FacebookBot
 Allow: /
 
-User-agent: YandexBot
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# ByteDance (TikTok / Doubao)
+User-agent: Bytespider
+Allow: /
+
+# Diffbot (knowledge graph)
+User-agent: Diffbot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
 Allow: /
 
 # Sitemaps
 Sitemap: https://www.chatterify.in/sitemap.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1

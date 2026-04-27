@@ -8,6 +8,7 @@ import {
     RocketLaunchIcon,
     CheckCircleIcon
 } from '@heroicons/react/24/outline';
+import SEO, { pageSEO } from '../components/SEO';
 
 const AppDevelopmentPage: React.FC = () => {
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ const AppDevelopmentPage: React.FC = () => {
 
     return (
         <div className="min-h-screen pt-20 bg-[#FCFCFC] text-gray-900">
+            <SEO {...pageSEO.appDevelopment} />
             <div className="container mx-auto px-6 py-16 max-w-6xl">
 
                 <motion.div

@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CommandLineIcon, AcademicCapIcon, BriefcaseIcon, CodeBracketIcon } from '@heroicons/react/24/outline';
+import SEO, { pageSEO } from '../components/SEO';
 
 const DipanjanPortfolioPage: React.FC = () => {
     return (
         <div className="min-h-screen pt-20 bg-[#FCFCFC] text-gray-900">
+            <SEO {...pageSEO.teamDipanjan} />
             <div className="container mx-auto px-6 py-16 max-w-5xl">
                 {/* Header Section */}
                 <motion.div

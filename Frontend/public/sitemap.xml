@@ -1,124 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Homepage - highest priority -->
+  <!-- Homepage -->
   <url>
     <loc>https://www.chatterify.in/</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.chatterify.in/logo.png</image:loc>
+      <image:title>Chatterify — Web Development &amp; AI Agency</image:title>
+    </image:image>
   </url>
 
-  <!-- Service pages - high priority for "web development" queries -->
+  <!-- Service hub -->
   <url>
     <loc>https://www.chatterify.in/services</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Service pages -->
   <url>
     <loc>https://www.chatterify.in/services/web-development</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/services/chatbot-integration</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/services/voice-agents</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.chatterify.in/services/app-development</loc>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/services/video-editing</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Templates -->
+  <url>
+    <loc>https://www.chatterify.in/templates</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- Core pages -->
   <url>
     <loc>https://www.chatterify.in/about</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/contact</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Blog pages -->
+  <!-- Blog hub & posts -->
   <url>
     <loc>https://www.chatterify.in/blog</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/blog/1</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/blog/2</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/blog/3</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/blog/4</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-01-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/blog/5</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.chatterify.in/blog/6</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Team pages -->
+  <!-- Team / Person pages -->
   <url>
     <loc>https://www.chatterify.in/team/dipanjan</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.chatterify.in/dipanjan.jpg</image:loc>
+      <image:title>Dipanjan Chowdhury — Full Stack Developer</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.chatterify.in/team/rajatava</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.chatterify.in/rajatava.jpg</image:loc>
+      <image:title>Rajatava Ghosh — AI Engineer</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.chatterify.in/team/saptarshi</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.chatterify.in/saptarshi.jpg</image:loc>
+      <image:title>Saptarshi Chattopadhyay — Frontend Developer</image:title>
+    </image:image>
   </url>
 
 </urlset>

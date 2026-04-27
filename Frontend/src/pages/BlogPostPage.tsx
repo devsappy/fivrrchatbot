@@ -26,23 +26,49 @@ const BlogPostPage: React.FC = () => {
         );
     }
 
+    const toIsoDate = (d: string): string => {
+        const parsed = new Date(d);
+        return Number.isNaN(parsed.getTime()) ? d : parsed.toISOString().slice(0, 10);
+    };
+    const wordCount = post.content.trim().split(/\s+/).length;
+    const url = `https://www.chatterify.in/blog/${post.id}`;
+    const datePublishedIso = toIsoDate(post.date);
+
     return (
         <div className="min-h-screen pt-36 pb-16 bg-white text-gray-900">
             <SEO
                 title={`${post.title} — Chatterify Blog`}
                 description={post.excerpt}
-                keywords={`${post.category}, Chatterify blog, ${post.title}`}
+                keywords={`${post.category}, ${post.title}, Chatterify blog, web development, AI, digital strategy`}
                 canonicalPath={`/blog/${post.id}`}
+                ogType="article"
                 ogImage={post.image}
                 jsonLd={{
                     '@context': 'https://schema.org',
                     '@type': 'BlogPosting',
+                    '@id': `${url}#article`,
+                    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
                     headline: post.title,
                     description: post.excerpt,
-                    image: post.image,
-                    author: { '@type': 'Organization', name: 'Chatterify' },
-                    datePublished: post.date,
-                    publisher: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' }
+                    articleBody: post.content,
+                    articleSection: post.category,
+                    keywords: [post.category, 'web development', 'AI', 'digital strategy'].join(', '),
+                    wordCount,
+                    image: { '@type': 'ImageObject', url: post.image },
+                    author: {
+                        '@type': 'Person',
+                        name: post.author,
+                        worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' }
+                    },
+                    datePublished: datePublishedIso,
+                    dateModified: datePublishedIso,
+                    publisher: {
+                        '@type': 'Organization',
+                        name: 'Chatterify',
+                        url: 'https://www.chatterify.in',
+                        logo: { '@type': 'ImageObject', url: 'https://www.chatterify.in/logo.png' }
+                    },
+                    inLanguage: 'en'
                 }}
             />
             <div className="container mx-auto px-6 max-w-4xl">
