@@ -4,9 +4,10 @@
   "description": "India's top web development & digital services agency. Custom websites, AI chatbots, voice agents & video editing. Affordable pricing starting ₹5,000.",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
       "src": "logo.png",
