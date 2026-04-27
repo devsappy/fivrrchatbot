@@ -20,7 +20,7 @@ const SEO: React.FC<SEOProps> = ({
   jsonLd,
 }) => {
   const baseUrl = 'https://www.chatterify.in';
-  const fullTitle = `${title} | Chatterify`;
+  const fullTitle = /chatterify/i.test(title) ? title : `${title} | Chatterify`;
   const canonicalUrl = canonicalPath ? `${baseUrl}${canonicalPath}` : baseUrl;
 
   useEffect(() => {
@@ -237,6 +237,81 @@ export const pageSEO: Record<string, SEOProps> = {
       description: 'A curated collection of production-ready website templates for startups, agencies, and SaaS products.',
       url: 'https://www.chatterify.in/templates',
       isPartOf: { '@type': 'WebSite', name: 'Chatterify', url: 'https://www.chatterify.in' }
+    }
+  },
+  saasDevelopment: {
+    title: 'SaaS Development Services — Multi-Tenant SaaS Builds for Founders | Chatterify',
+    description: 'SaaS development services for founders: multi-tenant architecture, auth, Stripe billing, dashboards, public API, and observability. Production-ready SaaS in 6–14 weeks. Fixed-price MVPs from ₹1,20,000.',
+    keywords: 'SaaS development, SaaS development services, build a SaaS, multi-tenant SaaS, Stripe billing integration, SaaS MVP, SaaS development agency India, B2B SaaS development, hire SaaS developer, Chatterify SaaS',
+    canonicalPath: '/services/saas-development',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'SaaS Development',
+      description: 'Multi-tenant SaaS product development with auth, billing, dashboards, public API, and observability.',
+      provider: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/services/saas-development',
+      serviceType: 'SaaS Development',
+      areaServed: [
+        { '@type': 'Country', name: 'India' },
+        { '@type': 'Country', name: 'United States' },
+        { '@type': 'Country', name: 'United Kingdom' }
+      ],
+      offers: [
+        { '@type': 'Offer', name: 'MVP SaaS', price: '120000', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Production SaaS', price: '300000', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Enterprise SaaS', price: '600000', priceCurrency: 'INR' }
+      ]
+    }
+  },
+  mvpDevelopment: {
+    title: 'MVP Development Services — Live in 4 to 8 Weeks | Chatterify',
+    description: 'MVP development for founders: real, payable products (not prototypes) with auth, Stripe billing, and analytics. Friday demos every week. Fixed price from ₹60,000. Built by senior engineers.',
+    keywords: 'MVP development, MVP development services, MVP development agency, hire MVP developer, startup MVP, MVP for founders, fast MVP development, build an MVP, MVP development India, Chatterify MVP',
+    canonicalPath: '/services/mvp-development',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'MVP Development',
+      description: 'MVP development for founders: real, payable products with auth, billing, and analytics. Live in 4–8 weeks.',
+      provider: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/services/mvp-development',
+      serviceType: 'MVP Development',
+      areaServed: [
+        { '@type': 'Country', name: 'India' },
+        { '@type': 'Country', name: 'United States' },
+        { '@type': 'Country', name: 'United Kingdom' }
+      ],
+      offers: [
+        { '@type': 'Offer', name: 'Solo founder MVP', price: '60000', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Funded MVP', price: '120000', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Investor-demo MVP', price: '200000', priceCurrency: 'INR' }
+      ]
+    }
+  },
+  ecommerceDevelopment: {
+    title: 'E-commerce Development Services — Custom & Headless Storefronts | Chatterify',
+    description: 'E-commerce development for D2C brands and marketplaces. Custom storefronts, Shopify Hydrogen, Medusa.js. Stripe, Razorpay, PayPal. Lighthouse 95+. Multi-vendor marketplaces from ₹4,50,000.',
+    keywords: 'e-commerce development, e-commerce website development, headless commerce, Shopify Hydrogen, Medusa.js, custom Shopify storefront, multi-vendor marketplace, D2C web development, e-commerce agency India, Chatterify e-commerce',
+    canonicalPath: '/services/ecommerce-development',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'E-commerce Development',
+      description: 'Custom and headless e-commerce development for D2C brands, manufacturers, and multi-vendor marketplaces.',
+      provider: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
+      url: 'https://www.chatterify.in/services/ecommerce-development',
+      serviceType: 'E-commerce Development',
+      areaServed: [
+        { '@type': 'Country', name: 'India' },
+        { '@type': 'Country', name: 'United States' },
+        { '@type': 'Country', name: 'United Kingdom' }
+      ],
+      offers: [
+        { '@type': 'Offer', name: 'Headless Shopify storefront', price: '80000', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Custom e-commerce', price: '250000', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Multi-vendor marketplace', price: '450000', priceCurrency: 'INR' }
+      ]
     }
   },
   appDevelopment: {

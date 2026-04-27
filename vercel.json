@@ -1,8 +1,10 @@
 {
-  "buildCommand": "cd Frontend && npm run build",
+  "buildCommand": "cd Frontend && npm run build:prerender",
   "outputDirectory": "Frontend/build",
   "installCommand": "cd Frontend && npm install",
   "framework": "create-react-app",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     {
       "source": "/(.*)",

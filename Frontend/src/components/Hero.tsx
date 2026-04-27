@@ -236,12 +236,12 @@ const Hero: React.FC = () => {
                 Trusted by <span className="font-semibold text-gray-900">120+</span> users
               </div>
               <div className="flex items-center gap-4">
-                <div className="flex -space-x-3">
-                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
-                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" />
-                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/46.jpg" alt="User" />
-                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" />
-                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/85.jpg" alt="User" />
+                <div className="flex -space-x-3" aria-hidden="true">
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/women/44.jpg" alt="" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/46.jpg" alt="" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/women/68.jpg" alt="" />
+                  <img className="w-10 h-10 rounded-full border-[2.5px] border-[#fafaf7] object-cover shadow-sm" src="https://randomuser.me/api/portraits/men/85.jpg" alt="" />
                 </div>
                 <div className="flex gap-1 text-[#F59E0B]">
                   {[...Array(5)].map((_, i) => (

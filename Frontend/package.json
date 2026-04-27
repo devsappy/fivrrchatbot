@@ -39,9 +39,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:prerender": "react-scripts build && node scripts/prerender.mjs",
+    "prerender": "node scripts/prerender.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:prerender",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

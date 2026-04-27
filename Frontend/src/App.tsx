@@ -19,6 +19,9 @@ import ChatbotIntegrationPage from './pages/ChatbotIntegrationPage';
 import VoiceAgentsPage from './pages/VoiceAgentsPage';
 import VideoEditingPage from './pages/VideoEditingPage';
 import AppDevelopmentPage from './pages/AppDevelopmentPage';
+import SaasDevelopmentPage from './pages/SaasDevelopmentPage';
+import MvpDevelopmentPage from './pages/MvpDevelopmentPage';
+import EcommerceDevelopmentPage from './pages/EcommerceDevelopmentPage';
 import TemplatesPage from './pages/TemplatesPage';
 
 function App() {
@@ -36,6 +39,9 @@ function App() {
             <Route path="/services/voice-agents" element={<VoiceAgentsPage />} />
             <Route path="/services/video-editing" element={<VideoEditingPage />} />
             <Route path="/services/app-development" element={<AppDevelopmentPage />} />
+            <Route path="/services/saas-development" element={<SaasDevelopmentPage />} />
+            <Route path="/services/mvp-development" element={<MvpDevelopmentPage />} />
+            <Route path="/services/ecommerce-development" element={<EcommerceDevelopmentPage />} />
             <Route path="/templates" element={<TemplatesPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
