@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd Frontend && npm run build:prerender",
+  "buildCommand": "cd Frontend && npm run build",
   "outputDirectory": "Frontend/build",
   "installCommand": "cd Frontend && npm install",
   "framework": "create-react-app",
