@@ -35,12 +35,6 @@ Chatterify (chatterify.in) delivers modern digital solutions for businesses, sta
 - Business (₹25,000): Business website + chatbot integration + 5 edited videos
 - Premium (₹60,000+): Custom web app + AI chatbot + voice agent + ongoing video editing
 
-## Team
-
-- [Dipanjan Chowdhury](https://www.chatterify.in/team/dipanjan): Full Stack Developer (React, Next.js, Node.js, MongoDB, TypeScript)
-- [Rajatava Ghosh](https://www.chatterify.in/team/rajatava): AI Software Developer & ML Engineer (Generative AI, NLP, conversational agents)
-- [Saptarshi Chattopadhyay](https://www.chatterify.in/team/saptarshi): Frontend Developer & Creative Technologist (React, Framer Motion, GSAP, video editing)
-
 ## Blog
 
 - [How to Incorporate Upscaling Strategies for Startups in 2026](https://www.chatterify.in/blog/1)

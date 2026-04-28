@@ -15,7 +15,7 @@ export const blogPosts: BlogPost[] = [
         id: 1,
         title: 'How to Incorporate Upscaling Strategies for Startups in 2026',
         excerpt: 'Startups today are built in a highly competitive digital environment. Launching a product is no longer enough — businesses must be prepared to scale quickly, efficiently, and intelligently.',
-        author: 'Rajatava Ghosh',
+        author: 'Chatterify Team',
         date: 'March 5, 2026',
         readTime: '5 min read',
         category: 'Startup Strategies',
@@ -136,14 +136,14 @@ Visit chatterify.in to learn how we help businesses scale faster with modern dig
         id: 2,
         title: 'Building Scalable Web Applications with React',
         excerpt: 'A comprehensive guide on structuring React applications for long-term scalability, performance, and maintainability in enterprise environments.',
-        author: 'Dipanjan Chowdhury',
+        author: 'Chatterify Team',
         date: 'February 28, 2026',
         readTime: '8 min read',
         category: 'Web Development',
         image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=1000',
         content: `Modern web applications must handle growing user bases, complex features, and high performance demands. This is where React becomes a powerful choice. React enables developers to build scalable, maintainable, and high-performance applications using a component-based architecture.
 
-For developers like Saptarshi, who already work in full-stack development, understanding scalability patterns in React can significantly improve the reliability and performance of large applications.
+For full-stack developers, understanding scalability patterns in React can significantly improve the reliability and performance of large applications.
 
 Why React is Ideal for Scalable Applications
 
@@ -325,7 +325,7 @@ For startups and development teams, mastering React scalability ensures faster d
         id: 3,
         title: 'Designing Intuitive User Interfaces',
         excerpt: 'Learn the core principles of UI/UX design that can help you create applications that users will love and find effortlessly easy to use.',
-        author: 'Saptarshi Chattopadhyay',
+        author: 'Chatterify Team',
         date: 'February 15, 2026',
         readTime: '6 min read',
         category: 'Design',
@@ -471,7 +471,7 @@ Designing intuitive user interfaces is about creating experiences that feel effo
         id: 4,
         title: 'Why Your Startup Needs a Voice Agent',
         excerpt: 'Voice agents are no longer a luxury. Find out why integrating voice capabilities can give your startup a competitive edge in 2026.',
-        author: 'Debojyoti Bannerjee',
+        author: 'Chatterify Team',
         date: 'January 30, 2026',
         readTime: '4 min read',
         category: 'Business Strategy',
@@ -671,7 +671,7 @@ For startups aiming to build smarter systems, improve customer experiences, and 
         id: 5,
         title: 'Optimizing Video Content for Social Media platforms',
         excerpt: 'Tips and tricks to make your promotional videos stand out and capture more engagement across various social media channels.',
-        author: 'Hrishikesh Bhowmick',
+        author: 'Chatterify Team',
         date: 'January 12, 2026',
         readTime: '7 min read',
         category: 'Content Creation',

@@ -56,9 +56,9 @@ const BlogPostPage: React.FC = () => {
                     wordCount,
                     image: { '@type': 'ImageObject', url: post.image },
                     author: {
-                        '@type': 'Person',
-                        name: post.author,
-                        worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' }
+                        '@type': 'Organization',
+                        name: 'Chatterify',
+                        url: 'https://www.chatterify.in'
                     },
                     datePublished: datePublishedIso,
                     dateModified: datePublishedIso,

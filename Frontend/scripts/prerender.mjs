@@ -41,9 +41,6 @@ const ROUTES = [
   '/blog/4',
   '/blog/5',
   '/blog/6',
-  '/team/dipanjan',
-  '/team/rajatava',
-  '/team/saptarshi',
 ];
 
 const MIME = {

@@ -330,60 +330,6 @@ export const pageSEO: Record<string, SEOProps> = {
       areaServed: { '@type': 'Country', name: 'India' }
     }
   },
-  teamDipanjan: {
-    title: 'Dipanjan Chowdhury — Full Stack Developer at Chatterify',
-    description: 'Dipanjan Chowdhury is a Full Stack Developer at Chatterify specializing in React, Next.js, Node.js, MongoDB, and TypeScript for scalable web applications.',
-    keywords: 'Dipanjan Chowdhury, full stack developer Kolkata, React developer India, Chatterify team',
-    canonicalPath: '/team/dipanjan',
-    ogImage: 'https://www.chatterify.in/dipanjan.jpg',
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: 'Dipanjan Chowdhury',
-      jobTitle: 'Full Stack Developer',
-      worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
-      url: 'https://www.chatterify.in/team/dipanjan',
-      image: 'https://www.chatterify.in/dipanjan.jpg',
-      description: 'Full Stack Developer specializing in modern, scalable, and responsive web applications using React, Next.js, Node.js, MongoDB, and TypeScript.',
-      knowsAbout: ['React', 'Next.js', 'Node.js', 'MongoDB', 'TypeScript', 'Tailwind CSS', 'Full Stack Development']
-    }
-  },
-  teamRajatava: {
-    title: 'Rajatava Ghosh — AI Engineer & Machine Learning Lead at Chatterify',
-    description: 'Rajatava Ghosh is an AI Software Developer at Chatterify specializing in Generative AI, NLP, conversational agents, and scalable backend architectures.',
-    keywords: 'Rajatava Ghosh, AI engineer India, machine learning engineer Kolkata, generative AI developer, NLP engineer, Chatterify team',
-    canonicalPath: '/team/rajatava',
-    ogImage: 'https://www.chatterify.in/rajatava.jpg',
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: 'Rajatava Ghosh',
-      jobTitle: 'AI Software Developer & Machine Learning Engineer',
-      worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
-      url: 'https://www.chatterify.in/team/rajatava',
-      image: 'https://www.chatterify.in/rajatava.jpg',
-      description: 'AI Software Developer and Machine Learning Engineer specializing in Generative AI, NLP, conversational AI agents, and scalable backend architectures.',
-      knowsAbout: ['Generative AI', 'Natural Language Processing', 'Machine Learning', 'LLMs', 'Python', 'PyTorch', 'TensorFlow', 'Backend Architecture']
-    }
-  },
-  teamSaptarshi: {
-    title: 'Saptarshi Chattopadhyay — Frontend Developer & Creative Technologist at Chatterify',
-    description: 'Saptarshi Chattopadhyay is a Frontend Developer and Video Editor at Chatterify, building immersive web experiences with modern frontend technologies and creative animation.',
-    keywords: 'Saptarshi Chattopadhyay, frontend developer India, creative technologist Kolkata, video editor, motion designer, Chatterify team',
-    canonicalPath: '/team/saptarshi',
-    ogImage: 'https://www.chatterify.in/saptarshi.jpg',
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: 'Saptarshi Chattopadhyay',
-      jobTitle: 'Frontend Developer & Creative Technologist',
-      worksFor: { '@type': 'Organization', name: 'Chatterify', url: 'https://www.chatterify.in' },
-      url: 'https://www.chatterify.in/team/saptarshi',
-      image: 'https://www.chatterify.in/saptarshi.jpg',
-      description: 'Frontend Developer and Video Editor specializing in visually immersive and interactive web experiences using modern frontend technologies and creative animation.',
-      knowsAbout: ['React', 'Frontend Development', 'Framer Motion', 'GSAP', 'Video Editing', 'Motion Design', 'UI Animation']
-    }
-  },
 };
 
 export default SEO;

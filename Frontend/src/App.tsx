@@ -11,9 +11,6 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
-import DipanjanPortfolioPage from './pages/DipanjanPortfolioPage';
-import RajatavaPortfolioPage from './pages/RajatavaPortfolioPage';
-import SaptarshiPortfolioPage from './pages/SaptarshiPortfolioPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import ChatbotIntegrationPage from './pages/ChatbotIntegrationPage';
 import VoiceAgentsPage from './pages/VoiceAgentsPage';
@@ -47,9 +44,6 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogPostPage />} />
-            <Route path="/team/dipanjan" element={<DipanjanPortfolioPage />} />
-            <Route path="/team/rajatava" element={<RajatavaPortfolioPage />} />
-            <Route path="/team/saptarshi" element={<SaptarshiPortfolioPage />} />
           </Routes>
           <Footer />
           <Chatbot />

@@ -140,36 +140,5 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Team / Person pages -->
-  <url>
-    <loc>https://www.chatterify.in/team/dipanjan</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://www.chatterify.in/dipanjan.jpg</image:loc>
-      <image:title>Dipanjan Chowdhury — Full Stack Developer</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.chatterify.in/team/rajatava</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://www.chatterify.in/rajatava.jpg</image:loc>
-      <image:title>Rajatava Ghosh — AI Engineer</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.chatterify.in/team/saptarshi</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://www.chatterify.in/saptarshi.jpg</image:loc>
-      <image:title>Saptarshi Chattopadhyay — Frontend Developer</image:title>
-    </image:image>
-  </url>
 
 </urlset>
